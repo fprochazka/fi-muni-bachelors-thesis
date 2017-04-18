@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+if ! getent group "$USER_NAME" >/dev/null 2>&1; then
+	groupadd --gid ${USER_GID} ${USER_NAME}
+fi
+if ! id "$USER_NAME" >/dev/null 2>&1; then
+	useradd --uid ${USER_UID} --gid ${USER_GID} --create-home ${USER_NAME}
+fi
+
+exec "gosu" $USER_NAME $@

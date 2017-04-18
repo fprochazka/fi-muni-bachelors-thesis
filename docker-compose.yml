@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  fithesis3:
+    image: fithesis3:latest
+    build:
+      context: ./vendor
+      dockerfile: Dockerfile.fithesis3
+    environment:
+      USER_NAME: fprochazka
+      USER_UID: 1000
+      USER_GID: 1000
+    volumes:
+      - ./:/doc
+    command: pdflatex -interaction=nonstopmode -shell-escape -output-directory=dist/ src/thesis.tex

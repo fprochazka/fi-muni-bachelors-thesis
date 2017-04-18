@@ -1,0 +1,3 @@
+[submodule "vendor/fithesis3"]
+	path = vendor/fithesis3
+	url = git@github.com:Witiko/fithesis3.git

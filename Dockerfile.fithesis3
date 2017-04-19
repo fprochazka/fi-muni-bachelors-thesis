@@ -3,7 +3,12 @@ FROM ubuntu:16.04
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt update \
-	&& apt install -y --no-install-recommends texlive-full build-essential ca-certificates wget python-pygments
+	&& apt install -y software-properties-common build-essential ca-certificates wget \
+	&& add-apt-repository ppa:jonathonf/texlive-2016 \
+	&& apt update \
+	&& apt install -y biber texlive-full xzdec \
+	&& tlmgr init-usertree \
+	&& tlmgr install fithesis
 
 ENV GOSU_VERSION 1.10
 RUN set -x \
@@ -17,17 +22,10 @@ RUN set -x \
 	&& chmod +x /usr/local/bin/gosu \
 	&& gosu nobody true
 
-ADD fithesis3/ /usr/share/fithesis3
-WORKDIR /usr/share/fithesis3
-
-RUN make base \
-	&& make install-base to=/usr/share/texmf nohash=true \
-	&& texhash
-
-ADD fithesis3-entrypoint /usr/local/bin/
-RUN chmod a+x /usr/local/bin/fithesis3-entrypoint
+ADD .docker/fithesis/entrypoint /usr/local/bin/
+RUN chmod a+x /usr/local/bin/entrypoint
 
 VOLUME /doc
 WORKDIR /doc
 
-ENTRYPOINT ["fithesis3-entrypoint"]
+ENTRYPOINT ["/usr/local/bin/entrypoint"]

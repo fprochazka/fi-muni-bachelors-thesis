@@ -4,7 +4,7 @@ services:
   fithesis3:
     image: fithesis3:latest
     build:
-      context: ./vendor
+      context: ./
       dockerfile: Dockerfile.fithesis3
     environment:
       USER_NAME: fprochazka

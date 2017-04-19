@@ -12,4 +12,3 @@ services:
       USER_GID: 1000
     volumes:
       - ./:/doc
-    command: pdflatex -interaction=nonstopmode -shell-escape -output-directory=dist/ src/thesis.tex

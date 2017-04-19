@@ -1,4 +1,4 @@
-\documentclass[
+\documentclass[%
   color, %% This option enables colorful typesetting. Replace with
          %% `monochrome`, if you are going to print the thesis on
          %% a monochromatic printer.
@@ -19,16 +19,16 @@
 %% By using `czech` or `slovak` as the main locale instead of `english`,
 %% you can typeset the thesis in either Czech or Slovak, respectively.
 %% The additional keys allow foreign texts to be typeset as follows:
-\usepackage[
+\usepackage[%
   main=english,
-  german, russian, czech, slovak
+  czech, slovak
 ]{babel}
 \usepackage{xcolor}
 % \newcommand{\todo}[1]{\textcolor{red}{\textbf{#1}}}
 % \usepackage{listings}
 
 %% The following section sets up the metadata of the thesis.
-\thesissetup{
+\thesissetup{%
     university    = mu,
     faculty       = fi,
     type          = bc,
@@ -40,12 +40,12 @@
     keywords      = {package, kdyby, nette, doctrine, orm, composer, packagist},
     TeXkeywords   = {package, kdyby, nette, doctrine, orm, composer, packagist},
 }
-\thesislong{abstract}{
+\thesislong{abstract}{%
     This is the abstract of my thesis, which can
 
     span multiple paragraphs.
 }
-\thesislong{thanks}{
+\thesislong{thanks}{%
     This is the acknowledgement for my thesis, which can
 
     span multiple paragraphs.
@@ -57,7 +57,7 @@
 %% For more unformation about the available `style`s and `citestyles`, see:
 %% <http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf>.
 \usepackage{csquotes}
-\usepackage[
+\usepackage[%
   backend=bibtex,
   style=numeric,
   citestyle=numeric-comp,
@@ -66,7 +66,7 @@
 ]{biblatex}
 
 %% The bibliograpic database
-\addbibresource{citations.bib}
+\addbibresource{src/citations.bib}
 
 %% The `makeidx` package contains helper commands for index typesetting.
 \usepackage{makeidx}

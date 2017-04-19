@@ -1,17 +1,19 @@
 SRC=src
 DIST=dist
-PDFLATEX=docker-compose run --rm fithesis3 pdflatex -interaction=nonstopmode -shell-escape -output-directory=$(DIST)
+LATEXMK=docker-compose run --rm fithesis3 latexmk
+LATEXMK_PDF=$(LATEXMK) -output-directory=$(DIST) -bibtex -f -pdf -r .latexmkrc.pl
 CHAPTERS=$(wildcard $(SRC)/chapters/*.tex)
 
 all: $(DIST)/thesis.pdf
 
-$(DIST)/%.pdf: $(SRC)/%.tex $(CHAPTERS)
-	$(PDFLATEX) $<
+$(DIST)/%.pdf: $(SRC)/%.tex $(CHAPTERS) $(SRC)/citations.bib
+	$(LATEXMK_PDF) $<
 
 .PHONY: clean
 
 clean:
-	rm -f $(DIST)/thesis.*
+	cd $(DIST) && rm -f *.pdf *.aux *.bib *.bbl *.bcf *.blg *.log *.out *.pyg *.run.xml \
+		*.toc *.fls *.idx *.lof *.lot *.fdb_latexmk *.ilg *.ind *.gz
 
 .PHONY: watch
 

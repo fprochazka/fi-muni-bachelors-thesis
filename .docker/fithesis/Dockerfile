@@ -26,7 +26,7 @@ RUN set -x \
 	&& chmod +x /usr/local/bin/gosu \
 	&& gosu nobody true
 
-ADD .docker/fithesis/entrypoint /usr/local/bin/
+ADD entrypoint /usr/local/bin/
 RUN chmod a+x /usr/local/bin/entrypoint
 
 VOLUME /doc

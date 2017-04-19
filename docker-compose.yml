@@ -4,8 +4,7 @@ services:
   fithesis3:
     image: fithesis3:latest
     build:
-      context: ./
-      dockerfile: Dockerfile.fithesis3
+      context: .docker/fithesis
     environment:
       USER_NAME: fprochazka
       USER_UID: 1000

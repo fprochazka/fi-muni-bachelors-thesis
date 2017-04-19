@@ -10,6 +10,10 @@ RUN apt update \
 	&& tlmgr init-usertree \
 	&& tlmgr install fithesis
 
+RUN tlmgr install lh \
+	&& mktextfm larm1000 \
+	&& mktexmf larm1000
+
 ENV GOSU_VERSION 1.10
 RUN set -x \
 	&& dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \

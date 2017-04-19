@@ -8,4 +8,8 @@ if ! id "$USER_NAME" >/dev/null 2>&1; then
 	useradd --uid ${USER_UID} --gid ${USER_GID} --create-home ${USER_NAME}
 fi
 
+mkdir -p /home/$USER_NAME/.texlive2016
+cp -R /root/texmf /home/$USER_NAME/.texlive2016/texmf-var
+chown $USER_NAME:$USER_NAME -R /home/$USER_NAME
+
 exec "gosu" $USER_NAME $@

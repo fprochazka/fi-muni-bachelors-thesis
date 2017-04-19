@@ -9,5 +9,10 @@ docker-compose build
 ## Build
 
 ```bash
-docker-compose run --rm fithesis3
+make
+```
+## Watch
+
+```bash
+make watch
 ```

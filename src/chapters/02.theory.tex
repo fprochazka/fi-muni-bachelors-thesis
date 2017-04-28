@@ -8,19 +8,15 @@ I've managed to make a working prototype, that was used in production on few web
 
 Then the concept of Open-source software (OSS)~\cite{wiki:oss} was introduced to me and I've decided to start working on everything openly, under a free license~\cite{wiki:fsl}. Sadly, since then, no new working version of the Kdyby CMS was ever released, because I've rewritten it from scratch exactly 10 times.
 
-Around year 2012, I've realised this is not a good way to continue and split all useful code to separate libraries, that could be used more or less independently and could have their own release cycle.
-
-\section{What is a PHP package} \label{sec:theory:what-is-a-package}
-
-A PHP package is a PHP library, that is ideally and developed using some Version Control System (VCS)~\cite{wiki:vcs} and published on Packagist~\ref{sec:theory:packagist} using Composer~\ref{sec:theory:composer}.
+Around year 2012, I've realized this is not a good way to continue and split all useful code to separate libraries, that could be used more or less independently and have their own release cycle.
 
 \section{Technologies used}
 
 \subsection{Composer} \label{sec:theory:composer}
 
-Composer is a tool for dependency management~\cite{wiki:package-manager} in PHP. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you~\cite{composer:docs:intro}.
+Composer is a tool for dependency management~\cite{wiki:package-manager} in PHP. It allows you to declare the libraries your project depends on and it will manage (install or update) them for you~\cite{composer:docs:intro}.
 
-Packages are usually published using Github~\ref{sec:theory:github} as a Git~\cite{wiki:git} repository with metadata in file named \lstinline{composer.json}, that is written in format JSON~\cite{wiki:json}.
+Packages are usually published using Github~\ref{sec:theory:github} as a Git~\cite{wiki:git} repository with metadata in a file named \lstinline{composer.json}, that is written in JSON~\cite{wiki:json} format.
 
 \subsection{Nette Framework} \label{sec:theory:nette}
 
@@ -28,11 +24,11 @@ Nette Framework is an OSS framework for creating web applications in PHP~\cite{w
 
 \subsection{Doctrine 2 ORM} \label{sec:theory:doctrine}
 
-Doctrine ORM is an Object-Relation Mapper (ORM)~\cite{wiki:orm}, which means it allows the programmer to create PHP classes called entities, that represent relational data in database and are used to actually map the data from the database to the classes and back. In conclusin, it allows the programmer to write a fully Object-oriented (OOP)~\cite{wiki:oop} applications.
+Doctrine ORM is an Object-Relation Mapper (ORM)~\cite{wiki:orm}, which means it allows the programmer to create PHP classes called entities, that represent relational data in a database and are used to actually map the data from the database to the classes and back. In conclusion, it allows the programmer to write a fully Object-oriented (OOP)~\cite{wiki:oop} applications.
 
 \subsection{Symfony Framework} \label{sec:theory:symfony}
 
-Symfony is a PHP web application framework and a set of reusable PHP components/libraries.~\cite{wiki:symfony}
+Symfony is a PHP web application framework and a set of reusable PHP components/libraries, similar to Nette.~\cite{wiki:symfony}
 
 \subsection{Monolog} \label{sec:theory:monolog}
 
@@ -44,7 +40,7 @@ RabbitMQ is OSS message broker software (sometimes called message-oriented middl
 
 \subsection{ElasticSearch} \label{sec:theory:elasticsearch}
 
-Elasticsearch is a search engine based on Lucene. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. Elasticsearch is developed in Java and is released as open source under the terms of the Apache License. Elasticsearch is the most popular enterprise search engine .~\cite{wiki:elasticsearch}
+Elasticsearch is a search engine based on Lucene. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. Elasticsearch is developed in Java and is released as open source under the terms of the Apache License. It is the most popular enterprise search engine .~\cite{wiki:elasticsearch}
 
 \subsection{Redis} \label{sec:theory:redis}
 
@@ -56,7 +52,7 @@ PHPStan focuses on finding errors in your code without actually running it. It c
 
 \subsection{Nette\textbackslash{}Tester} \label{sec:theory:nette-tester}
 
-Nette\textbackslash{}Tester is a unit testing~\cite{wiki:unit-testing} framework for the PHP.~\cite{tester:docs}
+Nette\textbackslash{}Tester is an unit testing~\cite{wiki:unit-testing} framework for the PHP.~\cite{tester:docs}
 
 \section{Techniques and design patterns}
 
@@ -82,7 +78,7 @@ Facebook is a social network, that can be used as an authentication tool for web
 
 \subsection{Github} \label{sec:theory:github}
 
-Github is a colaboration platform for software development using Git~\cite{wiki:git}. Kdyby is hosted and developed here, such as many other Composer packages.
+Github is a collaboration platform for software development using Git~\cite{wiki:git}. Kdyby is hosted and developed here, such as many other Composer packages.
 
 It can also, same as Facebook, be used as authentication tool.
 

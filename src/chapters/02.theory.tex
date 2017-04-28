@@ -1,4 +1,4 @@
-\chapter{Theory}
+\chapter{Background for understanding the Kdyby}
 
 \section{A brief history of Kdyby} \label{sec:theory:kdyby-history}
 
@@ -12,15 +12,49 @@ Around year 2012, I've realized this is not a good way to continue and split all
 
 \section{Technologies used}
 
+\subsection{Git and Github} \label{sec:theory:git}
+
+Git is a Version Control System, that is decentralized and very fast.~\cite{progit} Github is a collaboration platform for software development using Git.
+
+Each project has a page on Github called a repository, that can be used to inspect the Git history, files and other metadata. On the project repository page, there are issues and pull requests. Pull requests are a way to ask the maintainer of the repository, to incorporate provided code patch to the repository. It can be a bugfix, or new feature.
+
+There are tools around pull requests that allow collaboration, code review and discussion about the provided code, so that the maintainers can help the contributors to provide the best code possible.
+
+Kdyby is hosted and developed on Github.
+
+\subsection{Continuous integration} \label{sec:theory:ci}
+
+Continuous integration (CI) is the practice of merging all developer working copies to a shared mainline several times a day, to prevent merging conflicts.~\cite{wiki:ci} But now-days, when somebody speaks about CI, they usually mean CI servers, that run prepared task on the provided code.
+
+In practice, it means that as the developer is working on a feature or bugfix, they push the work in progress code into a repository, the code is then picked up by a CI server, that executes the tests, checks coding style and runs various other tasks, to verify that the code is not broken and works.
+
+When the work is finished and all the task on CI server completed with success, the code can be probably safely integrated, provided that the tests for new or changed functionality were added.
+
+Some popular CI services are \fnurl{Travis~CI}{https://travis-ci.org/}, \fnurl{CircleCI}{https://circleci.com/} and \fnurl{GitLab~CI}{https://about.gitlab.com/features/gitlab-ci-cd/}. The Kdyby is using the Travis~CI.
+
 \subsection{Composer} \label{sec:theory:composer}
 
 Composer is a tool for dependency management~\cite{wiki:package-manager} in PHP. It allows you to declare the libraries your project depends on and it will manage (install or update) them for you~\cite{composer:docs:intro}.
 
-Packages are usually published using Github~\ref{sec:theory:github} as a Git~\cite{wiki:git} repository with metadata in a file named \lstinline{composer.json}, that is written in JSON~\cite{wiki:json} format.
+Packages are usually published using Github with metadata in a file named \lstinline{composer.json}, that is written in JSON~\cite{wiki:json} format.
+
+Composer is decentralized, but has a single main metadata repository \fnurl{Packagist}{https://packagist.org/}. It stores and provides all the package metadata like available versions and where to download them.
+
+All Kdyby libraries are published as Composer packages on Packagist and installing them using the Composer is the only officially supported installation method.
+
+\subsection{OAuth 2} \label{sec:theory:oauth2}
+
+OAuth is a protocol for authentication and authorization, that can be implemented into a web service. It allows for secure exchange of user information, allowing third party websites to implement a login and registration process, that simplifies these tasks for the user. Essentially allowing him or her to login or register to a services through the OAuth 2 provider with two clicks.
+
+Kdyby provides packages for integrating Nette Framework with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{Github}{https://developer.github.com/v3/oauth/}.
 
 \subsection{Nette Framework} \label{sec:theory:nette}
 
 Nette Framework is an OSS framework for creating web applications in PHP~\cite{wiki:nette}.
+
+\subsection{dibi} \label{sec:theory:dibi}
+
+Dibi is a Database Abstraction Library for PHP. It supports a lot of significant databases: MySQL, PostgreSQL, SQLite, MS SQL, Oracle, Access and generic PDO and ODBC.~\cite{dibi:homepage}
 
 \subsection{Doctrine 2 ORM} \label{sec:theory:doctrine}
 
@@ -66,30 +100,8 @@ Dependency injection is a technique whereby one object supplies the dependencies
 
 In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a "pointcut" specification, such as "log all function calls when the function's name begins with 'set'". This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality.~\cite{wiki:aop}
 
-\section{3rd party services}
+\subsection{Event Dispatcher} \label{sec:theory:event-dispatcher}
 
-\subsection{Packagist} \label{sec:theory:packagist}
+The Event Dispatcher is a pattern for writing modular code. It allows to create extension points in the library or application, that another library or application can hook into and change or extend the behavior.
 
-Packagist is the main Composer repository. It aggregates public PHP packages installable with Composer.~\cite{packagist:homepage}
-
-\subsection{Facebook} \label{sec:theory:facebook}
-
-Facebook is a social network, that can be used as an authentication tool for web services. If you have an account at Facebook and are logged in, some 3rd party service you'd like to use can use that, to allow you to log in to their website, without forcing you to go through registration process, or having to remember password.
-
-\subsection{Github} \label{sec:theory:github}
-
-Github is a collaboration platform for software development using Git~\cite{wiki:git}. Kdyby is hosted and developed here, such as many other Composer packages.
-
-It can also, same as Facebook, be used as authentication tool.
-
-\subsection{Google} \label{sec:theory:google}
-
-Google is a company behind the most popular search engine google.com, but we will talk only about it's OAuth 2 functionality.
-
-\subsection{PayPal} \label{sec:theory:paypal}
-
-PayPal is a payment service, that you can use to pay on 3rd party websites, using your debit or credit card with very simple process.
-
-\subsection{CSOB Payment Gateway} \label{sec:theory:csob-payment}
-
-CSOB Payment Gateway is a standard card payment gateway provider.
+Typically, the extension points are called hooks or events, and the new functionality is provided with objects called listeners.

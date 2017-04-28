@@ -89,8 +89,13 @@
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{url}
+% \usepackage{hyperref}
 \usepackage{menukeys}
 \usepackage{mwe}
+
+\newcommand\fnurl[2]{%
+  \href{#2}{#1}\footnote{#1 \url{#2}}%
+}
 
 \begin{document}
 
@@ -98,7 +103,7 @@
 \input{src/chapters/02.theory.tex}
 \input{src/chapters/03.current-state.tex}
 \input{src/chapters/04.roadmap.tex}
-\input{src/chapters/05.implementation.tex}
+\input{src/chapters/05.refactoring.tex}
 \input{src/chapters/06.conclusion.tex}
 
 \printbibliography

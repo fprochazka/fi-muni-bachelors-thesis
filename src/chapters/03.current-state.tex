@@ -1,4 +1,4 @@
-\chapter{Current state of the project}
+\chapter{Current state of the Kdyby}
 
 To be able to lay out the roadmap, first we have to know the current state of each Kdyby package, the original purpose and the current requirements. We shall only review those packages, that actually made it to production and at least one usable version was released.
 
@@ -6,192 +6,208 @@ Few years back I was really eager to solve all the problems around developing we
 
 \section{State of the project}
 
-Lorem ipsum.
+As of 28.4.2017, there are still 68 open pull requests with 622 of them resolved, and 217 open issues, with of them 401 resolved. There is no coding standard being enforced automatically on any package. No static analysis tool is checking the code. But most of the packages have unit and integration tests and linter checking the code for multiple versions of PHP.
+
+Almost all of the packages try to be compatible with PHP 5.4, but \fnurl{PHP 5.4 had end of life at 3.9.2015}{http://php.net/eol.php} and is no longer supported by PHP developers.
 
 \section{State of each package}
 
 Let's review each relevant package separately.
 
-\subsection{Doctrine}
+\subsection{Doctrine} \label{sec:state:doctrine}
 
-Lorem ipsum dolor sit amet.
+Kdyby\textbackslash{}Doctrine (or simply Doctrine) is an integration of Doctrine 2 ORM into Nette Framework.
 
-\subsection{Console}
+Doctrine 2 itself is separated into several packages, mainly \fnurl{doctrine/orm}{https://github.com/doctrine/doctrine2}, \fnurl{doctrine/common}{https://github.com/doctrine/common}, \fnurl{doctrine/annotations}{https://github.com/doctrine/annotations}, \fnurl{doctrine/cache}{https://github.com/doctrine/cache} and \fnurl{doctrine/collections}{https://github.com/doctrine/collections}. What started as a monolith integration in Kdyby, got separated into Events~\ref{sec:state:events}, Console~\ref{sec:state:console}, Annotations~\ref{sec:state:annotations} and DoctrineCache~\ref{sec:state:doctrine-cache} for reusability.
 
-Lorem ipsum.
+Over the years, it cumulated a lot of responsibilities, that don't belong to it. I have already started extracting few of them in the past, for example an entity prototyping tool~\ref{sec:state:doctrine-magic-accessors}, collection utilities~\ref{sec:state:doctrine-collections-lazy}, \ref{sec:state:doctrine-collections-readonly} and helper for loading big SQL scripts to the database~\ref{sec:state:doctrine-dbal-batch-import}.
 
-\subsection{Events}
+There is a big issue \fnurl{Chop up the package}{https://github.com/Kdyby/Doctrine/issues/238} that discusses what other parts should be separated and dropped completely.
 
-Lorem ipsum.
+New versions of Nette and Doctrine 2 ORM were released and completely new versions are being prepared, which the integration cannot be currently used with.
 
-\subsection{Annotations}
+\subsection{Console} \label{sec:state:console}
 
-Lorem ipsum.
+Kdyby\textbackslash{}Console (or simply Console) is an integration of Symfony Framework \lstinline{Console} Component, that allows for writing interactive cli applications. Doctrine~\ref{sec:state:doctrine} depends on this package and is the reason this package exists.
 
-\subsection{DoctrineCache}
+There are tasks, that are better suited for console interaction, than a web interface. Among others, Doctrine 2 ORM has tools for generating a database schema from the entities metadata and there is a console command for it, that is written using Symfony \lstinline{Console}.
 
-Lorem ipsum.
+\subsection{Events} \label{sec:state:events}
 
-\subsection{DoctrineMagicAccessors}
+Kdyby\textbackslash{}Events (or simply Events) provides an event dispatcher~\ref{sec:theory:event-dispatcher} implementation for Nette Framework.
 
-Lorem ipsum.
+It started as an integration of Doctrine 2 ORM \lstinline{EventManager}, but then it evolved into a standalone system with support for lazy initialization of listeners and it also contains a naive bridge for Symfony Framework \lstinline{EventDispatcher} Component.
 
-\subsection{DoctrineCollectionsReadonly}
+Creating such interchangeable eventing system turned out to be a mistake, because it is a maintenance hell. The systems should have stayed separate.
 
-Lorem ipsum.
+\subsection{Annotations} \label{sec:state:annotations}
 
-\subsection{DoctrineCollectionsLazy}
+Kdyby\textbackslash{}Annotations (or simply Annotations) is an
 
-Lorem ipsum.
-
-\subsection{DoctrineDbalBatchImport}
+\subsection{DoctrineCache} \label{sec:state:doctrine-cache}
 
 Lorem ipsum.
 
-\subsection{DoctrineForms}
+\subsection{DoctrineMagicAccessors} \label{sec:state:doctrine-magic-accessors}
 
 Lorem ipsum.
 
-\subsection{Curl}
+\subsection{DoctrineCollectionsReadonly} \label{sec:state:doctrine-collections-readonly}
 
 Lorem ipsum.
 
-\subsection{CurlCaBundle}
+\subsection{DoctrineCollectionsLazy} \label{sec:state:doctrine-collections-lazy}
 
 Lorem ipsum.
 
-\subsection{Autowired}
+\subsection{DoctrineDbalBatchImport} \label{sec:state:doctrine-dbal-batch-import}
 
 Lorem ipsum.
 
-\subsection{FormsReplicator}
+\subsection{DoctrineForms} \label{sec:state:doctrine-forms}
 
 Lorem ipsum.
 
-\subsection{Translation}
+\subsection{Curl} \label{sec:state:curl}
 
 Lorem ipsum.
 
-\subsection{Validator}
+\subsection{CurlCaBundle} \label{sec:state:curl-ca-bundle}
 
 Lorem ipsum.
 
-\subsection{RabbitMq}
+\subsection{Autowired} \label{sec:state:autowired}
 
 Lorem ipsum.
 
-\subsection{Money}
+\subsection{FormsReplicator} \label{sec:state:forms-replicator}
 
 Lorem ipsum.
 
-\subsection{DoctrineMoney}
+\subsection{Translation} \label{sec:state:translation}
 
 Lorem ipsum.
 
-\subsection{Aop}
+\subsection{Validator} \label{sec:state:validator}
 
 Lorem ipsum.
 
-\subsection{Clock}
+\subsection{RabbitMq} \label{sec:state:rabbit-mq}
 
 Lorem ipsum.
 
-\subsection{Redis}
+\subsection{Money} \label{sec:state:money}
 
 Lorem ipsum.
 
-\subsection{ParseUseStatements}
+\subsection{DoctrineMoney} \label{sec:state:doctrine-money}
 
 Lorem ipsum.
 
-\subsection{RedisActiveLock}
+\subsection{Aop} \label{sec:state:aop}
 
 Lorem ipsum.
 
-\subsection{TesterParallelStress}
+\subsection{Clock} \label{sec:state:clock}
 
 Lorem ipsum.
 
-\subsection{Monolog}
+\subsection{Redis} \label{sec:state:redis}
 
 Lorem ipsum.
 
-\subsection{ElasticSearch}
+\subsection{ParseUseStatements} \label{sec:state:parse-use-statements}
 
 Lorem ipsum.
 
-\subsection{DoctrineSearch}
+\subsection{RedisActiveLock} \label{sec:state:redis-active-lock}
 
 Lorem ipsum.
 
-\subsection{Geocoder}
+\subsection{TesterParallelStress} \label{sec:state:tester-parallel-stress}
 
 Lorem ipsum.
 
-\subsection{CsobPaygateNette}
+\subsection{Monolog} \label{sec:state:monolog}
 
 Lorem ipsum.
 
-\subsection{CsobPaymentGateway}
+\subsection{ElasticSearch} \label{sec:state:elastic-search}
 
 Lorem ipsum.
 
-\subsection{Wkhtmltopdf}
+\subsection{DoctrineSearch} \label{sec:state:doctrine-search}
 
 Lorem ipsum.
 
-\subsection{FakeSession}
+\subsection{Geocoder} \label{sec:state:geocoder}
 
 Lorem ipsum.
 
-\subsection{RequestStack}
+\subsection{CsobPaygateNette} \label{sec:state:csob-paygate-nette}
 
 Lorem ipsum.
 
-\subsection{StrictObjects}
+\subsection{CsobPaymentGateway} \label{sec:state:csob-payment-gateway}
 
 Lorem ipsum.
 
-\subsection{Facebook}
+\subsection{Wkhtmltopdf} \label{sec:state:wkhtmltopdf}
 
 Lorem ipsum.
 
-\subsection{Google}
+\subsection{FakeSession} \label{sec:state:fake-session}
 
 Lorem ipsum.
 
-\subsection{Github}
+\subsection{RequestStack} \label{sec:state:request-stack}
 
 Lorem ipsum.
 
-\subsection{NettePhpServer}
+\subsection{StrictObjects} \label{sec:state:strict-objects}
 
 Lorem ipsum.
 
-\subsection{TesterExtras}
+\subsection{Facebook} \label{sec:state:facebook}
 
 Lorem ipsum.
 
-\subsection{HtmlValidatorPanel}
+\subsection{Google} \label{sec:state:google}
 
 Lorem ipsum.
 
-\subsection{BootstrapFormRenderer}
+\subsection{Github} \label{sec:state:github}
 
 Lorem ipsum.
 
-\subsection{PayPalExpress}
+\subsection{NettePhpServer} \label{sec:state:nette-php-server}
 
 Lorem ipsum.
 
-\subsection{PresentersLocator}
+\subsection{TesterExtras} \label{sec:state:tester-extras}
 
 Lorem ipsum.
 
-\subsection{SvgRenderer}
+\subsection{HtmlValidatorPanel} \label{sec:state:html-validator-panel}
 
 Lorem ipsum.
 
-\subsection{QrEncode}
+\subsection{BootstrapFormRenderer} \label{sec:state:bootstrap-form-renderer}
+
+Lorem ipsum.
+
+\subsection{PayPalExpress} \label{sec:state:paypal-express}
+
+Lorem ipsum.
+
+\subsection{PresentersLocator} \label{sec:state:presenters-locator}
+
+Lorem ipsum.
+
+\subsection{SvgRenderer} \label{sec:state:svg-renderer}
+
+Lorem ipsum.
+
+\subsection{QrEncode} \label{sec:state:qr-encode}
 
 Lorem ipsum.

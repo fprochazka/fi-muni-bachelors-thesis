@@ -1,7 +1,7 @@
 SRC=src
 DIST=dist
 LATEXMK=docker-compose run --rm fithesis3 latexmk
-LATEXMK_PDF=$(LATEXMK) -output-directory=$(DIST) -bibtex -f -pdf -r .latexmkrc.pl
+LATEXMK_PDF=$(LATEXMK) -output-directory=$(DIST) -f -pdf -r .latexmkrc.pl
 CHAPTERS=$(wildcard $(SRC)/chapters/*.tex)
 
 all: $(DIST)/thesis.pdf
@@ -18,6 +18,7 @@ clean:
 .PHONY: watch
 
 watch:
+	make clean;
 	while true; do \
 		make; \
 		inotifywait --recursive -q -e close_write $(SRC) $(SRC)/chapters; \

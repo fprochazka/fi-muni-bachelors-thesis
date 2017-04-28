@@ -1,16 +1,24 @@
 \documentclass[%
-  color, %% This option enables colorful typesetting. Replace with
-         %% `monochrome`, if you are going to print the thesis on
-         %% a monochromatic printer.
-  table, %% Causes the coloring of tables. Replace with `notable`
-         %% to restore plain tables.
-  lof,   %% Prints the List of Figures. Replace with `nolof` to
-         %% hide the List of Figures.
-  lot,   %% Prints the List of Tables. Replace with `nolot` to
-         %% hide the List of Tables.
+  %% This option enables the default options for the
+  %% digital version of a document. Replace with `printed`
+  %% to enable the default options for the printed version
+  %% of a document.
+  digital,
+  %% This option enables colorful typesetting. Replace with
+  %% `monochrome`, if you are going to print the thesis on
+  %% a monochromatic printer.
+  color,
+  %% Causes the coloring of tables. Replace with `notable` to restore plain tables.
+  table,
+  %% Prints the List of Figures. Replace with `nolof` to hide the List of Figures.
+  lof,
+  %% Prints the List of Tables. Replace with `nolot` to hide the List of Tables.
+  lot,
   %% More options are listed in the class documentation at
   %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/fi.pdf>.
 ]{fithesis3}
+
+%% The following section sets up the locales used in the thesis.
 %% We need to load the T2A font encoding
 \usepackage[resetfonts]{cmap}
 %% to use the Cyrillic fonts with Russian texts.
@@ -21,6 +29,7 @@
 %% The additional keys allow foreign texts to be typeset as follows:
 \usepackage[%
   main=english,
+  %% The additional keys allow foreign texts to be typeset as follows:
   czech, slovak
 ]{babel}
 \usepackage{xcolor}
@@ -30,6 +39,7 @@
 
 %% The following section sets up the metadata of the thesis.
 \thesissetup{%
+    date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = fi,
     type          = bc,
@@ -57,9 +67,9 @@
 %% The entries will be sorted in cite order.
 %% For more unformation about the available `style`s and `citestyles`, see:
 %% <http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf>.
+\usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 \usepackage[%
-  backend=bibtex,
   style=numeric,
   citestyle=numeric-comp,
   sorting=none,

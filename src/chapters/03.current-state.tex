@@ -16,33 +16,33 @@ Let's review each relevant package separately.
 
 \subsection{Doctrine} \label{sec:state:doctrine}
 
-Kdyby\textbackslash{}Doctrine (or simply Doctrine) is an integration of Doctrine 2 ORM into Nette Framework.
+\gls{kDoctrine} is an integration of \gls{doctrine} into Nette Framework.
 
-Doctrine 2 itself is separated into several packages, mainly \fnurl{doctrine/orm}{https://github.com/doctrine/doctrine2}, \fnurl{doctrine/common}{https://github.com/doctrine/common}, \fnurl{doctrine/annotations}{https://github.com/doctrine/annotations}, \fnurl{doctrine/cache}{https://github.com/doctrine/cache} and \fnurl{doctrine/collections}{https://github.com/doctrine/collections}. What started as a monolith integration in Kdyby, got separated into Events~\ref{sec:state:events}, Console~\ref{sec:state:console}, Annotations~\ref{sec:state:annotations} and DoctrineCache~\ref{sec:state:doctrine-cache} for reusability.
+\gls{doctrine} itself is separated into several packages, mainly \fnurl{doctrine/orm}{https://github.com/doctrine/doctrine2}, \fnurl{doctrine/common}{https://github.com/doctrine/common}, \fnurl{doctrine/annotations}{https://github.com/doctrine/annotations}, \fnurl{doctrine/cache}{https://github.com/doctrine/cache} and \fnurl{doctrine/collections}{https://github.com/doctrine/collections}. What started as a monolith integration in Kdyby, got separated into \gls{kEvents}~\ref{sec:state:events}, \gls{kConsole}~\ref{sec:state:console}, \gls{kAnnotations}~\ref{sec:state:annotations} and \gls{kDoctrineCache}~\ref{sec:state:doctrine-cache} for reusability.
 
 Over the years, it cumulated a lot of responsibilities, that don't belong to it. I have already started extracting few of them in the past, for example an entity prototyping tool~\ref{sec:state:doctrine-magic-accessors}, collection utilities~\ref{sec:state:doctrine-collections-lazy}, \ref{sec:state:doctrine-collections-readonly} and helper for loading big SQL scripts to the database~\ref{sec:state:doctrine-dbal-batch-import}.
 
 There is a big issue \fnurl{Chop up the package}{https://github.com/Kdyby/Doctrine/issues/238} that discusses what other parts should be separated and dropped completely.
 
-New versions of Nette and Doctrine 2 ORM were released and completely new versions are being prepared, which the integration cannot be currently used with.
+New versions of Nette and \gls{doctrine} were released and completely new versions are being prepared, which the integration cannot be currently used with.
 
 \subsection{Console} \label{sec:state:console}
 
-Kdyby\textbackslash{}Console (or simply Console) is an integration of Symfony Framework \lstinline{Console} Component, that allows for writing interactive cli applications. Doctrine~\ref{sec:state:doctrine} depends on this package and is the reason this package exists.
+\gls{kConsole} is an integration of Symfony Framework \lstinline{Console} Component, that allows for writing interactive cli applications. \gls{kDoctrine}~\ref{sec:state:doctrine} depends on this package and is the reason this package exists.
 
-There are tasks, that are better suited for console interaction, than a web interface. Among others, Doctrine 2 ORM has tools for generating a database schema from the entities metadata and there is a console command for it, that is written using Symfony \lstinline{Console}.
+There are tasks, that are better suited for console interaction, than a web interface. Among others, \gls{doctrine} has tools for generating a database schema from the entities metadata and there is a console command for it, that is written using Symfony \lstinline{Console}.
 
 \subsection{Events} \label{sec:state:events}
 
-Kdyby\textbackslash{}Events (or simply Events) provides an event dispatcher~\ref{sec:theory:event-dispatcher} implementation for Nette Framework.
+\gls{kEvents} provides an event dispatcher~\ref{sec:theory:event-dispatcher} implementation for Nette Framework.
 
-It started as an integration of Doctrine 2 ORM \lstinline{EventManager}, but then it evolved into a standalone system with support for lazy initialization of listeners and it also contains a naive bridge for Symfony Framework \lstinline{EventDispatcher} Component.
+It started as an integration of \gls{doctrine} \lstinline{EventManager}, but then it evolved into a standalone system with support for lazy initialization of listeners and it also contains a naive bridge for Symfony Framework \lstinline{EventDispatcher} Component.
 
 Creating such interchangeable eventing system turned out to be a mistake, because it is a maintenance hell. The systems should have stayed separate.
 
 \subsection{Annotations} \label{sec:state:annotations}
 
-Kdyby\textbackslash{}Annotations (or simply Annotations) is an
+\gls{kAnnotations} is a simple integration of doctrine/annotations into Nette Framework. It exists solely for the purposes of \gls{kDoctrine}.
 
 \subsection{DoctrineCache} \label{sec:state:doctrine-cache}
 

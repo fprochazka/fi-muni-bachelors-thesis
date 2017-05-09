@@ -62,12 +62,12 @@
     span multiple paragraphs.
 }
 
+\usepackage[utf8]{inputenc}
 %% When typesetting the bibliography, the `numeric` style will be used for the entries
 %% and the `numeric-comp` style for the references to the entries.
 %% The entries will be sorted in cite order.
 %% For more unformation about the available `style`s and `citestyles`, see:
 %% <http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf>.
-\usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 \usepackage[%
   style=numeric,
@@ -75,9 +75,13 @@
   sorting=none,
   sortlocale=auto
 ]{biblatex}
-
 %% The bibliograpic database
 \addbibresource{src/citations.bib}
+
+%% The glossary definitions
+\usepackage[acronym,xindy]{glossaries}
+\makeglossaries
+\loadglsentries[main]{src/glossary.tex}
 
 %% The `makeidx` package contains helper commands for index typesetting.
 \usepackage{makeidx}

@@ -6,7 +6,7 @@ CHAPTERS=$(wildcard $(SRC)/chapters/*.tex)
 
 all: $(DIST)/thesis.pdf
 
-$(DIST)/%.pdf: $(SRC)/%.tex $(CHAPTERS) $(SRC)/citations.bib
+$(DIST)/%.pdf: $(SRC)/%.tex $(CHAPTERS) $(SRC)/citations.bib $(SRC)/glossary.tex
 	$(LATEXMK_PDF) $<
 
 .PHONY: clean

@@ -97,13 +97,17 @@
 \makeindex
 
 %% These additional packages are used within the document:
+\usepackage{xcolor}
 \usepackage{paralist}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
-\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 \usepackage{menukeys}
 \usepackage{mwe}
+
+% links setup
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue}
 
 % fixes line breaks in urls
 \makeatletter
@@ -112,8 +116,14 @@
 
 % custom commands
 \newcommand{\fnurl}[2]{\href{#2}{#1}\footnote{#1 \url{#2}}}
-\newcommand{\nocontentsline}[3]{}
-\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+\newcommand{\hiddensubsection}[1]{
+    \stepcounter{subsection}
+    \subsection*{\makebox[3em][l]{\arabic{chapter}.\arabic{section}.\arabic{subsection}}{#1}}
+}
+\newcommand{\hiddensection}[1]{
+    \stepcounter{section}
+    \section*{\makebox[3em][l]{\arabic{chapter}.\arabic{section}}{#1}}
+}
 
 \begin{document}
 

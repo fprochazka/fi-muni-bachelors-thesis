@@ -2,7 +2,7 @@
 
 To be able to lay out the roadmap, first we have to know the current state of each Kdyby package, the original purpose and the current requirements. We shall only review those packages, that actually made it to production and at least one usable version was released.
 
-Few years back I was really eager to solve all the problems around developing web applications in PHP and I've created few GitHub repositories as a reminder for me, to start working on those problems. And I've actually started to work on some, for example DoctrineForms is one of them, but it was never "officially released". The rest I've not even started working on.
+Few years back I was really eager to solve all the problems around developing web applications in PHP and I have created few GitHub repositories as a reminder for me, to start working on those problems. And I have actually started to work on some, for example DoctrineForms is one of them, but it was never "officially released". The rest I have not even started working on.
 
 \section{State of the project}
 
@@ -12,9 +12,9 @@ Almost all of the packages try to be compatible with PHP 5.4, but \fnurl{PHP 5.4
 
 \section{State of each package}
 
-Let's review each relevant package separately.
+This section reviews each package separately, considers the original purpose and sums up the current state.
 
-\tocless\subsection{Doctrine} \label{sec:state:doctrine}
+\hiddensubsection{Doctrine} \label{sec:state:doctrine}
 
 \gls{kDoctrine} is an integration of \gls{doctrine} into Nette Framework.
 
@@ -26,13 +26,13 @@ There is a big issue \fnurl{Chop up the package}{https://github.com/Kdyby/Doctri
 
 New versions of Nette and \gls{doctrine} were released and completely new versions are being prepared, which the integration cannot be currently used with.
 
-\tocless\subsection{Console} \label{sec:state:console}
+\hiddensubsection{Console} \label{sec:state:console}
 
 \gls{kConsole} is an integration of Symfony Framework \lstinline{Console} Component, that allows for writing interactive cli applications. \gls{kDoctrine}~\ref{sec:state:doctrine} depends on this package and is the reason this package exists.
 
 There are tasks, that are better suited for console interaction, than a web interface. Among others, \gls{doctrine} has tools for generating a database schema from the entities metadata and there is a console command for it, that is written using Symfony \lstinline{Console}.
 
-\tocless\subsection{Events} \label{sec:state:events}
+\hiddensubsection{Events} \label{sec:state:events}
 
 \gls{kEvents} provides an event dispatcher~\ref{sec:theory:event-dispatcher} implementation for Nette Framework.
 
@@ -40,174 +40,174 @@ It started as an integration of \gls{doctrine} \lstinline{EventManager}, but the
 
 Creating such interchangeable eventing system turned out to be a mistake, because it is a maintenance hell. The systems should have stayed separate.
 
-\tocless\subsection{Annotations} \label{sec:state:annotations}
+\hiddensubsection{Annotations} \label{sec:state:annotations}
 
 \gls{kAnnotations} is a simple integration of doctrine/annotations into Nette Framework. It exists solely for the purposes of \gls{kDoctrine}.
 
-\tocless\subsection{DoctrineCache} \label{sec:state:doctrine-cache}
+\hiddensubsection{DoctrineCache} \label{sec:state:doctrine-cache}
 
 Lorem ipsum.
 
-\tocless\subsection{DoctrineMagicAccessors} \label{sec:state:doctrine-magic-accessors}
+\hiddensubsection{DoctrineMagicAccessors} \label{sec:state:doctrine-magic-accessors}
 
 Lorem ipsum.
 
-\tocless\subsection{DoctrineCollectionsReadonly} \label{sec:state:doctrine-collections-readonly}
+\hiddensubsection{DoctrineCollectionsReadonly} \label{sec:state:doctrine-collections-readonly}
 
 Lorem ipsum.
 
-\tocless\subsection{DoctrineCollectionsLazy} \label{sec:state:doctrine-collections-lazy}
+\hiddensubsection{DoctrineCollectionsLazy} \label{sec:state:doctrine-collections-lazy}
 
 Lorem ipsum.
 
-\tocless\subsection{DoctrineDbalBatchImport} \label{sec:state:doctrine-dbal-batch-import}
+\hiddensubsection{DoctrineDbalBatchImport} \label{sec:state:doctrine-dbal-batch-import}
 
 Lorem ipsum.
 
-\tocless\subsection{DoctrineForms} \label{sec:state:doctrine-forms}
+\hiddensubsection{DoctrineForms} \label{sec:state:doctrine-forms}
 
 Lorem ipsum.
 
-\tocless\subsection{Curl} \label{sec:state:curl}
+\hiddensubsection{Curl} \label{sec:state:curl}
 
 Lorem ipsum.
 
-\tocless\subsection{CurlCaBundle} \label{sec:state:curl-ca-bundle}
+\hiddensubsection{CurlCaBundle} \label{sec:state:curl-ca-bundle}
 
 Lorem ipsum.
 
-\tocless\subsection{Autowired} \label{sec:state:autowired}
+\hiddensubsection{Autowired} \label{sec:state:autowired}
 
 Lorem ipsum.
 
-\tocless\subsection{FormsReplicator} \label{sec:state:forms-replicator}
+\hiddensubsection{FormsReplicator} \label{sec:state:forms-replicator}
 
 Lorem ipsum.
 
-\tocless\subsection{Translation} \label{sec:state:translation}
+\hiddensubsection{Translation} \label{sec:state:translation}
 
 Lorem ipsum.
 
-\tocless\subsection{Validator} \label{sec:state:validator}
+\hiddensubsection{Validator} \label{sec:state:validator}
 
 Lorem ipsum.
 
-\tocless\subsection{RabbitMq} \label{sec:state:rabbit-mq}
+\hiddensubsection{RabbitMq} \label{sec:state:rabbit-mq}
 
 Lorem ipsum.
 
-\tocless\subsection{Money} \label{sec:state:money}
+\hiddensubsection{Money} \label{sec:state:money}
 
 Lorem ipsum.
 
-\tocless\subsection{DoctrineMoney} \label{sec:state:doctrine-money}
+\hiddensubsection{DoctrineMoney} \label{sec:state:doctrine-money}
 
 Lorem ipsum.
 
-\tocless\subsection{Aop} \label{sec:state:aop}
+\hiddensubsection{Aop} \label{sec:state:aop}
 
 Lorem ipsum.
 
-\tocless\subsection{Clock} \label{sec:state:clock}
+\hiddensubsection{Clock} \label{sec:state:clock}
 
 Lorem ipsum.
 
-\tocless\subsection{Redis} \label{sec:state:redis}
+\hiddensubsection{Redis} \label{sec:state:redis}
 
 Lorem ipsum.
 
-\tocless\subsection{ParseUseStatements} \label{sec:state:parse-use-statements}
+\hiddensubsection{ParseUseStatements} \label{sec:state:parse-use-statements}
 
 Lorem ipsum.
 
-\tocless\subsection{RedisActiveLock} \label{sec:state:redis-active-lock}
+\hiddensubsection{RedisActiveLock} \label{sec:state:redis-active-lock}
 
 Lorem ipsum.
 
-\tocless\subsection{TesterParallelStress} \label{sec:state:tester-parallel-stress}
+\hiddensubsection{TesterParallelStress} \label{sec:state:tester-parallel-stress}
 
 Lorem ipsum.
 
-\tocless\subsection{Monolog} \label{sec:state:monolog}
+\hiddensubsection{Monolog} \label{sec:state:monolog}
 
 Lorem ipsum.
 
-\tocless\subsection{ElasticSearch} \label{sec:state:elastic-search}
+\hiddensubsection{ElasticSearch} \label{sec:state:elastic-search}
 
 Lorem ipsum.
 
-\tocless\subsection{DoctrineSearch} \label{sec:state:doctrine-search}
+\hiddensubsection{DoctrineSearch} \label{sec:state:doctrine-search}
 
 Lorem ipsum.
 
-\tocless\subsection{Geocoder} \label{sec:state:geocoder}
+\hiddensubsection{Geocoder} \label{sec:state:geocoder}
 
 Lorem ipsum.
 
-\tocless\subsection{CsobPaygateNette} \label{sec:state:csob-paygate-nette}
+\hiddensubsection{CsobPaygateNette} \label{sec:state:csob-paygate-nette}
 
 Lorem ipsum.
 
-\tocless\subsection{CsobPaymentGateway} \label{sec:state:csob-payment-gateway}
+\hiddensubsection{CsobPaymentGateway} \label{sec:state:csob-payment-gateway}
 
 Lorem ipsum.
 
-\tocless\subsection{Wkhtmltopdf} \label{sec:state:wkhtmltopdf}
+\hiddensubsection{Wkhtmltopdf} \label{sec:state:wkhtmltopdf}
 
 Lorem ipsum.
 
-\tocless\subsection{FakeSession} \label{sec:state:fake-session}
+\hiddensubsection{FakeSession} \label{sec:state:fake-session}
 
 Lorem ipsum.
 
-\tocless\subsection{RequestStack} \label{sec:state:request-stack}
+\hiddensubsection{RequestStack} \label{sec:state:request-stack}
 
 Lorem ipsum.
 
-\tocless\subsection{StrictObjects} \label{sec:state:strict-objects}
+\hiddensubsection{StrictObjects} \label{sec:state:strict-objects}
 
 Lorem ipsum.
 
-\tocless\subsection{Facebook} \label{sec:state:facebook}
+\hiddensubsection{Facebook} \label{sec:state:facebook}
 
 Lorem ipsum.
 
-\tocless\subsection{Google} \label{sec:state:google}
+\hiddensubsection{Google} \label{sec:state:google}
 
 Lorem ipsum.
 
-\tocless\subsection{Github} \label{sec:state:github}
+\hiddensubsection{Github} \label{sec:state:github}
 
 Lorem ipsum.
 
-\tocless\subsection{NettePhpServer} \label{sec:state:nette-php-server}
+\hiddensubsection{NettePhpServer} \label{sec:state:nette-php-server}
 
 Lorem ipsum.
 
-\tocless\subsection{TesterExtras} \label{sec:state:tester-extras}
+\hiddensubsection{TesterExtras} \label{sec:state:tester-extras}
 
 Lorem ipsum.
 
-\tocless\subsection{HtmlValidatorPanel} \label{sec:state:html-validator-panel}
+\hiddensubsection{HtmlValidatorPanel} \label{sec:state:html-validator-panel}
 
 Lorem ipsum.
 
-\tocless\subsection{BootstrapFormRenderer} \label{sec:state:bootstrap-form-renderer}
+\hiddensubsection{BootstrapFormRenderer} \label{sec:state:bootstrap-form-renderer}
 
 Lorem ipsum.
 
-\tocless\subsection{PayPalExpress} \label{sec:state:paypal-express}
+\hiddensubsection{PayPalExpress} \label{sec:state:paypal-express}
 
 Lorem ipsum.
 
-\tocless\subsection{PresentersLocator} \label{sec:state:presenters-locator}
+\hiddensubsection{PresentersLocator} \label{sec:state:presenters-locator}
 
 Lorem ipsum.
 
-\tocless\subsection{SvgRenderer} \label{sec:state:svg-renderer}
+\hiddensubsection{SvgRenderer} \label{sec:state:svg-renderer}
 
 Lorem ipsum.
 
-\tocless\subsection{QrEncode} \label{sec:state:qr-encode}
+\hiddensubsection{QrEncode} \label{sec:state:qr-encode}
 
 Lorem ipsum.

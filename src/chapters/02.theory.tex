@@ -12,7 +12,7 @@ Around year 2012, I've realized this is not a good way to continue and split all
 
 \section{Technologies used}
 
-\subsection{Git and Github} \label{sec:theory:git}
+\tocless\subsection{Git and Github} \label{sec:theory:git}
 
 Git is a Version Control System, that is decentralized and very fast.~\cite{progit} Github is a collaboration platform for software development using Git.
 
@@ -22,7 +22,7 @@ There are tools around pull requests that allow collaboration, code review and d
 
 Kdyby is hosted and developed on Github.
 
-\subsection{Continuous integration} \label{sec:theory:ci}
+\tocless\subsection{Continuous integration} \label{sec:theory:ci}
 
 \gls{ci} is the practice of merging all developer working copies to a shared mainline several times a day, to prevent merging conflicts.~\cite{wiki:ci} But now-days, when somebody speaks about CI, they usually mean CI servers, that run prepared task on the provided code.
 
@@ -32,7 +32,7 @@ When the work is finished and all the task on CI server completed with success, 
 
 Some popular CI services are \fnurl{Travis~CI}{https://travis-ci.org/}, \fnurl{CircleCI}{https://circleci.com/} and \fnurl{GitLab~CI}{https://about.gitlab.com/features/gitlab-ci-cd/}. The Kdyby is using the Travis~CI.
 
-\subsection{Composer} \label{sec:theory:composer}
+\tocless\subsection{Composer} \label{sec:theory:composer}
 
 Composer is a tool for dependency management~\cite{wiki:package-manager} in PHP. It allows you to declare the libraries your project depends on and it will manage (install or update) them for you~\cite{composer:docs:intro}.
 
@@ -42,65 +42,65 @@ Composer is decentralized, but has a single main metadata repository \fnurl{Pack
 
 All Kdyby libraries are published as Composer packages on Packagist and installing them using the Composer is the only officially supported installation method.
 
-\subsection{OAuth 2} \label{sec:theory:oauth2}
+\tocless\subsection{OAuth 2} \label{sec:theory:oauth2}
 
 OAuth is a protocol for authentication and authorization, that can be implemented into a web service. It allows for secure exchange of user information, allowing third party websites to implement a login and registration process, that simplifies these tasks for the user. Essentially allowing him or her to login or register to a services through the OAuth 2 provider with two clicks.
 
 Kdyby provides packages for integrating Nette Framework with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{Github}{https://developer.github.com/v3/oauth/}.
 
-\subsection{Nette Framework} \label{sec:theory:nette}
+\tocless\subsection{Nette Framework} \label{sec:theory:nette}
 
 Nette Framework is an OSS framework for creating web applications in PHP~\cite{wiki:nette}.
 
-\subsection{dibi} \label{sec:theory:dibi}
+\tocless\subsection{dibi} \label{sec:theory:dibi}
 
 Dibi is a Database Abstraction Library for PHP. It supports a lot of significant databases: MySQL, PostgreSQL, SQLite, MS SQL, Oracle, Access and generic PDO and ODBC.~\cite{dibi:homepage}
 
-\subsection{Doctrine 2 ORM} \label{sec:theory:doctrine}
+\tocless\subsection{Doctrine 2 ORM} \label{sec:theory:doctrine}
 
 \gls{doctrine} is an \gls{orm}~\cite{wiki:orm}, which means it allows the programmer to create PHP classes called entities, that represent relational data in a database and are used to actually map the data from the database to the classes and back. In conclusion, it allows the programmer to write a fully Object-oriented (\acrshort{oop})~\cite{wiki:oop} applications.
 
-\subsection{Symfony Framework} \label{sec:theory:symfony}
+\tocless\subsection{Symfony Framework} \label{sec:theory:symfony}
 
 Symfony is a PHP web application framework and a set of reusable PHP components/libraries, similar to Nette.~\cite{wiki:symfony}
 
-\subsection{Monolog} \label{sec:theory:monolog}
+\tocless\subsection{Monolog} \label{sec:theory:monolog}
 
 Monolog is a logging library that sends your logs to files, sockets, inboxes, databases and various web services. This library implements the PSR-3~\cite{fig:psr} interface that you can type-hint against in your own libraries to keep a maximum of interoperability.~\cite{monolog:readme}
 
-\subsection{RabbitMQ} \label{sec:theory:rabbitmq}
+\tocless\subsection{RabbitMQ} \label{sec:theory:rabbitmq}
 
 RabbitMQ is OSS message broker software (sometimes called message-oriented middleware) that implements the \gls{amqp}. The RabbitMQ server is written in the Erlang programming language and is built on the Open Telecom Platform framework for clustering and failover.~\cite{wiki:rabbitmq}
 
-\subsection{ElasticSearch} \label{sec:theory:elasticsearch}
+\tocless\subsection{ElasticSearch} \label{sec:theory:elasticsearch}
 
 Elasticsearch is a search engine based on Lucene. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. Elasticsearch is developed in Java and is released as open source under the terms of the Apache License. It is the most popular enterprise search engine .~\cite{wiki:elasticsearch}
 
-\subsection{Redis} \label{sec:theory:redis}
+\tocless\subsection{Redis} \label{sec:theory:redis}
 
 Redis is an in-memory database OSS project, that is networked, in-memory, and stores keys with optional durability.~\cite{wiki:redis}
 
-\subsection{PhpStan} \label{sec:theory:phpstan}
+\tocless\subsection{PhpStan} \label{sec:theory:phpstan}
 
 PHPStan focuses on finding errors in your code without actually running it. It catches whole classes of bugs even before you write tests for the code.~\cite{github:phpstan}
 
-\subsection{Nette\textbackslash{}Tester} \label{sec:theory:nette-tester}
+\tocless\subsection{Nette\textbackslash{}Tester} \label{sec:theory:nette-tester}
 
 Nette\textbackslash{}Tester is an unit testing~\cite{wiki:unit-testing} framework for the PHP.~\cite{tester:docs}
 
 \section{Techniques and design patterns}
 
-\subsection{Dependency Injection} \label{sec:theory:di}
+\tocless\subsection{Dependency Injection} \label{sec:theory:di}
 
 Inversion of control is a design principle in which custom-written portions of a computer program receive the flow of control from a generic framework.
 
 Dependency injection is a technique whereby one object supplies the dependencies of another object. Passing the service to the client, rather than allowing a client to build or find the service, is the fundamental requirement of the pattern.~\cite{fowler:di}
 
-\subsection{Aspect Oriented Programming} \label{sec:theory:aop}
+\tocless\subsection{Aspect Oriented Programming} \label{sec:theory:aop}
 
 In computing, \gls{aop} is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a "pointcut" specification, such as "log all function calls when the function's name begins with 'set'". This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality.~\cite{wiki:aop}
 
-\subsection{Event Dispatcher} \label{sec:theory:event-dispatcher}
+\tocless\subsection{Event Dispatcher} \label{sec:theory:event-dispatcher}
 
 The Event Dispatcher is a pattern for writing modular code. It allows to create extension points in the library or application, that another library or application can hook into and change or extend the behavior.
 

@@ -44,8 +44,6 @@
 \usepackage{xcolor}
 % \newcommand{\todo}[1]{\textcolor{red}{\textbf{#1}}}
 
-\usepackage{listings}
-
 %% The following section sets up the metadata of the thesis.
 \thesissetup{%
     date          = \the\year/\the\month/\the\day,
@@ -104,10 +102,44 @@
 \usepackage{amsfonts}
 \usepackage{menukeys}
 \usepackage{mwe}
+\usepackage{graphicx}
+\usepackage[iso,english]{isodate}
+
+% code highlighting
+\usepackage{listings}
+\usepackage{inconsolata}
+
+\definecolor{dkgreen}{rgb}{0,.6,0}
+\definecolor{dkblue}{rgb}{0,0,.6}
+\definecolor{dkyellow}{cmyk}{0,0,.8,.3}
+
+\lstset{%
+  language = php,
+  basicstyle = \small\ttfamily,
+  keywordstyle = \color{dkblue},
+  stringstyle = \color{red},
+  identifierstyle = \color{dkgreen},
+  commentstyle = \color{gray},
+  emph =[1]{php},
+  emphstyle =[1]\color{black},
+  emph =[2]{if,and,or,else},
+  emphstyle =[2]\color{dkyellow}}
+\lstMakeShortInline[columns=fixed]|
 
 % links setup
-\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
-\hypersetup{colorlinks=true,urlcolor=blue}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[%
+  % pdftitle={Mongolia games paper},
+  % pdfauthor={Daniel Rubenson, Peter Loewen \& Richard Sawyer},
+  colorlinks=true,
+  urlcolor=blue,
+  linkcolor=black,
+  anchorcolor=black,
+  menucolor=black,
+  filecolor=black,
+  raiselinks=false,
+  hyperfootnotes=true
+]{hyperref}
 
 % fixes line breaks in urls
 \makeatletter

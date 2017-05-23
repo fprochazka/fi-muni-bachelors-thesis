@@ -1,34 +1,58 @@
-\chapter{Background for understanding the Kdyby}
+\chapter{Background for understanding Kdyby}
 
 \section{A brief history of Kdyby} \label{sec:theory:kdyby-history}
 
-In 2006 I have started working on my own \gls{cms}~\cite{wiki:cms}. I have created a working prototype, that was used in production on few websites. The oldest preserved version is \fnurl{archived on my Github}{https://github.com/fprochazka/kdyby-cms-old}. It is a great learning material on how to not write a CMS.
+In 2006 I have started working on my own \gls{cms}~\cite{wiki:cms}. A prototype was used in production on few websites I created. The oldest preserved version is \fnurl{archived on my Github}{https://github.com/fprochazka/kdyby-cms-old}. It is a great learning material on how to not write a CMS.
 
-Then the concept of \gls{oss}~\cite{wiki:oss} was introduced to me and I have decided to start working on everything openly, under a free license~\cite{wiki:fsl}. Sadly, since then, no new working version of the Kdyby CMS was ever released, because I have rewritten it from scratch exactly 10 times.
+Then the concept of \gls{oss}~\cite{wiki:oss} was introduced to me and I have decided to start working on everything openly, under a free license~\cite{wiki:fsl}. Sadly, since then, no new working version of Kdyby CMS was ever released, because I have rewritten it from scratch exactly 10 times.
 
-In 2012, I have decomposed the the emerging system into separate libraries, that can be used more or less independently and have their own release cycle. This approach was preserved to this day.
+In 2012, I have decomposed the the emerging system into separate libraries that can be used more or less independently and have their own release cycle. This approach was preserved to this day.
+
+\section{Techniques and design patterns}
+
+\hiddensubsection{Dependency Injection} \label{sec:theory:di}
+
+Inversion of control is a design principle in which custom-written portions of a computer program receive the flow of control from a generic framework.
+
+\Gls{di} is a technique whereby one object supplies the dependencies of another object. Passing the service to the client, rather than allowing a client to build or find the service, is the fundamental requirement of the pattern~\cite{fowler:di}.
+
+\hiddensubsection{Aspect Oriented Programming} \label{sec:theory:aop}
+
+In computing, \gls{aop} is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a pointcut specification, such as log all function calls when the name of the function begins with 'set'. This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality~\cite{wiki:aop}.
+
+\hiddensubsection{Event Dispatcher} \label{sec:theory:event-dispatcher}
+
+The Event Dispatcher is a pattern for writing modular code. It allows to create extension points in the library or application that another library or application can hook into and change or extend the behavior.
+
+Typically, the extension points are called hooks or events and the new functionality is provided with objects called listeners.
 
 \section{Technologies used}
 
 \hiddensubsection{Git and Github} \label{sec:theory:git}
 
-Git is a Version Control System, that is decentralized and considered very fast.~\cite{progit} Github is a collaboration platform for software development using Git.
+Git is a Version Control System, that is decentralized and considered very fast~\cite{progit}. Github is a collaboration platform for software development using Git.
 
-Each project has a page on Github called a repository, that can be used to inspect the Git history, files and other metadata. On the project repository page, there are issues and pull requests. Pull requests are a way to ask the maintainer of the repository, to incorporate provided code patch to the repository. It can be a bugfix, or new feature.
+Each project has a page on Github called a repository, that can be used to inspect the Git history, files and other metadata. On the project repository page, there are issues and pull requests. Pull requests are a way to ask the maintainer of the repository to incorporate provided code patch to the repository. It can be a bugfix or feature.
 
-There are tools around pull requests that allow collaboration, code review and discussion about the provided code, so that the maintainers can help the contributors to provide the best code possible.
+There are tools around pull requests that allow collaboration, a code review and discussion about the provided code, so that the maintainers can help the contributors to provide the best code possible.
 
 Kdyby is hosted and developed on Github, with the help of several other maintainers and the community, that contributes bugfixes and features.
 
 \hiddensubsection{Continuous Integration} \label{sec:theory:ci}
 
-\gls{ci} is a practice of merging all developer working copies to a shared mainline several times a day, to prevent merging conflicts.~\cite{wiki:ci} But now-days, the term has established to mean CI servers, that run prepared task on the provided code.
+\gls{ci} is a practice of merging all developer working copies to a shared mainline several times a day, to prevent merging conflicts.~\cite{wiki:ci} But now-days, the term has established to mean CI servers that run prepared task on the provided code.
 
-In practice, it means that as the developer is working on a feature or bugfix, they push the work in progress code into a repository, the code is then picked up by a CI server, that executes the tests, checks coding style and runs various other tasks, to verify that the code was not broken.
+In practice, it means that as the developer is working on a feature or bugfix, they push the work in progress code into a repository, the code is then picked up by a CI server that executes the tests, checks coding style and runs various other tasks to verify that the code was not broken.
 
 When the work is finished and all the task on CI server completed with success, the code can be probably safely integrated, providing that the tests for new or changed functionality were added.
 
 Some popular CI services are \fnurl{Travis~CI}{https://travis-ci.org/}, \fnurl{CircleCI}{https://circleci.com/} and \fnurl{GitLab~CI}{https://about.gitlab.com/features/gitlab-ci-cd/}. Kdyby is using the Travis~CI, that is free for \gls{oss} projects.
+
+\hiddensubsection{Nette Framework} \label{sec:theory:nette}
+
+Nette Framework is an \gls{oss} framework for creating web applications in PHP~\cite{wiki:nette}. Nette is separated into many packages.
+
+The Dependency Injection component \fnurl{nette/di}{https://github.com/nette/di} provides a \gls{dic} that holds the services. The component also allows to prepare a preconfigured \gls{dic}, which is then compiled into a PHP class that contains optimized code for the service creation. This compiled DI Container class is cached for reuse. There is a concept (and a class) CompilerExtension that allows the developer to hook into the process of configuring and compiling of the \gls{dic}. All of Kdyby packages that are an integration of some other library or tool into Nette provide a CompilerExtension to make the installation easy.
 
 \hiddensubsection{Composer} \label{sec:theory:composer}
 
@@ -42,64 +66,42 @@ All Kdyby libraries are published as Composer packages on Packagist and installi
 
 \hiddensubsection{OAuth 2} \label{sec:theory:oauth2}
 
-OAuth is a protocol for authentication and authorization, that can be implemented into a web service. It is designed for secure exchange of user information, allowing third party websites to implement a login and registration process, that simplifies these tasks for the user. Essentially allowing them to login or register to a services through the OAuth 2 provider with two clicks.
+OAuth is a protocol for authentication and authorization that can be implemented into a web service. It is designed for secure exchange of user information, allowing third party websites to implement a login and registration process that simplifies these tasks for the user essentially allowing them to login or register to services through the OAuth 2 provider with two clicks.
 
 Kdyby provides packages for integrating Nette Framework with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{Github}{https://developer.github.com/v3/oauth/}.
 
-\hiddensubsection{Nette Framework} \label{sec:theory:nette}
-
-Nette Framework is an OSS framework for creating web applications in PHP~\cite{wiki:nette}.
-
 \hiddensubsection{dibi} \label{sec:theory:dibi}
 
-Dibi is a Database Abstraction Library for PHP. It supports a lot of significant databases: MySQL, PostgreSQL, SQLite, MS SQL, Oracle, Access and generic PDO and ODBC.~\cite{dibi:homepage}
+Dibi is a Database Abstraction Library for PHP. It supports a lot of significant databases: MySQL, PostgreSQL, SQLite, MS SQL, Oracle, Access and generic PDO and ODBC~\cite{dibi:homepage}.
 
 \hiddensubsection{Doctrine 2 ORM} \label{sec:theory:doctrine}
 
-\gls{doctrine} is an \gls{orm}~\cite{wiki:orm}, which means it allows the programmer to create PHP classes called entities, that represent relational data in a database and are used to actually map the data from the database to the classes and back. In conclusion, it allows the programmer to write a fully Object-oriented (\acrshort{oop})~\cite{wiki:oop} applications.
+\gls{doctrine} is an \gls{orm}~\cite{wiki:orm}, which means it allows the programmer to create PHP classes called entities, that represent relational data in a database and are used to actually map the data from the database to the classes and back. In conclusion, it allows the programmer to write fully Object-oriented (\acrshort{oop})~\cite{wiki:oop} applications.
 
 \hiddensubsection{Symfony Framework} \label{sec:theory:symfony}
 
-Symfony is a PHP web application framework and a set of reusable PHP components/libraries, similar to Nette.~\cite{wiki:symfony}
+Symfony is a PHP web application framework and a set of reusable PHP components/libraries, similar to Nette~\cite{wiki:symfony}.
 
 \hiddensubsection{Monolog} \label{sec:theory:monolog}
 
-Monolog is a logging library that sends your logs to files, sockets, inboxes, databases and various web services. This library implements the PSR-3~\cite{fig:psr} interface that you can type-hint against in your own libraries to keep a maximum of interoperability.~\cite{monolog:readme}
+Monolog is a logging library that sends your logs to files, sockets, inboxes, databases and various web services. This library implements the PSR-3~\cite{fig:psr} interface that you can type-hint against in your own libraries to keep a maximum of interoperability~\cite{monolog:readme}.
 
 \hiddensubsection{RabbitMQ} \label{sec:theory:rabbitmq}
 
-RabbitMQ is OSS message broker software (sometimes called message-oriented middleware) that implements the \gls{amqp}. The RabbitMQ server is written in the Erlang programming language and is built on the Open Telecom Platform framework for clustering and failover.~\cite{wiki:rabbitmq}
+RabbitMQ is \gls{oss} message broker software (sometimes called message-oriented middleware) that implements the \gls{amqp}. The RabbitMQ server is written in the Erlang programming language and is built on the Open Telecom Platform framework for clustering and failover~\cite{wiki:rabbitmq}.
 
 \hiddensubsection{ElasticSearch} \label{sec:theory:elasticsearch}
 
-Elasticsearch is a search engine based on Lucene. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. Elasticsearch is developed in Java and is released as open source under the terms of the Apache License. It is the most popular enterprise search engine .~\cite{wiki:elasticsearch}
+Elasticsearch is a search engine based on Lucene. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. Elasticsearch is developed in Java and is released as open source under the terms of the Apache License. It is the most popular enterprise search engine~\cite{wiki:elasticsearch}.
 
 \hiddensubsection{Redis} \label{sec:theory:redis}
 
-Redis is an in-memory database OSS project, that is networked, in-memory, and stores keys with optional durability.~\cite{wiki:redis}
+Redis is an in-memory database \gls{oss} project that is networked, in-memory, and stores keys with optional durability~\cite{wiki:redis}.
 
 \hiddensubsection{PhpStan} \label{sec:theory:phpstan}
 
-PHPStan focuses on finding errors in your code without actually running it. It catches whole classes of bugs even before you write tests for the code.~\cite{github:phpstan}
+PHPStan focuses on finding errors in your code without actually running it. It catches whole classes of bugs even before you write tests for the code~\cite{github:phpstan}.
 
 \hiddensubsection{Nette\textbackslash{}Tester} \label{sec:theory:nette-tester}
 
-Nette\textbackslash{}Tester is an unit testing~\cite{wiki:unit-testing} framework for the PHP.~\cite{tester:docs}
-
-\section{Techniques and design patterns}
-
-\hiddensubsection{Dependency Injection} \label{sec:theory:di}
-
-Inversion of control is a design principle in which custom-written portions of a computer program receive the flow of control from a generic framework.
-
-Dependency injection is a technique whereby one object supplies the dependencies of another object. Passing the service to the client, rather than allowing a client to build or find the service, is the fundamental requirement of the pattern.~\cite{fowler:di}
-
-\hiddensubsection{Aspect Oriented Programming} \label{sec:theory:aop}
-
-In computing, \gls{aop} is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a "pointcut" specification, such as "log all function calls when the function's name begins with 'set'". This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality.~\cite{wiki:aop}
-
-\hiddensubsection{Event Dispatcher} \label{sec:theory:event-dispatcher}
-
-The Event Dispatcher is a pattern for writing modular code. It allows to create extension points in the library or application, that another library or application can hook into and change or extend the behavior.
-
-Typically, the extension points are called hooks or events, and the new functionality is provided with objects called listeners.
+Nette\textbackslash{}Tester is an unit testing~\cite{wiki:unit-testing} framework for the PHP~\cite{tester:docs}.

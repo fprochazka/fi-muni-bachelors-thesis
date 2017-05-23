@@ -172,7 +172,7 @@ $cart->getOrderItems()->add(new OrderItem());
 
 \hiddensubsection{Curl} \label{sec:state:curl}
 
-PHP has an extension for the Curl library and exposes its functions to the programmer. But the API is the same as the underlying C API, which is not suited for modern \gls{oop} development. \gls{kCurl} is wrapping the Curl functions in \gls{oo} API.
+PHP has a binding for the Curl library and exposes its functions to the programmer. But the API is the same as the underlying C API, which is not suited for modern \gls{oop} development. \gls{kCurl} is wrapping the Curl functions in \gls{oo} API.
 
 There are now better and more popular packages for doing HTTP requests in PHP like \fnurl{guzzlehttp/guzzle}{https://github.com/guzzle/guzzle}. Therefore this package is now deprecated and unmaintained.
 
@@ -200,19 +200,25 @@ Autowiring of the factories doesn't break encapsulation of the Presenter class, 
 
 \hiddensubsection{FormsReplicator} \label{sec:state:forms-replicator}
 
-Forms component of \gls{nette} has a lot of capabilities, but it does not support repeating an input field, or group of them dynamically. This means the application is very strict about what fields it accepts when a form is submitted in browser. That is generally a good thing for security, but sometimes it is required to accept dynamic amount of fields, when the form is modified on the client browser and the application does not know ahead how many fields will be sent by the user. \gls{kFormsReplicator} solves this by creating the form using the data the user sent.
+Forms component of \gls{nette} has a lot of capabilities, but it does not support repeating an input field, or group of them, dynamically. This means the application is very strict about what fields it accepts when a form is submitted in browser. That is generally good for security, but sometimes it is required to accept dynamic amount of fields when the form is expected to be modified on the client and the application does not know ahead how many fields will be sent by the user. \gls{kFormsReplicator} solves this by creating the form using the data the user sent.
+
+This library worker perfectly with \gls{nette} 2.1 but the Forms component was refactored heavily since then and the assumptions this package worked on were broken. This means there are a lot of bugs when it is used with newer Nette.
 
 \hiddensubsection{Translation} \label{sec:state:translation}
 
-Lorem ipsum.
+Translating the application \gls{ui} and the content itself are two very different problems. \gls{kTranslation} solves the first problem. It integrates \gls{sfTranslation} into \gls{nette}.
+
+In the past, the \gls{sf} Bundle for integrating \gls{sfTranslation} the did contain few important parts, that \gls{kTranslation} has to duplicate, but not anymore. The 3.0 version provides all required functionality and the duplication can now be removed from \gls{sfTranslation}.
 
 \hiddensubsection{Validator} \label{sec:state:validator}
 
-Lorem ipsum.
+\gls{kValidator} is very thin integration of \gls{sfValidator} into \gls{nette}.
 
 \hiddensubsection{RabbitMq} \label{sec:state:rabbit-mq}
 
-Lorem ipsum.
+\gls{kRabbitMq} integrates php-amqplib/php-amqplib into \gls{nette} and php-amqplib/php-amqplib is a client for RabbitMq server. \gls{kRabbitMq} provides producer classes, that are used to generate messages for the RabbitMq server and consumer classes, that listen for incoming messages from the RabbitMq server and processes them with user-defined logic. It depends on \gls{kConsole}, since the consumers are started as standalone processes through CLI. The php-amqplib/php-amqplib had supported old PHP versions for very long and now it is hard to change the internal design of it and \gls{kRabbitMq} hides that using abstraction.
+
+The php-amqplib/php-amqplib changed maintainers and it has to be reviewed for new functionality, that might benefit the users of \gls{kRabbitMq}. There are also important features like \fnurl{SSL connection support}{https://github.com/Kdyby/RabbitMq/issues/5} that were never implemented.
 
 \hiddensubsection{Money} \label{sec:state:money}
 
@@ -231,18 +237,6 @@ Lorem ipsum.
 Lorem ipsum.
 
 \hiddensubsection{Redis} \label{sec:state:redis}
-
-Lorem ipsum.
-
-\hiddensubsection{ParseUseStatements} \label{sec:state:parse-use-statements}
-
-Lorem ipsum.
-
-\hiddensubsection{RedisActiveLock} \label{sec:state:redis-active-lock}
-
-Lorem ipsum.
-
-\hiddensubsection{TesterParallelStress} \label{sec:state:tester-parallel-stress}
 
 Lorem ipsum.
 
@@ -295,10 +289,6 @@ Lorem ipsum.
 Lorem ipsum.
 
 \hiddensubsection{Github} \label{sec:state:github}
-
-Lorem ipsum.
-
-\hiddensubsection{NettePhpServer} \label{sec:state:nette-php-server}
 
 Lorem ipsum.
 

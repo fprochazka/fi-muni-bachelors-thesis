@@ -80,7 +80,9 @@ Dibi is a Database Abstraction Library for PHP. It supports a lot of significant
 
 \hiddensubsection{Symfony Framework} \label{sec:theory:symfony}
 
-Symfony is a PHP web application framework and a set of reusable PHP components/libraries, similar to Nette~\cite{wiki:symfony}.
+\gls{sf} is a PHP web application framework and a set of reusable PHP components/libraries, similar to Nette~\cite{wiki:symfony}.
+
+For extensibility, \gls{sf} has Bundles, that provide similar functionality, to \gls{nette} CompilerExtension, but they operate on a different level of abstractions. Bundle is a whole package, that contains the Bundle definition, \gls{dic} extension for configuring the Bundle and it may contain adapter classes. Bundles are registered in the AppKernel of Symfony application.
 
 \hiddensubsection{Monolog} \label{sec:theory:monolog}
 

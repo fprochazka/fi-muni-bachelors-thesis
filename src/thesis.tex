@@ -39,8 +39,9 @@
 \usepackage[%
   main=english,
   %% The additional keys allow foreign texts to be typeset as follows:
-  czech, slovak
+  % czech, slovak
 ]{babel}
+
 \usepackage{xcolor}
 % \newcommand{\todo}[1]{\textcolor{red}{\textbf{#1}}}
 
@@ -70,6 +71,7 @@
 }
 
 \usepackage[utf8]{inputenc}
+
 %% When typesetting the bibliography, the `numeric` style will be used for the entries
 %% and the `numeric-comp` style for the references to the entries.
 %% The entries will be sorted in cite order.
@@ -95,12 +97,10 @@
 \makeindex
 
 %% These additional packages are used within the document:
-\usepackage{xcolor}
 \usepackage{paralist}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
-\usepackage{menukeys}
 \usepackage{mwe}
 \usepackage{graphicx}
 \usepackage[iso,english]{isodate}
@@ -124,7 +124,7 @@
   emphstyle =[1]\color{black},
   emph =[2]{if,and,or,else},
   emphstyle =[2]\color{dkyellow}}
-\lstMakeShortInline[columns=fixed]|
+% \lstMakeShortInline[columns=fixed]|
 
 % links setup
 \PassOptionsToPackage{hyphens}{url}
@@ -140,6 +140,9 @@
   raiselinks=false,
   hyperfootnotes=true
 ]{hyperref}
+
+% has to be loaded after hyperref
+\usepackage{menukeys}
 
 % fixes line breaks in urls
 \makeatletter

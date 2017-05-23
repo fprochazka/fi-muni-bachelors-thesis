@@ -6,7 +6,7 @@ I have created few GitHub repositories as a reminder for me to start working on 
 
 \section{State of the project}
 
-The most relevant problem is the compatibility with new versions of the libraries, that Kdyby integrates. There is \gls{nette} 2.4 and the 3.0 is being developed, but some of Kdyby packages support only \gls{nette} 2.2 or older.
+The most relevant problem is the compatibility with new versions of the libraries, that Kdyby integrates. Current version of \gls{nette} is 2.4 and the 3.0 is being developed, but some of Kdyby packages support only \gls{nette} 2.2 or older.
 
 The other problems appear only when you interact with the source code which is still really important for me as a maintainer and for the contributors. Also good maintainable code attracts more programmers to use it and contribute. But, there is no coding standard being enforced automatically on any package and no static analysis tool is checking the code. On the other hand almost all of the packages have unit and integration tests and linter checking the code for multiple versions of PHP.
 
@@ -15,10 +15,9 @@ The other problems appear only when you interact with the source code which is s
     \includegraphics[width=1\textwidth]{src/assets/php-supported-versions.png}
   \caption{Supported PHP Versions. Green is active support, orange is security fixes only. Up-to-date version is at \url{http://php.net/supported-versions.php}}
 \end{figure}
-
 Most of the packages are compatible with PHP 5.4, but \fnurl{PHP 5.4 had end of life at \printdate{2015-09-03}}{http://php.net/eol.php} and is no longer supported by PHP developers.
 
-The PHP 5.5 had end of life at \printdate{2016-06-21} and PHP 5.6 is currently in the phase of security fixes only and will have end of life at \printdate{2018-12-31}. As you can see on the graph~\ref{fig:php:supported-versions}, everyone should be migrating to PHP 7.0 by now, but it is not always as easy as simply upgrading PHP interpreter. The developer has to consider what PHP versions the libraries support, upgrade them first and then migrate the application.
+The PHP 5.5 had end of life at \printdate{2016-06-21} and PHP 5.6 is currently in the phase of security fixes only and will have end of life at \printdate{2018-12-31}. As you can see on the graph~\ref{fig:php:supported-versions}, everyone should be migrating to PHP 7.0 by now. But the developer has to consider what PHP versions the libraries support, upgrade them first and then migrate the application.
 
 \section{State of each package}
 
@@ -26,11 +25,11 @@ This section reviews each package separately, considers the original purpose and
 
 \hiddensubsection{Doctrine} \label{sec:state:doctrine}
 
-\gls{kDoctrine} is an integration of \gls{doctrine} into Nette Framework.
+\gls{kDoctrine} is an integration of \gls{doctrine} into Nette Framework. But it has cumulated a lot of responsibilities, that don't belong to it
 
 \gls{doctrine} itself is separated into several packages, mainly \fnurl{doctrine/orm}{https://github.com/doctrine/doctrine2}, \fnurl{doctrine/common}{https://github.com/doctrine/common}, \fnurl{doctrine/annotations}{https://github.com/doctrine/annotations}, \fnurl{doctrine/cache}{https://github.com/doctrine/cache} and \fnurl{doctrine/collections}{https://github.com/doctrine/collections}. What started as a monolith integration in Kdyby, got separated into \gls{kEvents}~\ref{sec:state:events}, \gls{kConsole}~\ref{sec:state:console}, \gls{kAnnotations}~\ref{sec:state:annotations} and \gls{kDoctrineCache}~\ref{sec:state:doctrine-cache} for reusability.
 
-Over the years, it cumulated a lot of responsibilities, that don't belong to it. I have already started extracting few of them in the past, for example an entity prototyping tool~\ref{sec:state:doctrine-magic-accessors}, collection utilities~\ref{sec:state:doctrine-collections-lazy}, \ref{sec:state:doctrine-collections-readonly} and helper for loading big SQL scripts to the database~\ref{sec:state:doctrine-dbal-batch-import}.
+I have already started extracting few of them in the past, for example an entity prototyping tool~\ref{sec:state:doctrine-magic-accessors}, collection utilities~\ref{sec:state:doctrine-collections-lazy}, \ref{sec:state:doctrine-collections-readonly} and helper for loading big SQL scripts to the database~\ref{sec:state:doctrine-dbal-batch-import}.
 
 There is a big issue \fnurl{Chop up the package}{https://github.com/Kdyby/Doctrine/issues/238} that discusses what other parts should be separated and dropped completely.
 
@@ -38,29 +37,65 @@ New versions of Nette and \gls{doctrine} were released and completely new versio
 
 \hiddensubsection{Console} \label{sec:state:console}
 
-\gls{kConsole} is an integration of Symfony Framework \lstinline{Console} Component, that allows for writing interactive CLI applications. \gls{kDoctrine}~\ref{sec:state:doctrine} depends on this package and is the reason this package exists.
+\gls{kConsole} is an integration of \gls{sfConsole}, that allows for writing interactive CLI applications. \gls{kDoctrine} depends on this package and is the reason this package exists.
 
-There are tasks, that are better suited for console interaction, than a web interface. Among others, \gls{doctrine} has tools for generating a database schema from the entities metadata and there is a console command for it, that is written using Symfony \lstinline{Console}.
+There are tasks, that are better suited for console interaction, than a web interface. Among others, \gls{doctrine} has tools for generating a database schema from the entities metadata and there is a console command for it, that is written using \gls{sfConsole}.
 
 \hiddensubsection{Events} \label{sec:state:events}
 
-\gls{kEvents} provides an event dispatcher~\ref{sec:theory:event-dispatcher} implementation for Nette Framework.
+\gls{kEvents} provides an event dispatcher implementation for Nette Framework.
 
-It started as an integration of \gls{doctrine} \lstinline{EventManager}, but then it evolved into a standalone system with support for lazy initialization of listeners and it also contains a naive bridge for Symfony Framework \lstinline{EventDispatcher} Component.
+It started as an integration of \gls{doctrine} EventManager, but then it evolved into a standalone system with support for lazy initialization of listeners and it also contains a naive bridge for \gls{sfEventDispatcher}.
 
-Creating such interchangeable eventing system turned out to be a mistake, because it is a maintenance hell. The systems should have stayed separate.
+Creating such interchangeable eventing system turned out to be a mistake. The bridging of the subscriber classes is fragile and requires a lot of compromises from the programmer. It is also a maintenance hell. The systems should have stayed separate.
 
 \hiddensubsection{Annotations} \label{sec:state:annotations}
 
-\gls{kAnnotations} is a simple integration of doctrine/annotations into Nette Framework. It exists solely for the purposes of \gls{kDoctrine}.
+\gls{kAnnotations} is a simple integration of doctrine/annotations into Nette Framework. It was created solely for the purposes of \gls{kDoctrine}, but it can be used in any application that relies on annotations.
+
+The problem the doctrine/annotations solves is that PHP doesn't have native annotations. But Doctrine simulates them using PHPDoc. The following code illustrates usage of \gls{doctrine} annotations on entities.
+
+\begin{figure}[h] \label{fig:php:annotations-example}
+\begin{lstlisting}
+/**
+ * @Entity
+ */
+class Comment
+{
+    /**
+     * @Id
+     * @GeneratedValue
+     * @Column(type="string")
+     */
+    private $id;
+
+    /**
+     * @ManyToOne(
+     *     targetEntity="User",
+     *     inversedBy="comments"
+     * )
+     */
+    private $author;
+}
+\end{lstlisting}
+\caption{Example of PHPDoc with annotations, that the doctrine/annotations can parse from source code.}
+\end{figure}
+
+\gls{doctrine} can read this as metadata and also generate SQL schema for relational databases.
 
 \hiddensubsection{DoctrineCache} \label{sec:state:doctrine-cache}
 
-Lorem ipsum.
+\gls{kDoctrineCache} integrates doctrine/cache, that is used by doctrine/annotations and doctrine/orm to store metadata, results of various parsers and even query results.
+
+This package has no Nette CompilerExtension, but only a helper class that configures the caching services and is used by CompilerExtensions in \gls{kAnnotations} and \gls{kDoctrine}.
 
 \hiddensubsection{DoctrineMagicAccessors} \label{sec:state:doctrine-magic-accessors}
 
-Lorem ipsum.
+\gls{kDoctrineMagicAccessors} is a prototyping tool for writing less code in entities. It allows to not write getters and setters for entity properties.
+
+In \gls{doctrine} there is an entity lazy--loading feature, that in order to work the entity cannot have any public properties, only protected or private. Which means that to be able to access the properties the developer has to define methods on the entity. This is completely correct, but when prototyping an application, it might not be obvious what methods will be required and what data they should allow to be written into the entity. This package aims to solve that, by allowing not to write the accessor methods, because it makes them available dynamically.
+
+It was extracted from \gls{kDoctrine} and currently only exists to ease migrating away from this technique. The problem this package solves is still valid because manually writing getters and setters in PHP is tedious and error-prone, but the way the package does it creates more problems than it solves. Having the manually written accessors checked by static-analysis tool like PHPStan and unit tested is a better option.
 
 \hiddensubsection{DoctrineCollectionsReadonly} \label{sec:state:doctrine-collections-readonly}
 

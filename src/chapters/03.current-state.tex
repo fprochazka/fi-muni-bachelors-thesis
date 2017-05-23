@@ -10,7 +10,7 @@ The most relevant problem is the compatibility with new versions of the librarie
 
 The other problems appear only when you interact with the source code which is still really important for me as a maintainer and for the contributors. Also good maintainable code attracts more programmers to use it and contribute. But, there is no coding standard being enforced automatically on any package and no static analysis tool is checking the code. On the other hand almost all of the packages have unit and integration tests and linter checking the code for multiple versions of PHP.
 
-\begin{figure}[h] \label{fig:php:supported-versions}
+\begin{figure} \label{fig:php:supported-versions}
   \centering
     \includegraphics[width=1\textwidth]{src/assets/php-supported-versions.png}
   \caption{Supported PHP Versions. Green is active support, orange is security fixes only. Up-to-date version is at \url{http://php.net/supported-versions.php}}
@@ -41,6 +41,8 @@ New versions of Nette and \gls{doctrine} were released and completely new versio
 
 There are tasks, that are better suited for console interaction, than a web interface. Among others, \gls{doctrine} has tools for generating a database schema from the entities metadata and there is a console command for it, that is written using \gls{sfConsole}.
 
+The library is solving several problems with CLI applications in \gls{nette}, that are no longer relevant or have to be refactored. One of the issues is that it introduced level of abstraction above \gls{nette} Front Controller to solve generating URLs in CLI. \gls{nette} was refactored to account for this problem and this part of \gls{kConsole} can be dropped altogether.
+
 \hiddensubsection{Events} \label{sec:state:events}
 
 \gls{kEvents} provides an event dispatcher implementation for Nette Framework.
@@ -51,11 +53,11 @@ Creating such interchangeable eventing system turned out to be a mistake. The br
 
 \hiddensubsection{Annotations} \label{sec:state:annotations}
 
-\gls{kAnnotations} is a simple integration of doctrine/annotations into Nette Framework. It was created solely for the purposes of \gls{kDoctrine}, but it can be used in any application that relies on annotations.
+\gls{kAnnotations} is a simple integration of doctrine/annotations into Nette Framework. It was created solely for the purposes of \gls{kDoctrine}, but it can be used in any \gls{nette} application that requires annotations for some functionality.
 
-The problem the doctrine/annotations solves is that PHP doesn't have native annotations. But Doctrine simulates them using PHPDoc. The following code illustrates usage of \gls{doctrine} annotations on entities.
+The problem the doctrine/annotations solves is that PHP doesn't have native annotations. But Doctrine simulates them using PHPDoc. The example code~\ref{fig:php:annotations-example} illustrates usage of \gls{doctrine} annotations on entities. \gls{doctrine} can read this as metadata and also generate SQL schema for relational databases.
 
-\begin{figure}[h] \label{fig:php:annotations-example}
+\begin{figure} \label{fig:php:annotations-example}
 \begin{lstlisting}
 /**
  * @Entity
@@ -81,13 +83,13 @@ class Comment
 \caption{Example of PHPDoc with annotations, that the doctrine/annotations can parse from source code.}
 \end{figure}
 
-\gls{doctrine} can read this as metadata and also generate SQL schema for relational databases.
+\gls{kAnnotations} is almost up-to-date, because it is very simple and the old version for \gls{nette} still works well for the current versions.
 
 \hiddensubsection{DoctrineCache} \label{sec:state:doctrine-cache}
 
 \gls{kDoctrineCache} integrates doctrine/cache, that is used by doctrine/annotations and doctrine/orm to store metadata, results of various parsers and even query results.
 
-This package has no Nette CompilerExtension, but only a helper class that configures the caching services and is used by CompilerExtensions in \gls{kAnnotations} and \gls{kDoctrine}.
+This package has no Nette CompilerExtension, but only a helper class that configures the caching services and is used by CompilerExtensions in \gls{kAnnotations} and \gls{kDoctrine}. As such, there are only few minor problems and inefficiencies that have to be fixed to work perfectly with current \gls{nette} and Doctrine.
 
 \hiddensubsection{DoctrineMagicAccessors} \label{sec:state:doctrine-magic-accessors}
 
@@ -99,35 +101,106 @@ It was extracted from \gls{kDoctrine} and currently only exists to ease migratin
 
 \hiddensubsection{DoctrineCollectionsReadonly} \label{sec:state:doctrine-collections-readonly}
 
-Lorem ipsum.
+Entities in \gls{doctrine} can have associations in them. For example a cart entity might contain collection of order items. Adding an order item to the cart might be done using a \lstinline{addOrderItem} method or through the collection directly as shown in~\ref{fig:collections-readonly:example}.
+
+When we try to modify the collection outside of the entity that owns it, we are breaking the encapsulation of that entity - it no longer has the control over what is in the collection. Therefore allowing the programmer to access the mutable collection directly is a bad practice.
+
+\begin{figure} \label{fig:collections-readonly:example}
+\begin{lstlisting}
+class Cart
+{
+  private $orderItems;
+
+  public function __construct() {
+    $this->orderItems = new ArrayCollection();
+  }
+
+  public function addOrderItem(
+    OrderItem $orderItem
+  ): void {
+    $this->orderItems->add($orderItem);
+  }
+
+  public function getOrderItems(): Collection {
+    return $this->orderItems;
+  }
+}
+
+$cart = new Cart()
+
+// modifying the collection through entity API
+$cart->addOrderItem(new OrderItem());
+
+// modifying the collection outside of entity
+$cart->getOrderItems()->add(new OrderItem());
+\end{lstlisting}
+\caption{Example of working with doctrine/collections.}
+\end{figure}
+
+The package \gls{kDoctrineCollectionsReadonly} provides a decorator for collections, that disables methods for mutation of the collection, but keeps available those that only read data. This allows the entity to expose the collection, so that the programmer can use the friendly collections API, without having to worry to accidentally modify the internal state of the owning entity.
+
+\begin{figure} \label{fig:collections-readonly:readonly}
+\begin{lstlisting}
+public function getOrderItems(): Collection {
+  return new ReadOnlyCollectionWrapper(
+    $this->orderItems
+  );
+}
+
+// returns first OrderItem
+$orderItem = $cart->getOrderItems()->first();
+
+// throws exception
+$cart->getOrderItems()->add(new OrderItem());
+\end{lstlisting}
+\caption{Example of DoctrineCollectionsReadonly in entity.}
+\end{figure}
+
+\gls{kDoctrineCollectionsReadonly} depends only on doctrine/collections which did not change drastically and there no changes required for the package to function with new versions.
 
 \hiddensubsection{DoctrineCollectionsLazy} \label{sec:state:doctrine-collections-lazy}
 
-Lorem ipsum.
+\Gls{kDoctrineCollectionsLazy} package provides implementation of doctrine/collections Collection interface, that accepts a generator function and evaluates it lazily, only when the items are actually accessed.
+
+\gls{kDoctrineCollectionsLazy} depends only on doctrine/collections and therefore the situation is the same as with \gls{kDoctrineCollectionsReadonly}.
 
 \hiddensubsection{DoctrineDbalBatchImport} \label{sec:state:doctrine-dbal-batch-import}
 
-Lorem ipsum.
+\Gls{doctrine} does not have any tool for importing a big SQL file and this package provides helpers for it. It allows iterating over huge file in a memory effective way, executing each SQL query it finds in it.
 
-\hiddensubsection{DoctrineForms} \label{sec:state:doctrine-forms}
-
-Lorem ipsum.
+\gls{kDoctrineDbalBatchImport} has no stable version yet, but as a former part of \gls{kDoctrine}, it has to be refactored and the stable versions released.
 
 \hiddensubsection{Curl} \label{sec:state:curl}
 
-Lorem ipsum.
+PHP has an extension for the Curl library and exposes its functions to the programmer. But the API is the same as the underlying C API, which is not suited for modern \gls{oop} development. \gls{kCurl} is wrapping the Curl functions in \gls{oo} API.
+
+There are now better and more popular packages for doing HTTP requests in PHP like \fnurl{guzzlehttp/guzzle}{https://github.com/guzzle/guzzle}. Therefore this package is now deprecated and unmaintained.
 
 \hiddensubsection{CurlCaBundle} \label{sec:state:curl-ca-bundle}
 
-Lorem ipsum.
+For doing secured HTTP requests over HTTPS the client must have available the public certificates, that signed the private certificates the website is using to establish the secured connections. There are hosting providers, that do not regularly update the certificates in the operating system. This creates a problem, that this package solves.
+
+I have a cron job on my \gls{vps}, that regularly downloads fresh certificates from Mozilla browser, extracts them to format that the Curl clients can use and then publishes them as a new version of \gls{kCurlCaBundle}.
+
+Using this package in application means it no longer depends on outdated system certificates and they can be updated regularly with this package.
+
+The Composer authors created their own package \fnurl{composer/ca-bundle}{https://github.com/composer/ca-bundle}, that solves this problem too. And since Composer has bigger user base, it gained traction and is now defacto a standard. Therefore \gls{kCurlCaBundle} is now deprecated. But since a lot of applications still depend on it, I am maintaining the cron job and keeping the package alive until everyone adopts composer/ca-bundle.
 
 \hiddensubsection{Autowired} \label{sec:state:autowired}
 
-Lorem ipsum.
+\gls{kAutowired} was an experiment with \gls{di} in \gls{nette} Presenters. \gls{nette} Presenters are similar to Controllers in \gls{mvc} pattern, but have slightly different responsibilities. As such, they accept services through \gls{di} and then process the application request. Since Presenters in \gls{nette} are usually part of big inheritance tree, their parents might have several dependencies that the children would have to pass through their constructors to the parents introducing what we were calling constructor hell.
+
+\gls{kAutowired} helps with the problem by allowing to declare the dependencies in Presenter properties with a special annotation. These dependencies would not have to be passed through constructor, because they are initialized lazily when they are accessed.
+
+This works reliably, but breaks encapsulation of the Presenter classes. The right solution to this problem is to have more lightweight Presenter, with fewer responsibilities.
+
+The second issue \gls{kAutowired} solves is fetching \gls{ui} component factories that create the instance of the \gls{ui} component and passing them into Presenter component factories that configure the \gls{ui} component for the specific use--case.
+
+Autowiring of the factories doesn't break encapsulation of the Presenter class, but it breaks the \gls{di} principle, by not exposing the direct dependencies of the Presenter class, but instead it makes the Presenter depend on \gls{dic} which is considered an anti--pattern.
 
 \hiddensubsection{FormsReplicator} \label{sec:state:forms-replicator}
 
-Lorem ipsum.
+Forms component of \gls{nette} has a lot of capabilities, but it does not support repeating an input field, or group of them dynamically. This means the application is very strict about what fields it accepts when a form is submitted in browser. That is generally a good thing for security, but sometimes it is required to accept dynamic amount of fields, when the form is modified on the client browser and the application does not know ahead how many fields will be sent by the user. \gls{kFormsReplicator} solves this by creating the form using the data the user sent.
 
 \hiddensubsection{Translation} \label{sec:state:translation}
 

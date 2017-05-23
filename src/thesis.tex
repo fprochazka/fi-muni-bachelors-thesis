@@ -109,21 +109,58 @@
 \usepackage{listings}
 \usepackage{inconsolata}
 
-\definecolor{dkgreen}{rgb}{0,.6,0}
-\definecolor{dkblue}{rgb}{0,0,.6}
-\definecolor{dkyellow}{cmyk}{0,0,.8,.3}
+% setup higlighting
+\definecolor{myPurple}{HTML}{B729D9}
+\definecolor{myGreen}{rgb}{0,0.6,0}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
 
-\lstset{%
-  language = php,
-  basicstyle = \small\ttfamily,
-  keywordstyle = \color{dkblue},
-  stringstyle = \color{red},
-  identifierstyle = \color{dkgreen},
-  commentstyle = \color{gray},
-  emph =[1]{php},
-  emphstyle =[1]\color{black},
-  emph =[2]{if,and,or,else},
-  emphstyle =[2]\color{dkyellow}}
+% \setmonofont{Courier}
+\lstset{ %
+  language=php,
+  extendedchars = \true,
+  keepspaces = true,
+  backgroundcolor=\color{white},
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true, % automatic line breaking only at whitespace
+  captionpos=b, % sets the caption-position to bottom
+  commentstyle=\color{gray}, % comment style
+  escapeinside={\%*}{*)}, % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{red},
+  morekeywords={%
+    abstract, and, array,
+    as, break, callable, case, catch, class,
+    clone, const, continue, declare, default,
+    die, do, echo, else, elseif,
+    empty, enddeclare, endfor, endforeach, endif,
+    endswitch, endwhile, eval, exit, extends,
+    final, finally, for, foreach, function,
+    global, goto, if, implements, include,
+    include_once, instanceof, insteadof,
+    interface, isset, list, namespace,
+    new, or, print, private, protected, public,
+    require, require_once, return, static,
+    switch, throw, trait, try, unset, use, var,
+    while, xor, yield,
+  }
+}
+
+% \lstset{%
+%   language = php,
+%   basicstyle = \small\ttfamily,
+%   extendedchars = \true,
+%   commentstyle = \color{gray},
+%   keepspaces = true,
+%   keywordstyle = \bfseries,
+%   % keywordstyle = \color{dkblue},
+%   % stringstyle = \color{red},
+%   % identifierstyle = \color{dkgreen},
+%   % emph =[1]{php},
+%   % emphstyle =[1]\color{black},
+%   % emph =[2]{if,and,or,else},
+%   % emphstyle =[2]\color{dkyellow}
+% }
 % \lstMakeShortInline[columns=fixed]|
 
 % links setup

@@ -84,10 +84,6 @@ Dibi is a Database Abstraction Library for PHP. It supports a lot of significant
 
 For extensibility, \gls{sf} has Bundles, that provide similar functionality, to \gls{nette} CompilerExtension, but they operate on a different level of abstractions. Bundle is a whole package, that contains the Bundle definition, \gls{dic} extension for configuring the Bundle and it may contain adapter classes. Bundles are registered in the AppKernel of Symfony application.
 
-\hiddensubsection{Monolog} \label{sec:theory:monolog}
-
-Monolog is a logging library that sends your logs to files, sockets, inboxes, databases and various web services. This library implements the PSR-3~\cite{fig:psr} interface that you can type-hint against in your own libraries to keep a maximum of interoperability~\cite{monolog:readme}.
-
 \hiddensubsection{RabbitMQ} \label{sec:theory:rabbitmq}
 
 RabbitMQ is \gls{oss} message broker software (sometimes called message-oriented middleware) that implements the \gls{amqp}. The RabbitMQ server is written in the Erlang programming language and is built on the Open Telecom Platform framework for clustering and failover~\cite{wiki:rabbitmq}.
@@ -107,3 +103,11 @@ PHPStan focuses on finding errors in your code without actually running it. It c
 \hiddensubsection{Nette\textbackslash{}Tester} \label{sec:theory:nette-tester}
 
 Nette\textbackslash{}Tester is an unit testing~\cite{wiki:unit-testing} framework for the PHP~\cite{tester:docs}.
+
+\hiddensubsection{PHP Standards Recommendations} \label{sec:theory:psr}
+
+The \gls{fig}, which is a group of representatives from established \gls{oss} projects, discusses and creates \gls{psr}. The goal is to create commonalities in libraries that solve similar problems. The PHP ecosystem is fragmented around tens of frameworks and libraries that all do the same, but slightly differently. This is hugely caused by the absence of a good dependency management tool like Composer, which is still very young. The \gls{psr} contain interfaces that were agreed upon for the libraries to implement. The accepted standards are listed at the \fnurl{\gls{fig} website}{http://www.php-fig.org/psr/}.~\cite{fig:psr}
+
+\hiddensubsection{Monolog} \label{sec:theory:monolog}
+
+Monolog is a logging library that sends your logs to files, sockets, inboxes, databases and various web services. This library implements the PSR-3 interface that can be typehinted against in other libraries to keep a maximum of interoperability~\cite{monolog:readme}.

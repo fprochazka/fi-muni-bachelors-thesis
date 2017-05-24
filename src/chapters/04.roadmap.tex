@@ -1,12 +1,32 @@
 \chapter{Designing roadmap of refactoring}
 
-In this chapter, I am going to lay out the plan for the refactoring itself and set some specific goals for each package and for the project itself.
+This chapter contains overview of the plan for refactoring. \ref{sec:roadmap:deprecations} explains what packages will be deprecated and why. \ref{sec:roadmap:common} evaluates common requirements for all the packages, that will undergo refactoring. Finally \ref{sec:roadmap:each-package} describes specific plan for the individual packages, if there are any.
 
-\section{Common requirements}
+\section{Deprecations} \label{sec:roadmap:deprecations}
 
-Lorem ipsum.
+No new maintainer for \gls{kCsobPaymentGateway} and \gls{kCsobPaygateNette} was found and therefore it would be dangerous to encourage usage of these packages in such critical piece of infrastructure without having a maintainer that uses them in production. They are both going to be deprecated. They are well tested and work correctly with the versions of ČSOB payment gateway and \gls{nette} they are written for. The users of these packages will have to migrate to \fnurl{slevomat/csob-gateway}{https://github.com/slevomat/csob-gateway}.
 
-\section{Roadmap for each package}
+\section{Common requirements} \label{sec:roadmap:common}
+
+Every package is specific, but there is set of standards that have to be enforced for all good \gls{oss} PHP projects and it is constantly evolving. Having only tests and documentation no longer covers the best practices. The following sections cover the requirements.
+
+\hiddensubsection{Static analysis with PHPStan}
+
+\fnurl{PHPStan}{https://github.com/phpstan/phpstan} claims to be a static analysis tool that can discover bugs in source code. It does not find all bugs, but it has a lot of helpful checks. Running such tool on Kdyby packages in \gls{ci} is going to increase confidence in the correctness of the packages and help prevent introducing new bugs.
+
+But there is a problem with PHPStan - it is not really a static analysis tool. It does analyze the code, but not statically. It uses two tools for its analysis - \fnurl{PHP Parser}{https://github.com/nikic/PHP-Parser} and \fnurl{native PHP reflection}{http://php.net/manual/en/book.reflection.php}. First it parses the source code using the PHP Parser and when it finds a class \fnurl{PHPStan loads the file into memory and executes it}{https://github.com/phpstan/phpstan/issues/137} which makes it available for the PHP reflection. This would not be a problem on itself with source code that has no side effects but PHPStan has 3rd party dependencies that might clash with dependencies of the project it is analyzing. One of them is \gls{sfConsole}. If PHPStan was to analyze the source code of \gls{sfConsole} it would not be analyzing the source code of the library it would be executed on, but the source code of its own dependency, because it uses the native PHP reflection.
+
+This problem has several solutions. PHPStan can be rewritten to not use the native PHP reflection, but emulated one that works on top of the PHP Parser. The author does not like this solution because he is worried about speed of the tool. PHPStan can be rewritten to drop all dependencies and re--implement the functionality the libraries provide. This solution is not good because it would create additional and unnecessary overhead for the maintainers. Or we can implement a compiler that preprocesses the source code of PHPStan and its dependencies and fixes the problem.
+
+Citing the PHP documentation, PHAR provides a way to put entire PHP applications into a single file called a PHP Archive for easy distribution and installation~\cite{php:phar}. PHPStan has also opened an issue \fnurl{PHAR file for each release}{https://github.com/phpstan/phpstan/issues/110} where community is requesting releases to be made also in PHAR.
+
+I am going to implement a compiler that fixes the problem with type collisions and creates a PHAR distribution of the tool. I am also going to offer the author to take over the project afterwards so he can make it official part of the PHPStan ecosystem.
+
+\hiddensubsection{Coding Standard}
+
+
+
+\section{Specific requirements for each package} \label{sec:roadmap:each-package}
 
 \hiddensubsection{Doctrine}
 

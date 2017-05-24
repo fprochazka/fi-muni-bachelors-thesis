@@ -189,15 +189,15 @@ The Composer authors created their own package \fnurl{composer/ca-bundle}{https:
 
 \hiddensubsection{Autowired} \label{sec:state:autowired}
 
-\gls{kAutowired} was an experiment with \gls{di} in \gls{nette} Presenters. \gls{nette} Presenters are similar to Controllers in \gls{mvc} pattern, but have slightly different responsibilities. As such, they accept services through \gls{di} and then process the application request. Since Presenters in \gls{nette} are usually part of big inheritance tree, their parents might have several dependencies that the children would have to pass through their constructors to the parents introducing what we were calling constructor hell.
+\gls{kAutowired} was an experiment with \gls{di} in \gls{nette} presenters. \gls{nette} presenters are similar to Controllers in \gls{mvc} pattern, but have slightly different responsibilities. As such, they accept services through \gls{di} and then process the application request. Since presenters in \gls{nette} are usually part of big inheritance tree, their parents might have several dependencies that the children would have to pass through their constructors to the parents introducing what we were calling constructor hell.
 
-\gls{kAutowired} helps with the problem by allowing to declare the dependencies in Presenter properties with a special annotation. These dependencies would not have to be passed through constructor, because they are initialized lazily when they are accessed.
+\gls{kAutowired} helps with the problem by allowing to declare the dependencies in presenter properties with a special annotation. These dependencies would not have to be passed through constructor, because they are initialized lazily when they are accessed.
 
-This works reliably, but breaks encapsulation of the Presenter classes. The right solution to this problem is to have more lightweight Presenter, with fewer responsibilities.
+This works reliably, but breaks encapsulation of the presenter classes. The right solution to this problem is to have more lightweight \lstinline{UI\Presenter}, with fewer responsibilities.
 
-The second issue \gls{kAutowired} solves is fetching \gls{ui} component factories that create the instance of the \gls{ui} component and passing them into Presenter component factories that configure the \gls{ui} component for the specific use--case.
+The second issue \gls{kAutowired} solves is fetching \gls{ui} component factories that create the instance of the \gls{ui} component and passing them into presenter component factories that configure the \gls{ui} component for the specific use--case.
 
-Autowiring of the factories doesn't break encapsulation of the Presenter class, but it breaks the \gls{di} principle, by not exposing the direct dependencies of the Presenter class, but instead it makes the Presenter depend on \gls{dic} which is considered an anti--pattern.
+Autowiring of the factories doesn't break encapsulation of the presenter class, but it breaks the \gls{di} principle, by not exposing the direct dependencies of the presenter class, but instead it makes the presenter depend on \gls{dic} which is considered an anti--pattern.
 
 \hiddensubsection{FormsReplicator} \label{sec:state:forms-replicator}
 
@@ -262,82 +262,82 @@ It is used for locking cache keys when the IStorage from \gls{nette} is required
 
 \hiddensubsection{Monolog} \label{sec:state:monolog}
 
-\gls{kMonolog} is an integration of monolog/monolog library that implements \gls{psr}-3 into \gls{nette}. \Gls{nette} has a debugging component Tracy, that renders exceptions in comprehensive way. \gls{kMonolog} handles integration with Tracy as well, making every exception passed to Monolog render with every relevant detail.
+\gls{kMonolog} is an integration of \fnurl{monolog/monolog}{https://github.com/Seldaek/monolog} library that implements \gls{psr}-3 into \gls{nette}. \Gls{nette} has a debugging component Tracy, that renders exceptions in comprehensive way. \gls{kMonolog} handles integration with Tracy as well, making every exception passed to Monolog render with every relevant detail.
 
 The integration works well even with current \gls{nette}, but has a lot of dead code for providing backwards compatibility, that can be dropped when the version requirement for \gls{nette} is increased. Also the configuration structure is suboptimal. The configuration of \gls{sf} bundle for Monolog is better and \gls{nette} would benefit from having the same structure.
 
 \hiddensubsection{ElasticSearch} \label{sec:state:elastic-search}
 
-Lorem ipsum.
+There are two main client packages for \gls{elastic} - \fnurl{ruflin/elastica}{https://github.com/ruflin/Elastica} and \fnurl{elasticsearch/elasticsearch}{https://github.com/elastic/elasticsearch-php}. \gls{kElasticSearch} integrates ruflin/elastica into \gls{nette}. The 1.* versions of elasticsearch/elasticsearch were tightly coupled with 3rd party \gls{dic} which lead to choosing the \gls{ruflin/elastica} package. The main benefit of this package is the Tracy panel that prints executed queries which allows for easier debugging.
+
+There are several new major versions of both libraries. The Tracy panel and the bridging has to be review for bugs and possible improvements.
 
 \hiddensubsection{DoctrineSearch} \label{sec:state:doctrine-search}
 
-Lorem ipsum.
+\gls{kDoctrineSearch} integrates \fnurl{doctrine/search}{https://github.com/doctrine/search} into \gls{nette} and extends it for a specific use--case we required at Rohlik.
 
 \hiddensubsection{Geocoder} \label{sec:state:geocoder}
 
-Lorem ipsum.
+\gls{kGeocoder} extends \fnurl{willdurand/geocoder}{https://github.com/geocoder-php/Geocoder} with custom geocoder provider for \fnurl{Seznam maps}{https://api.mapy.cz/}, logging capabilities and mechanism for sorting the results.
 
-\hiddensubsection{CsobPaygateNette} \label{sec:state:csob-paygate-nette}
+The geocoder declares a common interface for communication with maps data API providers. There are two main tasks - geocoding and reverse geocoding. Geocoding is a search in maps data for given string that returns list of addresses with GPS coordinates that correspond to the search query. Reverse geocoding takes a GPS coordinate and returns the address that corresponds to it. A geocoder provider is implementation of the common geocoding interface for the specific maps data provider.
 
-Lorem ipsum.
+The package now solves 4 different problems and is tightly coupled with old versions of \gls{nette}, but is well covered with unit tests.
 
 \hiddensubsection{CsobPaymentGateway} \label{sec:state:csob-payment-gateway}
 
-Lorem ipsum.
+The czech ČSOB bank has created its own payment gateway for paying with debit and credit cards that can be used with any web or mobile application. \gls{kCsobPaymentGateway} is a client that wraps the API communication in \gls{oo} abstraction. The main concerns are security and simplicity of use, since this library is part of the most critical application infrastructure - the payment process.
+
+At the same month this library was published a competitive package \fnurl{slevomat/csob-gateway}{https://github.com/slevomat/csob-gateway} was released. It is impossible to support package this critical without having it in production and being able to monitor it. Since I have left the company we needed this integration for, I did not have a chance to deploy the package to any new project that I would maintain and the new versions and features of the ČSOB payment gateway are not implemented. This makes the library dangerous to use which lead to a \fnurl{search for new maintainer of \gls{kCsobPaymentGateway}}{https://github.com/Kdyby/CsobPaymentGateway/issues/25}.
+
+\hiddensubsection{CsobPaygateNette} \label{sec:state:csob-paygate-nette}
+
+\gls{kCsobPaygateNette} integrates \gls{kCsobPaymentGateway} into \gls{nette} and provides a \gls{ui} component for easier implementation of payment handling logic.
 
 \hiddensubsection{Wkhtmltopdf} \label{sec:state:wkhtmltopdf}
 
-Lorem ipsum.
+\fnurl{Wkhtmltopdf}{https://wkhtmltopdf.org/} is, among others, a PDF generator. It has CLI interface that accepts a HTML file, set of options and generates a PDF. \gls{kWkhtmltopdf} is a \gls{oo} abstraction of the CLI for \gls{nette}. It contains a lot of custom solutions for the subproblems, that are not easy to maintain. There are also several new versions of the tool.
 
 \hiddensubsection{FakeSession} \label{sec:state:fake-session}
 
-Lorem ipsum.
+\gls{nette} is first of all \gls{mvc} framework which means most applications written in it depend on PHP sessions heavily. Having an abstraction that disables the mechanism but does not break application in the context of a single request is useful for writing integration tests that would otherwise interfere with each other and making sure REST API does not leak any cookies even with programmer mistake would cause it do so. \gls{kFakeSession} replaces the default session mechanism in \gls{nette} with custom one, that operates only in the memory of the current PHP process.
+
+It is working well even with current versions of \gls{nette} but it has only few integration tests and no unit tests.
 
 \hiddensubsection{RequestStack} \label{sec:state:request-stack}
 
-Lorem ipsum.
+\gls{nette} is designed to operate in the context of a single HTTP request that maps on a single application request. Therefore it has \lstinline{Http\Request} object as a shared service, that any service registered into \gls{dic} can request and depend on. If one would require to handle two separate application requests, references of \lstinline{Http\Request} object from the first request would already be permanently bound to all the services in \gls{dic}. \gls{kRequestStack} replaces the service implementation of a value object for a container of the \lstinline{Http\Request} that delegates the method calls to it which means all the services have references for the \lstinline{RequestStack} service that never changes and more request can be handled by simply switching the \lstinline{Http\Request} reference inside the container. A perfect solution would be to redesign \gls{nette} internals to handle this problem correctly, but that would be a big architecture challenge to not break the compatibility with almost every application.
+
+\gls{kRequestStack} has very few unit tests but is very simple. There have been changes in the way the related services are configured in \gls{nette} and the integration requires a small refactoring to account for this.
 
 \hiddensubsection{StrictObjects} \label{sec:state:strict-objects}
 
-Lorem ipsum.
+PHP itself is very tolerant about object properties. It is possible to assign value to a property, that is not defined on the class of the object and it works correctly. This dynamic behavior might be useful, but has no place in serious applications since it introduces a big potential for errors. The more strict the application is about types, the safer it usually is. \gls{kStrictObjects} introduces a trait which is glorified mechanism for copy and paste of code between objects that fixes this behavior. PHP allows classes to implement magic methods that are called when undefined property or method is accessed. The \gls{kStrictObjects} trait defines them and throws exception any time you try to access undefined method or property of the class.
+
+The package is stable, does not depend on \gls{nette} and the only problem it has at this moment is no support for PHP 7.1.
 
 \hiddensubsection{Facebook} \label{sec:state:facebook}
 
-Lorem ipsum.
+With applications that need to interact with Facebook there are two main use--cases - Facebook OAuth login and advertisement data manipulation. Both require secure communication with the \gls{fbApi}. \gls{kFacebook} supports the OAuth 2 login mechanism of Facebook and provides a client for the \gls{fbApi} communication.
+
+Facebook keeps releasing new version of their API that keeps breaking backwards compatibility which results in a lot of maintenance work of \gls{kFacebook}. But the package did not receive enough attention and the last supported version of \gls{fbApi} is \lstinline{v2.3} which is supported only until \printdate{2017-08-07} and as of writing this the current \fnurl{version of \gls{fbApi}}{https://developers.facebook.com/docs/apps/changelog} is \lstinline{v2.9}.
 
 \hiddensubsection{Google} \label{sec:state:google}
 
-Lorem ipsum.
+\gls{kGoogle} is an integration of \fnurl{google/apiclient}{https://github.com/google/google-api-php-client} which aims to solve primarily OAuth 2 login functionality for \gls{nette}. It was written with old PHP 5.3, users report it cannot be even easily installed.
 
 \hiddensubsection{Github} \label{sec:state:github}
 
-Lorem ipsum.
-
-\hiddensubsection{TesterExtras} \label{sec:state:tester-extras}
-
-Lorem ipsum.
-
-\hiddensubsection{HtmlValidatorPanel} \label{sec:state:html-validator-panel}
-
-Lorem ipsum.
+\gls{kGithub} is a custom implementation of a Github API client and its integration into \gls{nette}. It enables secure authentication when its \gls{ui} component is used.
 
 \hiddensubsection{BootstrapFormRenderer} \label{sec:state:bootstrap-form-renderer}
 
-Lorem ipsum.
+The CSS framework \fnurl{Twitter Bootstrap}{http://getbootstrap.com/} has a specific markup of HTML forms that is very different from what \gls{nette} Forms component generates by default. This package implements a custom Forms renderer that enables simpler markup and often completely automatic rendering of most forms a typical application might have. The package was relevant for Twitter Bootstrap 2.2 and Nette 2.1. New versions of \gls{nette} have more features enabling them to be configured to render the required markup by default instead of having to replace the renderer. The package is currently abandoned and unmaintained.
 
 \hiddensubsection{PayPalExpress} \label{sec:state:paypal-express}
 
-Lorem ipsum.
+PayPal is popular payment platform and \gls{kPayPalExpress} provided a custom API client and its integration into \gls{nette}. Now is deprecated because I had no use for it in any production application and no new maintainer was found which means its dangerous to invite other people to use it.
 
 \hiddensubsection{PresentersLocator} \label{sec:state:presenters-locator}
 
-Lorem ipsum.
-
-\hiddensubsection{SvgRenderer} \label{sec:state:svg-renderer}
-
-Lorem ipsum.
-
-\hiddensubsection{QrEncode} \label{sec:state:qr-encode}
-
-Lorem ipsum.
+There is a \lstinline{PresenterFactory} in \gls{nette} that is responsible for mapping the application request details to appropriate presenter class and then creating instance of it. In current versions of \gls{nette} the \lstinline{PresenterFactory} delegates the creation of the instance to the \gls{dic} but it was not doing it in older versions of \gls{nette}. \gls{kPresentersLocator} is automatically discovering presenter classes in the application and registering them as services in compile--time of the \gls{dic}. Since \gls{nette} currently solves this problem without the need for this extension, it was deprecated.

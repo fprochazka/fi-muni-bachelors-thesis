@@ -50,9 +50,9 @@ Some popular CI services are \fnurl{Travis~CI}{https://travis-ci.org/}, \fnurl{C
 
 \hiddensubsection{Nette Framework} \label{sec:theory:nette}
 
-Nette Framework is an \gls{oss} framework for creating web applications in PHP~\cite{wiki:nette}. Nette is separated into many packages.
+\gls{nette} is an \gls{oss} framework for creating web applications in PHP~\cite{wiki:nette}. \gls{nette} is separated into many packages.
 
-The Dependency Injection component \fnurl{nette/di}{https://github.com/nette/di} provides a \gls{dic} that holds the services. The component also allows to prepare a preconfigured \gls{dic}, which is then compiled into a PHP class that contains optimized code for the service creation. This compiled DI Container class is cached for reuse. There is a concept (and a class) CompilerExtension that allows the developer to hook into the process of configuring and compiling of the \gls{dic}. All of Kdyby packages that are an integration of some other library or tool into Nette provide a CompilerExtension to make the installation easy.
+The Dependency Injection component \fnurl{nette/di}{https://github.com/nette/di} provides a \gls{dic} that holds the services. The component also allows to prepare a preconfigured \gls{dic}, which is then compiled into a PHP class that contains optimized code for the service creation. This compiled DI Container class is cached for reuse. There is a concept (and a class) CompilerExtension that allows the developer to hook into the process of configuring and compiling of the \gls{dic}. All of Kdyby packages that are an integration of some other library or tool into \gls{nette} provide a CompilerExtension to make the installation easy.
 
 \hiddensubsection{Composer} \label{sec:theory:composer}
 
@@ -68,7 +68,7 @@ All Kdyby libraries are published as Composer packages on Packagist and installi
 
 OAuth is a protocol for authentication and authorization that can be implemented into a web service. It is designed for secure exchange of user information, allowing third party websites to implement a login and registration process that simplifies these tasks for the user essentially allowing them to login or register to services through the OAuth 2 provider with two clicks.
 
-Kdyby provides packages for integrating Nette Framework with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{Github}{https://developer.github.com/v3/oauth/}.
+Kdyby provides packages for integrating \gls{nette} with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{Github}{https://developer.github.com/v3/oauth/}.
 
 \hiddensubsection{dibi} \label{sec:theory:dibi}
 
@@ -80,7 +80,7 @@ Dibi is a Database Abstraction Library for PHP. It supports a lot of significant
 
 \hiddensubsection{Symfony Framework} \label{sec:theory:symfony}
 
-\gls{sf} is a PHP web application framework and a set of reusable PHP components/libraries, similar to Nette~\cite{wiki:symfony}.
+\gls{sf} is a PHP web application framework and a set of reusable PHP components/libraries, similar to \gls{nette}~\cite{wiki:symfony}.
 
 For extensibility, \gls{sf} has Bundles, that provide similar functionality, to \gls{nette} CompilerExtension, but they operate on a different level of abstractions. Bundle is a whole package, that contains the Bundle definition, \gls{dic} extension for configuring the Bundle and it may contain adapter classes. Bundles are registered in the AppKernel of Symfony application.
 
@@ -100,14 +100,14 @@ Redis is an in-memory database \gls{oss} project that is networked, in-memory, a
 
 PHPStan focuses on finding errors in your code without actually running it. It catches whole classes of bugs even before you write tests for the code~\cite{github:phpstan}.
 
-\hiddensubsection{Nette\textbackslash{}Tester} \label{sec:theory:nette-tester}
-
-Nette\textbackslash{}Tester is an unit testing~\cite{wiki:unit-testing} framework for the PHP~\cite{tester:docs}.
-
 \hiddensubsection{PHP Standards Recommendations} \label{sec:theory:psr}
 
-The \gls{fig}, which is a group of representatives from established \gls{oss} projects, discusses and creates \gls{psr}. The goal is to create commonalities in libraries that solve similar problems. The PHP ecosystem is fragmented around tens of frameworks and libraries that all do the same, but slightly differently. This is hugely caused by the absence of a good dependency management tool like Composer, which is still very young. The \gls{psr} contain interfaces that were agreed upon for the libraries to implement. The accepted standards are listed at the \fnurl{\gls{fig} website}{http://www.php-fig.org/psr/}.~\cite{fig:psr}
+The \gls{fig}, which is a group of representatives from established \gls{oss} projects, discusses and creates \gls{psr}. The goal is to discover commonalities in libraries that solve similar problems. The PHP ecosystem is fragmented around tens of frameworks and libraries that all do the same, but slightly differently. This is hugely caused by the absence of a good dependency management tool like Composer, which is still very young. The \gls{psr} contain interfaces that were agreed upon for the libraries to implement. The accepted standards are listed at the \fnurl{\gls{fig} website}{http://www.php-fig.org/psr/}~\cite{fig:psr}.
 
 \hiddensubsection{Monolog} \label{sec:theory:monolog}
 
 Monolog is a logging library that sends your logs to files, sockets, inboxes, databases and various web services. This library implements the PSR-3 interface that can be typehinted against in other libraries to keep a maximum of interoperability~\cite{monolog:readme}.
+
+\hiddensubsection{Nette\textbackslash{}Tester} \label{sec:theory:nette-tester}
+
+Nette\textbackslash{}Tester is an unit testing~\cite{wiki:unit-testing} framework for the PHP~\cite{tester:docs}.

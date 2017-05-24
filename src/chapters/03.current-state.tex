@@ -15,6 +15,7 @@ The other problems appear only when you interact with the source code which is s
     \includegraphics[width=1\textwidth]{src/assets/php-supported-versions.png}
   \caption{Supported PHP Versions. Green is active support, orange is security fixes only. Up-to-date version is at \url{http://php.net/supported-versions.php}}
 \end{figure}
+
 Most of the packages are compatible with PHP 5.4, but \fnurl{PHP 5.4 had end of life at \printdate{2015-09-03}}{http://php.net/eol.php} and is no longer supported by PHP developers.
 
 The PHP 5.5 had end of life at \printdate{2016-06-21} and PHP 5.6 is currently in the phase of security fixes only and will have end of life at \printdate{2018-12-31}. As you can see on the graph~\ref{fig:php:supported-versions}, everyone should be migrating to PHP 7.0 by now. But the developer has to consider what PHP versions the libraries support, upgrade them first and then migrate the application.
@@ -25,7 +26,7 @@ This section reviews each package separately, considers the original purpose and
 
 \hiddensubsection{Doctrine} \label{sec:state:doctrine}
 
-\gls{kDoctrine} is an integration of \gls{doctrine} into Nette Framework. But it has cumulated a lot of responsibilities, that don't belong to it
+\gls{kDoctrine} is an integration of \gls{doctrine} into \gls{nette}. But it has cumulated a lot of responsibilities, that don't belong to it
 
 \gls{doctrine} itself is separated into several packages, mainly \fnurl{doctrine/orm}{https://github.com/doctrine/doctrine2}, \fnurl{doctrine/common}{https://github.com/doctrine/common}, \fnurl{doctrine/annotations}{https://github.com/doctrine/annotations}, \fnurl{doctrine/cache}{https://github.com/doctrine/cache} and \fnurl{doctrine/collections}{https://github.com/doctrine/collections}. What started as a monolith integration in Kdyby, got separated into \gls{kEvents}~\ref{sec:state:events}, \gls{kConsole}~\ref{sec:state:console}, \gls{kAnnotations}~\ref{sec:state:annotations} and \gls{kDoctrineCache}~\ref{sec:state:doctrine-cache} for reusability.
 
@@ -33,7 +34,7 @@ I have already started extracting few of them in the past, for example an entity
 
 There is a big issue \fnurl{Chop up the package}{https://github.com/Kdyby/Doctrine/issues/238} that discusses what other parts should be separated and dropped completely.
 
-New versions of Nette and \gls{doctrine} were released and completely new versions are being prepared, which the integration cannot be currently used with.
+New versions of \gls{nette} and \gls{doctrine} were released and completely new versions are being prepared, which the integration cannot be currently used with.
 
 \hiddensubsection{Console} \label{sec:state:console}
 
@@ -45,7 +46,7 @@ The library is solving several problems with CLI applications in \gls{nette}, th
 
 \hiddensubsection{Events} \label{sec:state:events}
 
-\gls{kEvents} provides an event dispatcher implementation for Nette Framework.
+\gls{kEvents} provides an event dispatcher implementation for \gls{nette}.
 
 It started as an integration of \gls{doctrine} EventManager, but then it evolved into a standalone system with support for lazy initialization of listeners and it also contains a naive bridge for \gls{sfEventDispatcher}.
 
@@ -53,7 +54,7 @@ Creating such interchangeable eventing system turned out to be a mistake. The br
 
 \hiddensubsection{Annotations} \label{sec:state:annotations}
 
-\gls{kAnnotations} is a simple integration of doctrine/annotations into Nette Framework. It was created solely for the purposes of \gls{kDoctrine}, but it can be used in any \gls{nette} application that requires annotations for some functionality.
+\gls{kAnnotations} is a simple integration of doctrine/annotations into \gls{nette}. It was created solely for the purposes of \gls{kDoctrine}, but it can be used in any \gls{nette} application that requires annotations for some functionality.
 
 The problem the doctrine/annotations solves is that PHP doesn't have native annotations. But Doctrine simulates them using PHPDoc. The example code~\ref{fig:php:annotations-example} illustrates usage of \gls{doctrine} annotations on entities. \gls{doctrine} can read this as metadata and also generate SQL schema for relational databases.
 
@@ -89,7 +90,7 @@ class Comment
 
 \gls{kDoctrineCache} integrates doctrine/cache, that is used by doctrine/annotations and doctrine/orm to store metadata, results of various parsers and even query results.
 
-This package has no Nette CompilerExtension, but only a helper class that configures the caching services and is used by CompilerExtensions in \gls{kAnnotations} and \gls{kDoctrine}. As such, there are only few minor problems and inefficiencies that have to be fixed to work perfectly with current \gls{nette} and Doctrine.
+This package has no \gls{nette} CompilerExtension, but only a helper class that configures the caching services and is used by CompilerExtensions in \gls{kAnnotations} and \gls{kDoctrine}. As such, there are only few minor problems and inefficiencies that have to be fixed to work perfectly with current \gls{nette} and Doctrine.
 
 \hiddensubsection{DoctrineMagicAccessors} \label{sec:state:doctrine-magic-accessors}
 
@@ -202,7 +203,7 @@ Autowiring of the factories doesn't break encapsulation of the Presenter class, 
 
 Forms component of \gls{nette} has a lot of capabilities, but it does not support repeating an input field, or group of them, dynamically. This means the application is very strict about what fields it accepts when a form is submitted in browser. That is generally good for security, but sometimes it is required to accept dynamic amount of fields when the form is expected to be modified on the client and the application does not know ahead how many fields will be sent by the user. \gls{kFormsReplicator} solves this by creating the form using the data the user sent.
 
-This library worker perfectly with \gls{nette} 2.1 but the Forms component was refactored heavily since then and the assumptions this package worked on were broken. This means there are a lot of bugs when it is used with newer Nette.
+This library worker perfectly with \gls{nette} 2.1 but the Forms component was refactored heavily since then and the assumptions this package worked on were broken. This means there are a lot of bugs when it is used with newer \gls{nette}.
 
 \hiddensubsection{Translation} \label{sec:state:translation}
 
@@ -236,7 +237,7 @@ It is now deprecated, because it was really hard to maintain and there were bugs
 
 \gls{kAop} is a custom implementation of \gls{aop} for \gls{nette} \gls{dic} component. It searches the aspect definitions, finds the services they are supposed to advice and creates proxy classes from them. In the proxy classes, it overrides the methods and applies the aspect advices.
 
-This package was created for Nette 2.1 and \gls{nette} \gls{dic} component internals were refactored heavily since. This means the package has to be review for possible problems and updated to current libraries.
+This package was created for \gls{nette} 2.1 and \gls{nette} \gls{dic} component internals were refactored heavily since. This means the package has to be review for possible problems and updated to current libraries.
 
 \hiddensubsection{Clock} \label{sec:state:clock}
 
@@ -261,7 +262,9 @@ It is used for locking cache keys when the IStorage from \gls{nette} is required
 
 \hiddensubsection{Monolog} \label{sec:state:monolog}
 
-Lorem ipsum.
+\gls{kMonolog} is an integration of monolog/monolog library that implements \gls{psr}-3 into \gls{nette}. \Gls{nette} has a debugging component Tracy, that renders exceptions in comprehensive way. \gls{kMonolog} handles integration with Tracy as well, making every exception passed to Monolog render with every relevant detail.
+
+The integration works well even with current \gls{nette}, but has a lot of dead code for providing backwards compatibility, that can be dropped when the version requirement for \gls{nette} is increased. Also the configuration structure is suboptimal. The configuration of \gls{sf} bundle for Monolog is better and \gls{nette} would benefit from having the same structure.
 
 \hiddensubsection{ElasticSearch} \label{sec:state:elastic-search}
 

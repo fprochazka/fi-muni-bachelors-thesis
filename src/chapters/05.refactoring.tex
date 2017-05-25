@@ -1,10 +1,40 @@
 \chapter{The refactoring process of Kdyby}
 
-This chapter documents the more interesting changes that were made to Kdyby.
+This chapter documents the most interesting changes that were made to Kdyby and the refactoring process itself.
 
 \section{Implementing PHPStan compiler}
 
-Loreim ipsum.
+The PHPStan PHAR is an essential part of the refactoring and new \gls{ci} setup. Therefore I consider the compiler I had to write an important part of this thesis.. There are few challenges that have to be solved before its implementation.
+
+This section first documents the source code preprocessing. Supporting the official PHPStan extensions is covered next. And last step is to implement a PHAR archiver that will output a single executable PHAR file.
+
+\hiddensubsection{Source code preprocessor} \label{sec:refactoring:phpstan-preprocessor}
+
+The solution we have agreed upon with the author of PHPStan is to prefix the namespaces of the PHPStan dependencies with \lstinline{PHPStanVendor\\} and fix all references to them in the whole project including other dependencies.
+
+For PHP source code there is a function \fnurl{\lstinline{token_get_all}}{https://secure.php.net/manual/en/function.token-get-all.php} that creates list of tokens using the lexical scanner of PHP interpreter. I have written a simple parser that uses the tokens, determines the context of the reference and correctly prefixes it. The simple parser was inspired by old \gls{nette} build tools that are deprecated now but served as a good start.
+
+There are many context the reference can be in. The type can be inherited, implemented, used as a trait or imported and aliased. It can be in argument typehints or return typehints and more. But the most challenging is to determine if a string contains reference to the class. Since PHP 5.5 every reference to a class should be written using the special \lstinline{::class} constant that returns name of the type and is defined on all classes by PHP, but this is not the case with older libraries and the preprocessor must support this.
+
+It is solved by matching the string to all types defined in dependencies. Since PHP is interpreted and not compiled, Composer provides class loading mechanism for its runtime. Part of that is a class map that Composer generates when it installs the dependencies. It is called class map, but it contains all defined types including interfaces and traits. Because we are prefixing only the dependencies, we can filter the strings using this class map to determine if the string contains a type reference and has to be also prefixed.
+
+Using this approach I was able to write the first prototype of \fnurl{fprochazka/phpstan-compiler}{https://github.com/fprochazka/phpstan-compiler} and verify that PHPStan is still working after having its source code preprocessed.
+
+Same logic is applied to NEON configuration files that PHPStan uses for internal configuration of it services.
+
+\hiddensubsection{Preprocessing the extensions} \label{sec:refactoring:phpstan-extensions}
+
+PHPStan supports writing extensions and the source code of the extensions references types in libraries that they check. For example \fnurl{phpstan/phpstan-nette}{https://github.com/phpstan/phpstan-nette} provides additional context to PHPStan that cannot be easily detected from normal control flow of the application source code. The extension must be able to check if the analyzed type should be handled by it. If the processor would prefix also the type that the extension is checking it would never match and the extension would not work correctly.
+
+The PHPStan compiler handles this by preprocessing the extensions separately from other dependencies with different settings. Compiler knows what packages the extension is written for and forbids it from prefixing their class references.
+
+\hiddensubsection{PHAR archiver} \label{sec:refactoring:phpstan-phar}
+
+Thanks to good native tools in PHP, creating the PHAR archive is simple and the code that handles it is inspired by Composer internals.
+
+\hiddensubsection{PHPStan shim package} \label{sec:refactoring:phpstan-shim}
+
+In order to use the compiled PHAR in Kdyby, it has to be made available somewhere online where it can be downloaded from by the \gls{ci} server. Ondřej created \fnurl{phpstan/phpstan-shim}{https://github.com/phpstan/phpstan-shim} repository for publishing the compiled PHAR and now it can be installed using Composer.
 
 \section{Designing new Kdyby Coding Standard}
 

@@ -6,9 +6,9 @@ I have created few GitHub repositories as a reminder for me to start working on 
 
 \section{State of the project}
 
-The most relevant problem is the compatibility with new versions of the libraries, that Kdyby integrates. Current version of \gls{nette} is 2.4 and the 3.0 is being developed, but some of Kdyby packages support only \gls{nette} 2.2 or older.
+The most relevant problem is compatibility with new versions of libraries that Kdyby integrates. Current version of \gls{nette} is 2.4 and the 3.0 is being developed, but some of Kdyby packages support only \gls{nette} 2.1 or older.
 
-The other problems appear only when you interact with the source code which is still really important for me as a maintainer and for the contributors. Also good maintainable code attracts more programmers to use it and contribute. But, there is no coding standard being enforced automatically on any package and no static analysis tool is checking the code. On the other hand almost all of the packages have unit and integration tests and linter checking the code for multiple versions of PHP.
+The other problems appear only when you interact with the source code which is still really important for me as a maintainer and for the contributors. Good maintainable code attracts more programmers to use it and contribute. There is no coding standard being enforced automatically on any package and no static analysis tool is checking the code. On the other hand almost all of the packages have unit and integration tests and linter checking the code for multiple versions of PHP.
 
 \begin{figure} \label{fig:php:supported-versions}
   \centering
@@ -18,9 +18,9 @@ The other problems appear only when you interact with the source code which is s
 
 Most of the packages are compatible with PHP 5.4, but \fnurl{PHP 5.4 had end of life at \printdate{2015-09-03}}{http://php.net/eol.php} and is no longer supported by PHP developers.
 
-The PHP 5.5 had end of life at \printdate{2016-06-21} and PHP 5.6 is currently in the phase of security fixes only and will have end of life at \printdate{2018-12-31}. As you can see on the graph~\ref{fig:php:supported-versions}, everyone should be migrating to PHP 7.0 by now. But the developer has to consider what PHP versions the libraries support, upgrade them first and then migrate the application.
+PHP 5.5 had end of life at \printdate{2016-06-21} and PHP 5.6 is currently in the phase of security fixes only and will have end of life at \printdate{2018-12-31}. As you can see on the graph~\ref{fig:php:supported-versions}, everyone should be migrating to PHP 7.0 by now. But developer has to consider what PHP versions the libraries support, upgrade them first and then migrate the application.
 
-Most of the packages are compatible with \gls{hhvm} but \gls{nette} has dropped the compatibility.
+Most of the packages are compatible with \gls{hhvm} but \gls{nette} has dropped the compatibility making it impossible to maintain.
 
 \section{State of each package}
 
@@ -28,23 +28,23 @@ This section reviews each package separately, considers the original purpose and
 
 \hiddensubsection{Doctrine} \label{sec:state:doctrine}
 
-\gls{kDoctrine} is an integration of \gls{doctrine} into \gls{nette}. But it has cumulated a lot of responsibilities, that don't belong to it
+\gls{kDoctrine} is an integration of \gls{doctrine} into \gls{nette}. But it has cumulated a lot of responsibilities that don't belong to it
 
 \gls{doctrine} itself is separated into several packages, mainly \fnurl{doctrine/orm}{https://github.com/doctrine/doctrine2}, \fnurl{doctrine/common}{https://github.com/doctrine/common}, \fnurl{doctrine/annotations}{https://github.com/doctrine/annotations}, \fnurl{doctrine/cache}{https://github.com/doctrine/cache} and \fnurl{doctrine/collections}{https://github.com/doctrine/collections}. What started as a monolith integration in Kdyby, got separated into \gls{kEvents}~\ref{sec:state:events}, \gls{kConsole}~\ref{sec:state:console}, \gls{kAnnotations}~\ref{sec:state:annotations} and \gls{kDoctrineCache}~\ref{sec:state:doctrine-cache} for reusability.
 
-I have already started extracting few of them in the past, for example an entity prototyping tool~\ref{sec:state:doctrine-magic-accessors}, collection utilities~\ref{sec:state:doctrine-collections-lazy}, \ref{sec:state:doctrine-collections-readonly} and helper for loading big SQL scripts to the database~\ref{sec:state:doctrine-dbal-batch-import}.
+I have already started extracting few of them in the past, for example an entity prototyping tool~\ref{sec:state:doctrine-magic-accessors}, collection utilities~\ref{sec:state:doctrine-collections-lazy}, \ref{sec:state:doctrine-collections-readonly} and helper for loading big SQL scripts into the database.
 
 There is a big issue \fnurl{Chop up the package}{https://github.com/Kdyby/Doctrine/issues/238} that discusses what other parts should be separated and dropped completely.
 
-New versions of \gls{nette} and \gls{doctrine} were released and completely new versions are being prepared, which the integration cannot be currently used with.
+New versions of \gls{nette} and \gls{doctrine} were released and completely new versions are being prepared which the integration cannot be currently used with.
 
 \hiddensubsection{Console} \label{sec:state:console}
 
-\gls{kConsole} is an integration of \gls{sfConsole}, that allows for writing interactive CLI applications. \gls{kDoctrine} depends on this package and is the reason this package exists.
+\gls{kConsole} is an integration of \gls{sfConsole} that allows for writing interactive CLI applications. \gls{kDoctrine} depends on this package and is the reason this package exists.
 
-There are tasks, that are better suited for console interaction, than a web interface. Among others, \gls{doctrine} has tools for generating a database schema from the entities metadata and there is a console command for it, that is written using \gls{sfConsole}.
+There are tasks that are better suited for console interaction, than a web interface. Among others, \gls{doctrine} has tools for generating a database schema from the entities metadata and there is a console command for it that is written using \gls{sfConsole}.
 
-The library is solving several problems with CLI applications in \gls{nette}, that are no longer relevant or have to be refactored. One of the issues is that it introduced level of abstraction above \gls{nette} Front Controller to solve generating URLs in CLI. \gls{nette} was refactored to account for this problem and this part of \gls{kConsole} can be dropped altogether.
+The library is solving several problems with CLI applications in \gls{nette} that are no longer relevant or have to be refactored. One of the issues is that it introduced level of abstraction above \gls{nette} Front Controller to solve generating URLs in CLI. \gls{nette} was refactored to account for this problem and this part of \gls{kConsole} is now causing more problems than it solves.
 
 \hiddensubsection{Events} \label{sec:state:events}
 
@@ -83,14 +83,14 @@ class Comment
     private $author;
 }
 \end{lstlisting}
-\caption{Example of PHPDoc with annotations, that the doctrine/annotations can parse from source code.}
+\caption{Example of PHPDoc with annotations that the doctrine/annotations can parse from source code.}
 \end{figure}
 
 \gls{kAnnotations} is almost up-to-date, because it is very simple and the old version for \gls{nette} still works well for the current versions.
 
 \hiddensubsection{DoctrineCache} \label{sec:state:doctrine-cache}
 
-\gls{kDoctrineCache} integrates doctrine/cache, that is used by doctrine/annotations and doctrine/orm to store metadata, results of various parsers and even query results.
+\gls{kDoctrineCache} integrates doctrine/cache that is used by doctrine/annotations and doctrine/orm to store metadata, results of various parsers and even query results.
 
 This package has no \gls{nette} CompilerExtension, but only a helper class that configures the caching services and is used by CompilerExtensions in \gls{kAnnotations} and \gls{kDoctrine}. As such, there are only few minor problems and inefficiencies that have to be fixed to work perfectly with current \gls{nette} and Doctrine.
 
@@ -98,7 +98,7 @@ This package has no \gls{nette} CompilerExtension, but only a helper class that 
 
 \gls{kDoctrineMagicAccessors} is a prototyping tool for writing less code in entities. It allows to not write getters and setters for entity properties.
 
-In \gls{doctrine} there is an entity lazy--loading feature, that in order to work the entity cannot have any public properties, only protected or private. Which means that to be able to access the properties the developer has to define methods on the entity. This is completely correct, but when prototyping an application, it might not be obvious what methods will be required and what data they should allow to be written into the entity. This package aims to solve that, by allowing not to write the accessor methods, because it makes them available dynamically.
+In \gls{doctrine} there is an entity lazy--loading feature that in order to work the entity cannot have any public properties, only protected or private. Which means that to be able to access the properties the developer has to define methods on the entity. This is completely correct, but when prototyping an application, it might not be obvious what methods will be required and what data they should allow to be written into the entity. This package aims to solve that, by allowing not to write the accessor methods, because it makes them available dynamically.
 
 It was extracted from \gls{kDoctrine} and currently only exists to ease migrating away from this technique. The problem this package solves is still valid because manually writing getters and setters in PHP is tedious and error-prone, but the way the package does it creates more problems than it solves. Having the manually written accessors checked by static-analysis tool like PHPStan and unit tested is a better option.
 
@@ -140,7 +140,7 @@ $cart->getOrderItems()->add(new OrderItem());
 \caption{Example of working with doctrine/collections.}
 \end{figure}
 
-The package \gls{kDoctrineCollectionsReadonly} provides a decorator for collections, that disables methods for mutation of the collection, but keeps available those that only read data. This allows the entity to expose the collection, so that the programmer can use the friendly collections API, without having to worry to accidentally modify the internal state of the owning entity.
+The package \gls{kDoctrineCollectionsReadonly} provides a decorator for collections that disables methods for mutation of the collection, but keeps available those that only read data. This allows the entity to expose the collection, so that the programmer can use the friendly collections API, without having to worry to accidentally modify the internal state of the owning entity.
 
 \begin{figure} \label{fig:collections-readonly:readonly}
 \begin{lstlisting}
@@ -163,7 +163,7 @@ $cart->getOrderItems()->add(new OrderItem());
 
 \hiddensubsection{DoctrineCollectionsLazy} \label{sec:state:doctrine-collections-lazy}
 
-\Gls{kDoctrineCollectionsLazy} package provides implementation of doctrine/collections Collection interface, that accepts a generator function and evaluates it lazily, only when the items are actually accessed.
+\Gls{kDoctrineCollectionsLazy} package provides implementation of doctrine/collections Collection interface that accepts a generator function and evaluates it lazily, only when the items are actually accessed.
 
 \gls{kDoctrineCollectionsLazy} depends only on doctrine/collections and therefore the situation is the same as with \gls{kDoctrineCollectionsReadonly}.
 
@@ -181,13 +181,13 @@ There are now better and more popular packages for doing HTTP requests in PHP li
 
 \hiddensubsection{CurlCaBundle} \label{sec:state:curl-ca-bundle}
 
-For doing secured HTTP requests over HTTPS the client must have available the public certificates, that signed the private certificates the website is using to establish the secured connections. There are hosting providers, that do not regularly update the certificates in the operating system. This creates a problem, that this package solves.
+For doing secured HTTP requests over HTTPS the client must have available the public certificates that signed the private certificates the website is using to establish the secured connections. There are hosting providers that do not regularly update the certificates in the operating system. This creates a problem that this package solves.
 
-I have a cron job on my \gls{vps}, that regularly downloads fresh certificates from Mozilla browser, extracts them to format that the Curl clients can use and then publishes them as a new version of \gls{kCurlCaBundle}.
+I have a cron job on my \gls{vps} that regularly downloads fresh certificates from Mozilla browser, extracts them to format that the Curl clients can use and then publishes them as a new version of \gls{kCurlCaBundle}.
 
 Using this package in application means it no longer depends on outdated system certificates and they can be updated regularly with this package.
 
-The Composer authors created their own package \fnurl{composer/ca-bundle}{https://github.com/composer/ca-bundle}, that solves this problem too. And since Composer has bigger user base, it gained traction and is now defacto a standard. Therefore \gls{kCurlCaBundle} is now deprecated. But since a lot of applications still depend on it, I am maintaining the cron job and keeping the package alive until everyone adopts composer/ca-bundle.
+The Composer authors created their own package \fnurl{composer/ca-bundle}{https://github.com/composer/ca-bundle} that solves this problem too. And since Composer has bigger user base, it gained traction and is now defacto a standard. Therefore \gls{kCurlCaBundle} is now deprecated. But since a lot of applications still depend on it, I am maintaining the cron job and keeping the package alive until everyone adopts composer/ca-bundle.
 
 \hiddensubsection{Autowired} \label{sec:state:autowired}
 
@@ -211,7 +211,7 @@ This library worker perfectly with \gls{nette} 2.1 but the Forms component was r
 
 Translating the application \gls{ui} and the content itself are two very different problems. \gls{kTranslation} solves the first problem. It integrates \gls{sfTranslation} into \gls{nette}.
 
-In the past, the \gls{sf} Bundle for integrating \gls{sfTranslation} the did contain few important parts, that \gls{kTranslation} has to duplicate, but not anymore. The 3.0 version provides all required functionality and the duplication can now be removed from \gls{sfTranslation}.
+In the past, the \gls{sf} Bundle for integrating \gls{sfTranslation} the did contain few important parts that \gls{kTranslation} has to duplicate, but not anymore. The 3.0 version provides all required functionality and the duplication can now be removed from \gls{sfTranslation}.
 
 \hiddensubsection{Validator} \label{sec:state:validator}
 
@@ -219,13 +219,13 @@ In the past, the \gls{sf} Bundle for integrating \gls{sfTranslation} the did con
 
 \hiddensubsection{RabbitMq} \label{sec:state:rabbit-mq}
 
-\gls{kRabbitMq} integrates php-amqplib/php-amqplib into \gls{nette} and php-amqplib/php-amqplib is a client for RabbitMq server. \gls{kRabbitMq} provides producer classes, that are used to generate messages for the RabbitMq server and consumer classes, that listen for incoming messages from the RabbitMq server and processes them with user-defined logic. It depends on \gls{kConsole}, since the consumers are started as standalone processes through CLI. The php-amqplib/php-amqplib had supported old PHP versions for very long and now it is hard to change the internal design of it and \gls{kRabbitMq} hides that using abstraction.
+\gls{kRabbitMq} integrates php-amqplib/php-amqplib into \gls{nette} and php-amqplib/php-amqplib is a client for RabbitMq server. \gls{kRabbitMq} provides producer classes that are used to generate messages for the RabbitMq server and consumer classes that listen for incoming messages from the RabbitMq server and processes them with user-defined logic. It depends on \gls{kConsole}, since the consumers are started as standalone processes through CLI. The php-amqplib/php-amqplib had supported old PHP versions for very long and now it is hard to change the internal design of it and \gls{kRabbitMq} hides that using abstraction.
 
-The php-amqplib/php-amqplib changed maintainers and it has to be reviewed for new functionality, that might benefit the users of \gls{kRabbitMq}. There are also important features like \fnurl{SSL connection support}{https://github.com/Kdyby/RabbitMq/issues/5} that were never implemented.
+The php-amqplib/php-amqplib changed maintainers and it has to be reviewed for new functionality that might benefit the users of \gls{kRabbitMq}. There are also important features like \fnurl{SSL connection support}{https://github.com/Kdyby/RabbitMq/issues/5} that were never implemented.
 
 \hiddensubsection{Money} \label{sec:state:money}
 
-PHP does not have a native Decimal type, only float. And floats cannot be used to represent money values. Libraries exist that solve this exact problem. One level of abstraction above that are money libraries, that use the decimal implementations to represent the money values paired with currency.
+PHP does not have a native Decimal type, only float. And floats cannot be used to represent money values. Libraries exist that solve this exact problem. One level of abstraction above that are money libraries that use the decimal implementations to represent the money values paired with currency.
 
 \gls{kMoney} is meant to be simpler and have more clean architecture than other competitive implementations. It operated with cent values in integers to avoid float rounding problems.
 
@@ -251,7 +251,7 @@ The package works well, but it would be useful to have such functionality framew
 
 \gls{kRedis} integrates the \fnurl{Pecl}{http://php.net/manual/en/install.pecl.intro.php} extension \fnurl{Redis}{https://pecl.php.net/package/redis} into \gls{nette}. There are three main services it provides - cache, cache journal, sessions and locking.
 
-Redis is fast memory key-value storage and as such is a great candidate for cache storage. \gls{nette} contains \lstinline{IStorage} interface, that \gls{kRedis} implements and it can be used as a drop-in replacement for the default file caching.
+Redis is fast memory key-value storage and as such is a great candidate for cache storage. \gls{nette} contains \lstinline{IStorage} interface that \gls{kRedis} implements and it can be used as a drop-in replacement for the default file caching.
 
 Journal in \gls{nette} is used for keeping track of tags assigned to cache values. This metadata can be then used to invalidate only specific keys in cache. The default journal in \gls{nette} was historically implemented using custom binary file and now is implemented as an SQLite database. The binary file implementation was limited by the format and could only store fixed amount of key and value pairs which is perfectly fine up to a certain point of application growth. Now the current solution with SQLite database does not have this problem, but still it requires a local file system to work. \gls{kRedis} implementation uses native Redis data structures to implement the journaling and can be used as a replacement, if the other implementations are not ideal for the application.
 
@@ -264,9 +264,9 @@ It is used for locking cache keys when the IStorage from \gls{nette} is required
 
 \hiddensubsection{Monolog} \label{sec:state:monolog}
 
-\gls{kMonolog} is an integration of \fnurl{monolog/monolog}{https://github.com/Seldaek/monolog} library that implements \gls{psr}-3 into \gls{nette}. \Gls{nette} has a debugging component Tracy, that renders exceptions in comprehensive way. \gls{kMonolog} handles integration with Tracy as well, making every exception passed to Monolog render with every relevant detail.
+\gls{kMonolog} is an integration of \fnurl{monolog/monolog}{https://github.com/Seldaek/monolog} library that implements \gls{psr}-3 into \gls{nette}. \Gls{nette} has a debugging component Tracy that renders exceptions in comprehensive way. \gls{kMonolog} handles integration with Tracy as well, making every exception passed to Monolog render with every relevant detail.
 
-The integration works well even with current \gls{nette}, but has a lot of dead code for providing backwards compatibility, that can be dropped when the version requirement for \gls{nette} is increased. Also the configuration structure is suboptimal. The configuration of \gls{sf} bundle for Monolog is better and \gls{nette} would benefit from having the same structure.
+The integration works well even with current \gls{nette}, but has a lot of dead code for providing backwards compatibility that can be dropped when the version requirement for \gls{nette} is increased. Also the configuration structure is suboptimal. The configuration of \gls{sf} bundle for Monolog is better and \gls{nette} would benefit from having the same structure.
 
 \hiddensubsection{ElasticSearch} \label{sec:state:elastic-search}
 
@@ -298,23 +298,23 @@ At the same month this library was published a competitive package \fnurl{slevom
 
 \hiddensubsection{Wkhtmltopdf} \label{sec:state:wkhtmltopdf}
 
-\fnurl{Wkhtmltopdf}{https://wkhtmltopdf.org/} is, among others, a PDF generator. It has CLI interface that accepts a HTML file, set of options and generates a PDF. \gls{kWkhtmltopdf} is a \gls{oo} abstraction of the CLI for \gls{nette}. It contains a lot of custom solutions for the subproblems, that are not easy to maintain. There are also several new versions of the tool.
+\fnurl{Wkhtmltopdf}{https://wkhtmltopdf.org/} is, among others, a PDF generator. It has CLI interface that accepts a HTML file, set of options and generates a PDF. \gls{kWkhtmltopdf} is a \gls{oo} abstraction of the CLI for \gls{nette}. It contains a lot of custom solutions for the subproblems that are not easy to maintain. There are also several new versions of the tool.
 
 \hiddensubsection{FakeSession} \label{sec:state:fake-session}
 
-\gls{nette} is first of all \gls{mvc} framework which means most applications written in it depend on PHP sessions heavily. Having an abstraction that disables the mechanism but does not break application in the context of a single request is useful for writing integration tests that would otherwise interfere with each other and making sure REST API does not leak any cookies even with programmer mistake would cause it do so. \gls{kFakeSession} replaces the default session mechanism in \gls{nette} with custom one, that operates only in the memory of the current PHP process.
+\gls{nette} is first of all \gls{mvc} framework which means most applications written in it depend on PHP sessions heavily. Having an abstraction that disables the mechanism but does not break application in the context of a single request is useful for writing integration tests that would otherwise interfere with each other and making sure REST API does not leak any cookies even with programmer mistake would cause it do so. \gls{kFakeSession} replaces the default session mechanism in \gls{nette} with custom one that operates only in the memory of the current PHP process.
 
 It is working well even with current versions of \gls{nette} but it has only few integration tests and no unit tests.
 
 \hiddensubsection{RequestStack} \label{sec:state:request-stack}
 
-\gls{nette} is designed to operate in the context of a single HTTP request that maps on a single application request. Therefore it has \lstinline{Http\Request} object as a shared service, that any service registered into \gls{dic} can request and depend on. If one would require to handle two separate application requests, references of \lstinline{Http\Request} object from the first request would already be permanently bound to all the services in \gls{dic}. \gls{kRequestStack} replaces the service implementation of a value object for a container of the \lstinline{Http\Request} that delegates the method calls to it which means all the services have references for the \lstinline{RequestStack} service that never changes and more request can be handled by simply switching the \lstinline{Http\Request} reference inside the container. A perfect solution would be to redesign \gls{nette} internals to handle this problem correctly, but that would be a big architecture challenge to not break the compatibility with almost every application.
+\gls{nette} is designed to operate in the context of a single HTTP request that maps on a single application request. Therefore it has \lstinline{Http\Request} object as a shared service that any service registered into \gls{dic} can request and depend on. If one would require to handle two separate application requests, references of \lstinline{Http\Request} object from the first request would already be permanently bound to all the services in \gls{dic}. \gls{kRequestStack} replaces the service implementation of a value object for a container of the \lstinline{Http\Request} that delegates the method calls to it which means all the services have references for the \lstinline{RequestStack} service that never changes and more request can be handled by simply switching the \lstinline{Http\Request} reference inside the container. A perfect solution would be to redesign \gls{nette} internals to handle this problem correctly, but that would be a big architecture challenge to not break the compatibility with almost every application.
 
 \gls{kRequestStack} has very few unit tests but is very simple. There have been changes in the way the related services are configured in \gls{nette} and the integration requires a small refactoring to account for this.
 
 \hiddensubsection{StrictObjects} \label{sec:state:strict-objects}
 
-PHP itself is very tolerant about object properties. It is possible to assign value to a property, that is not defined on the class of the object and it works correctly. This dynamic behavior might be useful, but has no place in serious applications since it introduces a big potential for errors. The more strict the application is about types, the safer it usually is. \gls{kStrictObjects} introduces a trait which is glorified mechanism for copy and paste of code between objects that fixes this behavior. PHP allows classes to implement magic methods that are called when undefined property or method is accessed. The \gls{kStrictObjects} trait defines them and throws exception any time you try to access undefined method or property of the class.
+PHP itself is very tolerant about object properties. It is possible to assign value to a property that is not defined on the class of the object and it works correctly. This dynamic behavior might be useful, but has no place in serious applications since it introduces a big potential for errors. The more strict the application is about types, the safer it usually is. \gls{kStrictObjects} introduces a trait which is glorified mechanism for copy and paste of code between objects that fixes this behavior. PHP allows classes to implement magic methods that are called when undefined property or method is accessed. The \gls{kStrictObjects} trait defines them and throws exception any time you try to access undefined method or property of the class.
 
 The package is stable, does not depend on \gls{nette} and the only problem it has at this moment is no support for PHP 7.1.
 

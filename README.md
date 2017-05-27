@@ -21,6 +21,10 @@
 >
 > Volba programovacího jazyka je díky povaze práce daná. Veškerý obsah upravovaných balíčků bude veřejně dostupný jak v archivu závěrečné práce, tak komunitě na serveru github. Jelikož u mnohých balíčků se počty stažení pohybují ve statisících, bude student dbát na řádné komentování, testování a dokumentaci, a to zejména v oblasti zpětně nekompatibilních úprav či rušené funkcionality. Jako nepovinné rozšíření práce lze uvažovat demonstraci nové funkcionality Kdyby.
 
+## Preview
+
+* [PDF snapshot of thesis](https://github.com/fprochazka/fi-muni-bachelors-thesis/blob/master/dist/thesis.pdf)
+
 ## Writing
 
 **Prepare environment:**

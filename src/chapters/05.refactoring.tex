@@ -46,7 +46,7 @@ The standard defines two rulesets \lstinline{ruleset-5.6} and \lstinline{ruleset
 
 Tests written in \gls{nTester} have \lstinline{.phpt} extension and not the standard \lstinline{.php}. \gls{kcs} will override the defaults and force \gls{phpCs} to check both extensions. The tests also execute themselves which creates a side effect. \gls{ccs} forbids side effects which means the PHP file must either define a type or execute some operations but never both. This rule is ignored for \lstinline{.phpt} files.
 
-Writing the tests often requires handling some extreme cases where strictly enforcing the coding standard would be a problem or simply an inconvenience. The \fnurl{Heredoc}{https://secure.php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc} syntax is allowed in tests for defining larger chunks of strings to compare against.
+Writing the tests often requires handling some extreme cases where strictly enforcing the coding standard would be a problem or simply an inconvenience. The \fnurl{Heredoc}{https://secure.php.net/manual/en/language.types.string.php\#language.types.string.syntax.heredoc} syntax is allowed in tests for defining larger chunks of strings to compare against.
 
 \hiddensubsection{Exceptions in one file}
 

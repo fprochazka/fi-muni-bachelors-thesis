@@ -20,17 +20,17 @@ All Kdyby packages will drop support for \gls{hhvm}. It has too low adoption to 
 
 Every package is specific, but there is set of standards that have to be enforced for all good \gls{oss} PHP projects and it is constantly evolving. Having only tests and documentation is no longer the only best practice. The following sections cover the current trends.
 
-\hiddensubsection{Static analysis with PHPStan}
+\hiddensubsection{Static analysis with \gls{phpstan}}
 
-\fnurl{PHPStan}{https://github.com/phpstan/phpstan} claims to be a static analysis tool that can discover bugs in source code. It does not find all bugs, but it has a lot of helpful checks. Running such tool on Kdyby packages in \gls{ci} is going to increase confidence in the correctness of the packages and help prevent introducing new bugs.
+\fnurl{\gls{phpstan}}{https://github.com/phpstan/phpstan} claims to be a static analysis tool that can discover bugs in source code. It does not find all bugs, but it has a lot of helpful checks. Running such tool on Kdyby packages in \gls{ci} is going to increase confidence in the correctness of the packages and help prevent introducing new bugs.
 
-But there is a problem with PHPStan - it is not really a static analysis tool. It does analyze the code, but not statically. It uses two tools for its analysis - \fnurl{PHP Parser}{https://github.com/nikic/PHP-Parser} and \fnurl{native PHP reflection}{https://secure.php.net/manual/en/book.reflection.php}. First it parses the source code using the PHP Parser and when it finds a class \fnurl{PHPStan loads the file into memory and executes it}{https://github.com/phpstan/phpstan/issues/137} which makes it available for the PHP reflection. This would not be a problem on itself with source code that has no side effects but PHPStan has 3rd party dependencies that might clash with dependencies of the project it is analyzing. One of them is \gls{sfConsole}. If PHPStan was to analyze the source code of \gls{sfConsole} it would not be analyzing the source code of the library it would be executed on, but the source code of its own dependency, because it uses the native PHP reflection.
+But there is a problem with \gls{phpstan} - it is not really a static analysis tool. It does analyze the code, but not statically. It uses two tools for its analysis - \fnurl{PHP Parser}{https://github.com/nikic/PHP-Parser} and \fnurl{native PHP reflection}{https://secure.php.net/manual/en/book.reflection.php}. First it parses the source code using the PHP Parser and when it finds a class \fnurl{\gls{phpstan} loads the file into memory and executes it}{https://github.com/phpstan/phpstan/issues/137} which makes it available for the PHP reflection. This would not be a problem on itself with source code that has no side effects but \gls{phpstan} has 3rd party dependencies that might clash with dependencies of the project it is analyzing. One of them is \gls{sfConsole}. If \gls{phpstan} was to analyze the source code of \gls{sfConsole} it would not be analyzing the source code of the library it would be executed on, but the source code of its own dependency, because it uses the native PHP reflection.
 
-This problem has several solutions. PHPStan can be rewritten to not use the native PHP reflection, but emulated one that works on top of the PHP Parser. The author does not like this solution because he is worried about speed of the tool. PHPStan can be rewritten to drop all dependencies and re--implement the functionality the libraries provide. This solution is not good because it would create additional and unnecessary overhead for the maintainers. Or we can implement a compiler that preprocesses the source code of PHPStan and its dependencies and fixes the problem.
+This problem has several solutions. \gls{phpstan} can be rewritten to not use the native PHP reflection, but emulated one that works on top of the PHP Parser. The author does not like this solution because he is worried about speed of the tool. \gls{phpstan} can be rewritten to drop all dependencies and re--implement the functionality the libraries provide. This solution is not good because it would create additional and unnecessary overhead for the maintainers. Or we can implement a compiler that preprocesses the source code of \gls{phpstan} and its dependencies and fixes the problem.
 
-Citing the PHP documentation, PHAR provides a way to put entire PHP applications into a single file called a PHP Archive for easy distribution and installation~\cite{php:phar}. PHPStan has also opened an issue \fnurl{PHAR file for each release}{https://github.com/phpstan/phpstan/issues/110} where community is requesting releases to be made also in PHAR.
+Citing the PHP documentation, PHAR provides a way to put entire PHP applications into a single file called a PHP Archive for easy distribution and installation~\cite{php:phar}. \gls{phpstan} has also opened an issue \fnurl{PHAR file for each release}{https://github.com/phpstan/phpstan/issues/110} where community is requesting releases to be made also in PHAR.
 
-I am going to implement a compiler that fixes the problem with type collisions and creates a PHAR distribution of the tool. I am also going to offer the author to take over the project afterwards so he can make it official part of the PHPStan ecosystem.
+I am going to implement a compiler that fixes the problem with type collisions and creates a PHAR distribution of the tool. I am also going to offer the author to take over the project afterwards so he can make it official part of the \gls{phpstan} ecosystem.
 
 \hiddensubsection{Coding Standard with \gls{phpCs}}
 
@@ -48,7 +48,7 @@ Releasing the versions that solve compatibility with current \gls{nette} version
 
 After the bugfix versions are released, all packages will drop compatibility with PHP 5.5 or older in master branch. No new feature releases will support old PHP unless there is a critical bug that will require a patch release for older version of package. Compatibility with PHP 7.0 and 7.1 will be fixed and enforced by \gls{ci}.
 
-All the packages have gathered some bug reports in their issue trackers. What can be fixed for \gls{nette} 2.3 or 2.4 will be fixed before that release. Everything else that requires architecture changes to fix the problems or implement new features will not be implemented before the minimum requirement of PHP 5.6 is enforced. It will also not be implemented before the package is fixed based on the PHPStan analysis and new Coding Standard is applied and enforced.
+All the packages have gathered some bug reports in their issue trackers. What can be fixed for \gls{nette} 2.3 or 2.4 will be fixed before that release. Everything else that requires architecture changes to fix the problems or implement new features will not be implemented before the minimum requirement of PHP 5.6 is enforced. It will also not be implemented before the package is fixed based on the \gls{phpstan} analysis and new Coding Standard is applied and enforced.
 
 \hiddensubsection{PHP 7.1 and newer}
 
@@ -80,7 +80,7 @@ After fixing the compatibility with \gls{nette} 2.3 and 2.4 there will be a big 
 
 \hiddensubsection{Doctrine}
 
-\gls{doctrine} dropped support for older PHP in \lstline{master} branches and will have the newest releases only for PHP 7.1 and newer. After the Nette 2.3 and 2.4 versions with bugfixes are released, the master will switch the minimum dependency on PHP to 7.1 and the refactored version will be written directly for PHP 7.1 and newer.
+\gls{doctrine} dropped support for older PHP in \lstinline{master} branches and will have the newest releases only for PHP 7.1 and newer. After the Nette 2.3 and 2.4 versions with bugfixes are released, the master will switch the minimum dependency on PHP to 7.1 and the refactored version will be written directly for PHP 7.1 and newer.
 
 \gls{kDoctrine} provides a Tracy panel that violates \gls{srp} because it solves rendering SQL queries, rendering second level cache statistics and rendering of Tracy BlueScreen panels for exceptions. The SQL Panel for Tracy will be separated to standalone package \gls{kTracyDoctrineDbalPanel} so it can be used with only Tracy and Doctrine with no other dependencies required. The remaining functionality will be extracted into two separate classes where one renders cache statistics in Tracy panel and the other render panels with additional context for Tracy BlueScreens.
 
@@ -98,7 +98,7 @@ Custom \lstinline{ContainerAwareEventManager} for lazy initialization of subscri
 
 To be able to configure parameters for \gls{doctrine} filters a \lstinline{ManagerConfigurator} will be implemented that will hold the parameters and pass them into the filters.
 
-The \lstinline{NonLockingUniqueInserter} for atomic inserts can be extracted into a standalone package with dependency only on \gls{doctrine.}
+The \lstinline{NonLockingUniqueInserter} for atomic inserts can be extracted into a standalone package with dependency only on \gls{doctrine}.
 
 Single package will be extracted with \lstinline{QueryObject} and \lstinline{ResultSet} for writing self contained \gls{dql} queries.
 

@@ -2,9 +2,9 @@
 
 \section{A brief history of Kdyby} \label{sec:theory:kdyby-history}
 
-In 2006 I have started working on my own \gls{cms}~\cite{wiki:cms}. A prototype was used in production on few websites I created. The oldest preserved version is \fnurl{archived on my \gls{gh}}{https://github.com/fprochazka/kdyby-cms-old}. It is a great learning material on how to not write a CMS.
+In 2006 I have started working on my own \gls{cms}. A prototype was used in production on few websites I created. The oldest preserved version is \fnurl{archived on my \gls{gh}}{https://github.com/fprochazka/kdyby-cms-old}. It is a great learning material on how to not write a CMS.
 
-Then the concept of \gls{oss}~\cite{wiki:oss} was introduced to me and I have decided to start working on everything openly, under a free license~\cite{wiki:fsl}. Mo new working version of Kdyby CMS was released since then, because I have rewritten it from scratch exactly 10 times.
+Then the concept of \gls{oss} was introduced to me and I have decided to start working on everything openly, under a free license~\cite{fsf:free-software}. Mo new working version of Kdyby CMS was released since then, because I have rewritten it from scratch exactly 10 times.
 
 In 2012, I have decomposed the entire system into separate libraries that can be used more or less independently and have their own release cycle. This approach was preserved to this day.
 
@@ -18,13 +18,13 @@ Inversion of control is a design principle in which custom-written portions of a
 
 \hiddensubsection{Aspect Oriented Programming} \label{sec:theory:aop}
 
-In computing, \gls{aop} is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a pointcut specification, such as log all function calls when the name of the function begins with \lstinline{set}. This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality~\cite{wiki:aop}.
+Complex systems have to deal with lot of other problems that are not the center of the business logic, but also important. This might be for example transaction handling or logging. \gls{aop} is a paradigm that aims to increase modularity by helping to separate these cross-cutting concerns. It allows to change behavior of existing code without modifying the code itself using advices that is applied using pointcut specification~\cite{kiczales1997aspect}. Good example is \lstinline{Transactional} annotation in Java world. A pointcut is defined to bind to every method with such annotation and the advice wraps the method in transaction.
 
-\hiddensubsection{Event Dispatcher} \label{sec:theory:event-dispatcher}
+\hiddensubsection{Observer pattern} \label{sec:theory:observer-pattern}
 
-The Event Dispatcher is a pattern for writing modular code. It allows to create extension points in the library or application that another library or application can hook into and change or extend the behavior.
+Observer a pattern for writing modular code. It allows to create extension points in the library or application that another library or application can hook into and change or extend the behavior. Typically, the extension points are called hooks or events and the new functionality is provided with objects called listeners~\cite{vlissides1995design}.
 
-Typically, the extension points are called hooks or events and the new functionality is provided with objects called listeners.
+Symfony provides an implementation called \gls{sfEventDispatcher} that the subscriber implementations can listen on.
 
 \section{Technologies used}
 
@@ -40,7 +40,7 @@ Kdyby is hosted and developed on \gls{gh}, with the help of several other mainta
 
 \hiddensubsection{Continuous Integration} \label{sec:theory:ci}
 
-\gls{ci} is a practice of merging all developer working copies to a shared mainline several times a day, to prevent merging conflicts.~\cite{wiki:ci} But nowadays, the term has established to mean CI servers that run prepared task on the provided code.
+\gls{ci} is a practice of merging all developer working copies to a shared mainline several times a day, to prevent merging conflicts~\cite{fowler2006continuous}. But nowadays, the term has established to mean CI servers that run prepared task on the provided code.
 
 In practice, it means that as the developer is working on a feature or bugfix, they push the work in progress code into a repository, the code is then picked up by a CI server that executes the tests, checks coding style and runs various other tasks to verify that the code was not broken.
 
@@ -54,7 +54,7 @@ Some popular CI services are \fnurl{Travis~CI}{https://travis-ci.org/}, \fnurl{C
 
 \hiddensubsection{Nette Framework} \label{sec:theory:nette}
 
-\gls{nette} is an \gls{oss} framework for creating web applications in PHP~\cite{wiki:nette}. \gls{nette} is separated into many packages.
+\gls{nette} is an \gls{oss} framework for creating web applications in PHP. \gls{nette} is separated into many packages~\cite{nette:introduction}.
 
 The \gls{di} component \fnurl{nette/di}{https://github.com/nette/di} provides a \gls{dic} that holds the services. The component also allows to prepare a preconfigured \gls{dic}, which is then compiled into a PHP class that contains optimized code for the service creation. This compiled \gls{dic} class is cached for reuse. There is a concept (and a class) CompilerExtension that allows the developer to hook into the process of configuring and compiling of the \gls{nette} \gls{dic}. All of Kdyby packages that are an integration of some other library or tool into \gls{nette} provide a CompilerExtension to make the installation easy.
 
@@ -62,9 +62,9 @@ Default settings for error handling in PHP is not ideal. It outputs errors and w
 
 \hiddensubsection{Composer} \label{sec:theory:composer}
 
-Composer is a tool for dependency management~\cite{wiki:package-manager} in PHP. It allows you to declare the libraries your project depends on and it will manage (install or update) them for you~\cite{composer:docs:intro}.
+Composer is a tool for dependency management in PHP. It allows you to declare the libraries your project depends on and it will manage (install or update) them for you~\cite{composer:docs:intro}.
 
-Packages are usually published using \gls{gh} with metadata in a file named \lstinline{composer.json} that is written in JSON~\cite{wiki:json} format.
+Packages are usually published using \gls{gh} with metadata in a file named \lstinline{composer.json} that is written in JSON format.
 
 Composer is decentralized, but has a single main metadata repository \fnurl{Packagist}{https://packagist.org/}. It stores and provides all the package metadata like available versions and where to download them.
 
@@ -72,7 +72,7 @@ All Kdyby libraries are published as Composer packages on Packagist and installi
 
 \hiddensubsection{OAuth 2} \label{sec:theory:oauth2}
 
-OAuth is a protocol for authentication and authorization that can be implemented into a web service. It is designed for secure exchange of user information, allowing third party websites to implement a login and registration process that simplifies these tasks for the user essentially allowing them to login or register to services through the OAuth 2 provider with two clicks.
+OAuth is a protocol for authentication and authorization that can be implemented into a web service. It is designed for secure exchange of user information, allowing third party websites to implement a login and registration process that simplifies these tasks for the user essentially allowing them to login or register to services through the OAuth 2 provider with two clicks without revealing their password~\cite{boyd2012getting}.
 
 Kdyby provides packages for integrating \gls{nette} with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{\gls{gh}}{https://developer.github.com/v3/oauth/}.
 
@@ -82,25 +82,25 @@ Dibi is a Database Abstraction Library for PHP. It supports a lot of significant
 
 \hiddensubsection{Doctrine 2 ORM} \label{sec:theory:doctrine}
 
-\gls{doctrine} is an \gls{orm}~\cite{wiki:orm}, which means it allows the programmer to create PHP classes called entities that represent relational data in a database and are used to actually map the data from the database to the classes and back. In conclusion, it allows the programmer to write fully \gls{oo}~\cite{wiki:oop} applications.
+\gls{doctrine} is an \gls{orm}, which means it allows the programmer to create PHP classes called entities that represent relational data in a database and are used to actually map the data from the database to the classes and back. In conclusion, it allows the programmer to write fully \gls{oo} applications~\cite{fowler2002patterns}.
 
 \hiddensubsection{Symfony Framework} \label{sec:theory:symfony}
 
-\gls{sf} is a PHP web application framework and a set of reusable PHP components/libraries, similar to \gls{nette}~\cite{wiki:symfony}.
+\gls{sf} is a PHP web application framework and a set of reusable PHP components/libraries, similar to \gls{nette}~\cite{symfony:introduction}.
 
 For extensibility, \gls{sf} has Bundles that provide similar functionality to \gls{nette} CompilerExtension, but they operate on a different level of abstractions. Bundle is a whole package that contains the Bundle definition, \gls{dic} extension for configuring the Bundle and it may contain adapter classes. Bundles are registered in the AppKernel of Symfony application.
 
 \hiddensubsection{RabbitMQ} \label{sec:theory:rabbitmq}
 
-RabbitMQ is \gls{oss} message broker software (sometimes called message-oriented middleware) that implements the \gls{amqp}. The RabbitMQ server is written in the Erlang programming language and is built on the Open Telecom Platform framework for clustering and failover~\cite{wiki:rabbitmq}.
+RabbitMQ is a messaging broker software (sometimes called message-oriented middleware) that implements \gls{amqp} and other protocols. Messages can be routed into many queues that consumers listen on. It also provides mirroring across cluster of machines increasing availability in case of hardware failure~\cite{rabbitmq:features}.
 
 \hiddensubsection{ElasticSearch} \label{sec:theory:elasticsearch}
 
-\gls{elastic} is a search engine based on Lucene. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. \gls{elastic} is developed in Java and is released as open source under the terms of the Apache License. It is the most popular enterprise search engine~\cite{wiki:elasticsearch}.
+\gls{elastic} is a real--time search and analytics engine based on Lucene. It provides a distributed, multitenant-capable full-text search engine with a coherent RESTful API and schema--free JSON documents. \gls{elastic} is developed in Java and is released as \gls{oss} under the terms of the Apache License. It is the most popular enterprise search engine today~\cite{gormley2015elasticsearch}.
 
 \hiddensubsection{Redis} \label{sec:theory:redis}
 
-Redis is an in-memory database \gls{oss} project that is networked, in-memory, and stores keys with optional durability~\cite{wiki:redis}.
+Redis is an \gls{oss} in--memory data structure store that can be used as database, cache or messaging broker. It supports variety of basic data structures, geospatial indexes and others. It has a replication, transactions, LUA scripting, on--disk persistence and provides high availability via Redis Cluster~\cite{redis:about}.
 
 \hiddensubsection{\gls{phpstan}} \label{sec:theory:phpstan}
 

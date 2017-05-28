@@ -2,7 +2,7 @@
 
 To be able to lay out the roadmap, first we have to know the current state of each Kdyby package, the original purpose and the current requirements. We will only review those packages that actually made it to production and at least one usable version was released.
 
-I have created few GitHub repositories as a reminder for me to start working on some other web application development problems. I did start to work on some of them, for example on DoctrineForms, but it was never "officially released". We will not discuss these incomplete packages in this thesis.
+I have created few \gls{gh} repositories as a reminder for me to start working on some other web application development problems. I did start to work on some of them, for example on DoctrineForms, but it was never officially released. We will not discuss these incomplete packages in this thesis.
 
 \section{State of the project}
 
@@ -13,10 +13,10 @@ The other problems appear only when you interact with the source code which is s
 \begin{figure} \label{fig:php:supported-versions}
   \centering
     \includegraphics[width=1\textwidth]{src/assets/php-supported-versions.png}
-  \caption{Supported PHP Versions. Green is active support, orange is security fixes only. Up-to-date version is at \url{http://php.net/supported-versions.php}}
+  \caption{Supported PHP Versions. Green is active support, orange is security fixes only. Up-to-date version is at \url{https://secure.php.net/supported-versions.php}}
 \end{figure}
 
-Most of the packages are compatible with PHP 5.4, but \fnurl{PHP 5.4 had end of life at \printdate{2015-09-03}}{http://php.net/eol.php} and is no longer supported by PHP developers.
+Most of the packages are compatible with PHP 5.4, but \fnurl{PHP 5.4 had end of life at \printdate{2015-09-03}}{https://secure.php.net/eol.php} and is no longer supported by PHP developers.
 
 PHP 5.5 had end of life at \printdate{2016-06-21} and PHP 5.6 is currently in the phase of security fixes only and will have end of life at \printdate{2018-12-31}. As you can see on the graph~\ref{fig:php:supported-versions}, everyone should be migrating to PHP 7.0 by now. But developer has to consider what PHP versions the libraries support, upgrade them first and then migrate the application.
 
@@ -28,7 +28,7 @@ This section reviews each package separately, considers the original purpose and
 
 \hiddensubsection{Doctrine} \label{sec:state:doctrine}
 
-\gls{kDoctrine} is an integration of \gls{doctrine} into \gls{nette}. But it has cumulated a lot of responsibilities that don't belong to it
+\gls{kDoctrine} is an integration of \gls{doctrine} into \gls{nette}. But it has cumulated a lot of responsibilities that do not belong to it
 
 \gls{doctrine} itself is separated into several packages, mainly \fnurl{doctrine/orm}{https://github.com/doctrine/doctrine2}, \fnurl{doctrine/common}{https://github.com/doctrine/common}, \fnurl{doctrine/annotations}{https://github.com/doctrine/annotations}, \fnurl{doctrine/cache}{https://github.com/doctrine/cache} and \fnurl{doctrine/collections}{https://github.com/doctrine/collections}. What started as a monolith integration in Kdyby, got separated into \gls{kEvents}~\ref{sec:state:events}, \gls{kConsole}~\ref{sec:state:console}, \gls{kAnnotations}~\ref{sec:state:annotations} and \gls{kDoctrineCache}~\ref{sec:state:doctrine-cache} for reusability.
 
@@ -129,7 +129,7 @@ class Cart
   }
 }
 
-$cart = new Cart()
+$cart = new Cart();
 
 // modifying the collection through entity API
 $cart->addOrderItem(new OrderItem());
@@ -187,7 +187,7 @@ I have a cron job on my \gls{vps} that regularly downloads fresh certificates fr
 
 Using this package in application means it no longer depends on outdated system certificates and they can be updated regularly with this package.
 
-The Composer authors created their own package \fnurl{composer/ca-bundle}{https://github.com/composer/ca-bundle} that solves this problem too. And since Composer has bigger user base, it gained traction and is now defacto a standard. Therefore \gls{kCurlCaBundle} is now deprecated. But since a lot of applications still depend on it, I am maintaining the cron job and keeping the package alive until everyone adopts composer/ca-bundle.
+The Composer authors created their own package \fnurl{composer/ca-bundle}{https://github.com/composer/ca-bundle} that solves this problem too. And since Composer has bigger user base, it gained traction and is now de~facto a standard. Therefore \gls{kCurlCaBundle} is now deprecated. But since a lot of applications still depend on it, I am maintaining the cron job and keeping the package alive until everyone adopts composer/ca-bundle.
 
 \hiddensubsection{Autowired} \label{sec:state:autowired}
 
@@ -243,19 +243,19 @@ This package was created for \gls{nette} 2.1 and \gls{nette} \gls{dic} component
 
 \hiddensubsection{Clock} \label{sec:state:clock}
 
-Logic in application often depends on current time, but if you want to unit test such logic, it is a problem. \gls{kClock} solves this problem by implementing a DateTimeProvider service for \gls{nette}. The service with time sensitive logic should require the DateTimeProvider interface and every time it requires to know the current date and time it calls a \lstinline{getTime()} method on the provider. With the dependency clearly declared in constructor of the service, it can be easily mocked and unite tested.
+Logic in application often depends on current time, but if you want to unit test such logic, it is a problem. \gls{kClock} solves this problem by implementing a DateTimeProvider service for \gls{nette}. The service with time sensitive logic should require the DateTimeProvider interface and every time it requires to know the current date and time it calls a \lstinline{getTime()} method on the provider. With the dependency clearly declared in constructor of the service, it can be easily mocked and unit tested.
 
 The package works well, but it would be useful to have such functionality framework agnostic. Now the package depends on \gls{nette}.
 
 \hiddensubsection{Redis} \label{sec:state:redis}
 
-\gls{kRedis} integrates the \fnurl{Pecl}{http://php.net/manual/en/install.pecl.intro.php} extension \fnurl{Redis}{https://pecl.php.net/package/redis} into \gls{nette}. There are three main services it provides - cache, cache journal, sessions and locking.
+\gls{kRedis} integrates the \fnurl{Pecl}{https://secure.php.net/manual/en/install.pecl.intro.php} extension \fnurl{Redis}{https://pecl.php.net/package/redis} into \gls{nette}. There are three main services it provides - cache, cache journal, sessions and locking.
 
 Redis is fast memory key-value storage and as such is a great candidate for cache storage. \gls{nette} contains \lstinline{IStorage} interface that \gls{kRedis} implements and it can be used as a drop-in replacement for the default file caching.
 
 Journal in \gls{nette} is used for keeping track of tags assigned to cache values. This metadata can be then used to invalidate only specific keys in cache. The default journal in \gls{nette} was historically implemented using custom binary file and now is implemented as an SQLite database. The binary file implementation was limited by the format and could only store fixed amount of key and value pairs which is perfectly fine up to a certain point of application growth. Now the current solution with SQLite database does not have this problem, but still it requires a local file system to work. \gls{kRedis} implementation uses native Redis data structures to implement the journaling and can be used as a replacement, if the other implementations are not ideal for the application.
 
-Session handler takes care of user sessions. In order to implement login functionality, web application has to assign session cookies to visitors and the session cookie value is used as key for session storage allowing the website to store information per user. The default implementation in PHP uses file system and is prone to failure with high traffic, because its of garbage collection mechanism. The default Redis PHP extension has its own session handler, but this handler does not handle locking of the sessions, which means a high chance for a race condition where older application request might rewrite data from newer application request. This is acceptable, if the application doesn't store any additional data in the session, apart from the user id. But typical \gls{nette} application stores at least flash messages in sessions and its undesirable for them to get lost.
+Session handler takes care of user sessions. In order to implement login functionality, web application has to assign session cookies to visitors and the session cookie value is used as key for session storage allowing the website to store information per user. The default implementation in PHP uses file system and is prone to failure with high traffic, because of its garbage collection mechanism. The default Redis PHP extension has its own session handler, but this handler does not handle locking of the sessions, which means a high chance for a race condition where older application request might rewrite data from newer application request. This is acceptable, if the application doesn't store any additional data in the session, apart from the user id. But typical \gls{nette} application stores at least flash messages in sessions and its undesirable for them to get lost.
 
 Redis server does not have any form of native locking. It only recommends the locking algorithm \fnurl{Redlock}{https://redis.io/topics/distlock} and \gls{kRedis} implements it.
 It is used for locking cache keys when the IStorage from \gls{nette} is required to block and it is also used for the custom session handler.
@@ -264,7 +264,7 @@ It is used for locking cache keys when the IStorage from \gls{nette} is required
 
 \hiddensubsection{Monolog} \label{sec:state:monolog}
 
-\gls{kMonolog} is an integration of \fnurl{monolog/monolog}{https://github.com/Seldaek/monolog} library that implements \gls{psr}-3 into \gls{nette}. \Gls{nette} has a debugging component Tracy that renders exceptions in comprehensive way. \gls{kMonolog} handles integration with Tracy as well, making every exception passed to Monolog render with every relevant detail.
+\gls{kMonolog} is an integration of \fnurl{monolog/monolog}{https://github.com/Seldaek/monolog} library that implements \gls{psr}-3 into \gls{nette}. \gls{kMonolog} handles integration with Tracy as well, making every exception passed to Monolog render with every relevant detail using Tracy BlueScreen renderer.
 
 The integration works well even with current \gls{nette}, but has a lot of dead code for providing backwards compatibility that can be dropped when the version requirement for \gls{nette} is increased. Also the configuration structure is suboptimal. The configuration of \gls{sf} bundle for Monolog is better and \gls{nette} would benefit from having the same structure.
 
@@ -280,9 +280,9 @@ There are several new major versions of both libraries. The Tracy panel and the 
 
 \hiddensubsection{Geocoder} \label{sec:state:geocoder}
 
-\gls{kGeocoder} extends \fnurl{willdurand/geocoder}{https://github.com/geocoder-php/Geocoder} with custom geocoder provider for \fnurl{Seznam maps}{https://api.mapy.cz/}, logging capabilities and mechanism for sorting the results.
+\gls{kGeocoder} extends \fnurl{willdurand/geocoder}{https://github.com/geocoder-php/Geocoder} with custom geo\-co\-de\-r provider for \fnurl{Seznam maps}{https://api.mapy.cz/}, logging capabilities and mechanism for sorting the results.
 
-The geocoder declares a common interface for communication with maps data API providers. There are two main tasks - geocoding and reverse geocoding. Geocoding is a search in maps data for given string that returns list of addresses with GPS coordinates that correspond to the search query. Reverse geocoding takes a GPS coordinate and returns the address that corresponds to it. A geocoder provider is implementation of the common geocoding interface for the specific maps data provider.
+The geo\-co\-de\-r declares a common interface for communication with maps data API providers. There are two main tasks - geocoding and reverse geocoding. Geocoding is a search in maps data for given string that returns list of addresses with GPS coordinates that correspond to the search query. Reverse geocoding takes a GPS coordinate and returns the address that corresponds to it. A geo\-co\-de\-r provider is implementation of the common geocoding interface for the specific maps data provider.
 
 The package now solves 4 different problems and is tightly coupled with old versions of \gls{nette}, but is well covered with unit tests.
 
@@ -328,9 +328,9 @@ Facebook keeps releasing new version of their API that keeps breaking backwards 
 
 \gls{kGoogle} is an integration of \fnurl{google/apiclient}{https://github.com/google/google-api-php-client} which aims to solve primarily OAuth 2 login functionality for \gls{nette}. It was written with old PHP 5.3, users report it cannot be even easily installed.
 
-\hiddensubsection{Github} \label{sec:state:github}
+\hiddensubsection{\gls{gh}} \label{sec:state:github}
 
-\gls{kGithub} is a custom implementation of a Github API client and its integration into \gls{nette}. It enables secure authentication when its \gls{ui} component is used.
+\gls{kGithub} is a custom implementation of a \gls{gh} API client and its integration into \gls{nette}. It enables secure authentication when its \gls{ui} component is used.
 
 \hiddensubsection{BootstrapFormRenderer} \label{sec:state:bootstrap-form-renderer}
 

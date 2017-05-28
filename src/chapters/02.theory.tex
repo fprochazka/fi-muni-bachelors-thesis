@@ -2,7 +2,7 @@
 
 \section{A brief history of Kdyby} \label{sec:theory:kdyby-history}
 
-In 2006 I have started working on my own \gls{cms}~\cite{wiki:cms}. A prototype was used in production on few websites I created. The oldest preserved version is \fnurl{archived on my Github}{https://github.com/fprochazka/kdyby-cms-old}. It is a great learning material on how to not write a CMS.
+In 2006 I have started working on my own \gls{cms}~\cite{wiki:cms}. A prototype was used in production on few websites I created. The oldest preserved version is \fnurl{archived on my \gls{gh}}{https://github.com/fprochazka/kdyby-cms-old}. It is a great learning material on how to not write a CMS.
 
 Then the concept of \gls{oss}~\cite{wiki:oss} was introduced to me and I have decided to start working on everything openly, under a free license~\cite{wiki:fsl}. Mo new working version of Kdyby CMS was released since then, because I have rewritten it from scratch exactly 10 times.
 
@@ -18,7 +18,7 @@ Inversion of control is a design principle in which custom-written portions of a
 
 \hiddensubsection{Aspect Oriented Programming} \label{sec:theory:aop}
 
-In computing, \gls{aop} is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a pointcut specification, such as log all function calls when the name of the function begins with 'set'. This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality~\cite{wiki:aop}.
+In computing, \gls{aop} is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a pointcut specification, such as log all function calls when the name of the function begins with \lstinline{set}. This allows behaviors that are not central to the business logic (such as logging) to be added to a program without cluttering the code core to the functionality~\cite{wiki:aop}.
 
 \hiddensubsection{Event Dispatcher} \label{sec:theory:event-dispatcher}
 
@@ -28,19 +28,19 @@ Typically, the extension points are called hooks or events and the new functiona
 
 \section{Technologies used}
 
-\hiddensubsection{Git and Github} \label{sec:theory:git}
+\hiddensubsection{Git and \gls{gh}} \label{sec:theory:git}
 
-Git is a Version Control System that is decentralized and considered very fast~\cite{progit}. Github is a collaboration platform for software development using Git.
+Git is a Version Control System that is decentralized and considered very fast~\cite{progit}. \gls{gh} is a collaboration platform for software development using Git.
 
-Each project has a page on Github called a repository that can be used to inspect the Git history, files and other metadata. On the project repository page, there are issues and pull requests. Pull requests are a way to ask the maintainer of the repository to incorporate provided code patch to the repository. It can be a bugfix or feature.
+Each project has a page on \gls{gh} called a repository that can be used to inspect the Git history, files and other metadata. On the project repository page, there are issues and pull requests. Pull requests are a way to ask the maintainer of the repository to incorporate provided code patch to the repository. It can be a bugfix or feature.
 
 There are tools around pull requests that allow collaboration, a code review and discussion about the provided code, so that the maintainers can help the contributors to provide the best code possible.
 
-Kdyby is hosted and developed on Github, with the help of several other maintainers and the community that contributes bugfixes and features.
+Kdyby is hosted and developed on \gls{gh}, with the help of several other maintainers and the community that contributes bugfixes and features.
 
 \hiddensubsection{Continuous Integration} \label{sec:theory:ci}
 
-\gls{ci} is a practice of merging all developer working copies to a shared mainline several times a day, to prevent merging conflicts.~\cite{wiki:ci} But now-days, the term has established to mean CI servers that run prepared task on the provided code.
+\gls{ci} is a practice of merging all developer working copies to a shared mainline several times a day, to prevent merging conflicts.~\cite{wiki:ci} But nowadays, the term has established to mean CI servers that run prepared task on the provided code.
 
 In practice, it means that as the developer is working on a feature or bugfix, they push the work in progress code into a repository, the code is then picked up by a CI server that executes the tests, checks coding style and runs various other tasks to verify that the code was not broken.
 
@@ -58,11 +58,13 @@ Some popular CI services are \fnurl{Travis~CI}{https://travis-ci.org/}, \fnurl{C
 
 The \gls{di} component \fnurl{nette/di}{https://github.com/nette/di} provides a \gls{dic} that holds the services. The component also allows to prepare a preconfigured \gls{dic}, which is then compiled into a PHP class that contains optimized code for the service creation. This compiled \gls{dic} class is cached for reuse. There is a concept (and a class) CompilerExtension that allows the developer to hook into the process of configuring and compiling of the \gls{nette} \gls{dic}. All of Kdyby packages that are an integration of some other library or tool into \gls{nette} provide a CompilerExtension to make the installation easy.
 
+Default settings for error handling in PHP is not ideal. It outputs errors and warnings directly into browser for the user to see which is bad for esthetical, usability and security reasons. \fnurl{Tracy}{https://github.com/nette/tracy} provides error and exception handlers that redirect the messages into log files. It also renders a red BlueScreen HTML file with extensive details about the error that occurred. The BlueScreen renderer is extensible and allows installing custom panels that can provide additional context for the programmer.
+
 \hiddensubsection{Composer} \label{sec:theory:composer}
 
 Composer is a tool for dependency management~\cite{wiki:package-manager} in PHP. It allows you to declare the libraries your project depends on and it will manage (install or update) them for you~\cite{composer:docs:intro}.
 
-Packages are usually published using Github with metadata in a file named \lstinline{composer.json} that is written in JSON~\cite{wiki:json} format.
+Packages are usually published using \gls{gh} with metadata in a file named \lstinline{composer.json} that is written in JSON~\cite{wiki:json} format.
 
 Composer is decentralized, but has a single main metadata repository \fnurl{Packagist}{https://packagist.org/}. It stores and provides all the package metadata like available versions and where to download them.
 
@@ -72,7 +74,7 @@ All Kdyby libraries are published as Composer packages on Packagist and installi
 
 OAuth is a protocol for authentication and authorization that can be implemented into a web service. It is designed for secure exchange of user information, allowing third party websites to implement a login and registration process that simplifies these tasks for the user essentially allowing them to login or register to services through the OAuth 2 provider with two clicks.
 
-Kdyby provides packages for integrating \gls{nette} with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{Github}{https://developer.github.com/v3/oauth/}.
+Kdyby provides packages for integrating \gls{nette} with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{\gls{gh}}{https://developer.github.com/v3/oauth/}.
 
 \hiddensubsection{dibi} \label{sec:theory:dibi}
 

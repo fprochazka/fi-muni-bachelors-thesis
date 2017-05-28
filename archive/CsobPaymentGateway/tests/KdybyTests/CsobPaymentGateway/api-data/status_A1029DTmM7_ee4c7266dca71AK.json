@@ -1,0 +1,48 @@
+{
+    "status": 200,
+    "headers": {
+        "Server": [
+            "nginx"
+        ],
+        "Date": [
+            "Fri, 29 Apr 2016 12:48:41 GMT"
+        ],
+        "Content-Type": [
+            "application\/json;charset=UTF-8"
+        ],
+        "Transfer-Encoding": [
+            "chunked"
+        ],
+        "Connection": [
+            "keep-alive"
+        ],
+        "Cache-Control": [
+            "no-cache, no-store, must-revalidate"
+        ],
+        "Expires": [
+            "0"
+        ],
+        "Pragma": [
+            "no-cache"
+        ],
+        "Set-Cookie": [
+            "BIGipServerasors_iplatebnibrana.csob.cz_6443_pool=XUIg377\/mydVCMfjBKM\/0wuNmVa8y7Jaa6cxmRxMk++Wc4tRbAXJmH8AqNlEbuvPYpm3qKFakpxCewMAAAAB;secure; path=\/"
+        ]
+    },
+    "body": {
+        "dttm": "20160429144841",
+        "signature": "lk2ZTm3GLa0ha0lGKag5WfH3YdwSjItxEe87CZFk28h4A+h4eDKo02Jn9o0WPCC84h84kMA1yni2TevaU0JcVRCfjqUUSMGQZXgIItPF2r+PvhnobOG0UiBxGkCheCr7TdSdZTQYVmIrqSyGUeNUufcFKJ41xpwALci7lvfgF4E91YztX\/j8kAoYU9r7bP41DpnslV+7dM1ZcncTVOwUGr\/BzSm2Og7IQe\/XxYrJQrxbwpLMQXv2IFvPXR07fnD5fv1ZwqzoRCDIjZrTthLgAT95yz263Woz+KQqMyDMQmnSY\/t4ooEND82MSLWAblPj\/m4RUOrZKBcKMVxvVAB05Q==",
+        "payId": "ee4c7266dca71AK",
+        "resultCode": 0,
+        "resultMessage": "OK",
+        "paymentStatus": 1,
+        "extensions": [
+            {
+                "dttm": "20160429144841",
+                "signature": "S93rULIRplMkbfg1736Dn3Ezb2hUGVEPW3Bo5j8aVqH4WgGcHk6R6gUo4DAzjQTXk+uix2v3uSczHcB0Eo+g1uzIYOQs5MWZhjEGuWHxgasTHYVhrRVa9eYp\/stkhjHqnRVBwQYEZg+ADMy6Wn7CCSzvFhHXBxTrVRnOT9qDgktLDB0ikTFn0ffkSe35zkOM06nA2BhwQ0g6QHnx27KuJ8K0RPcb75LrP\/mHAkZqWBtILiMOMdynUJAT3HDCe4c7cBUGUryZem4GBpxsmdCds3P48e8uYIBlQ6fsHEgJw9EW0OB50hXXb+YHMA0k6Z+OqGpCzT8J7GGcrw86YRwx6A==",
+                "extension": "trxDates",
+                "createdDate": "2015-11-12T13:42:37.793Z"
+            }
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+php:
+	date.timezone: Europe/Prague
+
+application:
+	scanDirs: false
+
+http:
+	frames: null
+
+session:
+	autoStart: false

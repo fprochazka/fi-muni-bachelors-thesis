@@ -1,0 +1,22 @@
+php:
+	date.timezone: Europe/Prague
+
+
+services:
+	cacheStorage:
+		class: Nette\Caching\Storages\MemoryStorage
+
+
+translation:
+	whitelist: [cs, sk, en]
+	resolvers:
+		session: on
+
+application:
+	scanDirs: false
+
+http:
+	frames: null
+
+session:
+	autoStart: false

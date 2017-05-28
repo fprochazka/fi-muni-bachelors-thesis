@@ -1,0 +1,7 @@
+kdyby.doctrine:
+	driver: pdo_sqlite
+	memory: true
+	metadata:
+		KdybyTests\Doctrine: annotations(%appDir%/Doctrine/models)
+	targetEntityMappings:
+		KdybyTests\Doctrine\ICmsAddress: KdybyTests\Doctrine\CmsAddress

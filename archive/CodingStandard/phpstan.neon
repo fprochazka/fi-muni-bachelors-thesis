@@ -1,0 +1,5 @@
+parameters:
+	excludes_analyse:
+		- */tests/*/data/*
+	autoload_files:
+		- vendor/squizlabs/php_codesniffer/CodeSniffer/Tokens.php

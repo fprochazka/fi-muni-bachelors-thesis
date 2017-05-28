@@ -1,0 +1,55 @@
+{
+	"name": "kdyby/clock",
+	"type": "library",
+	"description": "Time provider, providing consistent current date, time, datetime and timezone across the request.",
+	"keywords": ["nette", "kdyby", "date", "time"],
+	"homepage": "http://kdyby.org",
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"authors": [
+		{
+			"name": "Michael Moravec"
+		},
+		{
+			"name": "Richard Ejem"
+		},
+		{
+			"name": "Filip Procházka",
+			"homepage": "http://filip-prochazka.com"
+		}
+	],
+	"support": {
+		"email": "filip@prochazka.su",
+		"issues": "https://github.com/kdyby/clock/issues"
+	},
+	"require": {
+		"php": "^5.6 || ^7.0",
+		"kdyby/strict-objects": "^1.0"
+	},
+	"require-dev": {
+		"nette/bootstrap": "^2.4@dev",
+		"nette/di": "^2.4@dev",
+		"nette/tester": "~1.7"
+	},
+	"minimum-stability": "dev",
+	"autoload": {
+		"psr-4": {
+			"Kdyby\\Clock\\": "src/"
+		},
+		"classmap": [
+			"src/exceptions.php"
+		]
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"KdybyTests\\": "tests/KdybyTests/"
+		},
+		"classmap": [
+			"tests/KdybyTests/"
+		]
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		}
+	}
+}

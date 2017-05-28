@@ -1,0 +1,10 @@
+nette:
+	security:
+		frames: null
+
+	session:
+		autoStart: false
+
+	application:
+		mapping:
+			*: KdybyTests\CsobPaygateNette\*Presenter

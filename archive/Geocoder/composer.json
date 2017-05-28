@@ -1,0 +1,15 @@
+{
+	"name": "kdyby/geocoder",
+	"type": "library",
+	"description": "Integration of willdurand/geocoder into Nette Framework",
+	"keywords": [],
+	"homepage": "http://kdyby.org",
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"authors": [
+		{
+			"name": "Filip Procházka",
+			"homepage": "http://filip-prochazka.com",
+			"email": "filip@prochazka.su"
+		}
+	]
+}

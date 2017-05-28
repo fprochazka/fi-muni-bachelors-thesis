@@ -1,0 +1,66 @@
+{
+	"name": "kdyby/csob-paygate-nette",
+	"type": "library",
+	"description": "CSOB client library",
+	"keywords": ["nette", "kdyby", "csob", "paymentgateway", "card", "payment"],
+	"homepage": "http://kdyby.org",
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"authors": [
+		{
+			"name": "Filip Procházka",
+			"homepage": "http://filip-prochazka.com",
+			"email": "filip@prochazka.su"
+		}
+	],
+	"support": {
+		"email": "filip@prochazka.su",
+		"issues": "https://github.com/Kdyby/CsobPaygateNette/issues"
+	},
+	"require": {
+		"kdyby/csob-payment-gateway": "^2.0@dev",
+
+		"nette/application": "^2.2",
+		"nette/di": "^2.2",
+		"nette/http": "^2.2",
+		"nette/utils": "^2.2"
+	},
+	"require-dev": {
+		"nette/application": "~2.2@dev",
+		"nette/bootstrap": "~2.2@dev",
+		"nette/caching": "~2.2@dev",
+		"nette/component-model": "~2.2@dev",
+		"nette/database": "~2.2@dev",
+		"nette/deprecated": "~2.2@dev",
+		"nette/di": "~2.2@dev",
+		"nette/finder": "~2.2@dev",
+		"nette/forms": "~2.2@dev",
+		"nette/http": "~2.2@dev",
+		"nette/mail": "~2.2@dev",
+		"nette/neon": "~2.2@dev",
+		"nette/php-generator": "~2.2@dev",
+		"nette/reflection": "~2.2@dev",
+		"nette/robot-loader": "~2.2@dev",
+		"nette/safe-stream": "~2.2@dev",
+		"nette/security": "~2.2@dev",
+		"nette/tokenizer": "~2.2@dev",
+		"nette/utils": "~2.2@dev",
+		"latte/latte": "~2.2@dev",
+		"tracy/tracy": "~2.2@dev",
+
+		"guzzlehttp/guzzle": "^6.0",
+		"nette/tester": "^1.6",
+		"mockery/mockery": "^0.9",
+		"kdyby/request-stack": "^0.1.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"Kdyby\\CsobPaygateNette\\": "src/"
+		},
+		"classmap": [
+			"src/exceptions.php"
+		]
+	},
+	"autoload-dev": {
+		"classmap": ["tests/KdybyTests"]
+	}
+}

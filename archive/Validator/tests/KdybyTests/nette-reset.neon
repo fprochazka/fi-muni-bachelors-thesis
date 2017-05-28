@@ -1,0 +1,23 @@
+php:
+	date.timezone: Europe/Prague
+
+
+extensions:
+	translation: Kdyby\Translation\DI\TranslationExtension
+	validator: Kdyby\Validator\DI\ValidatorExtension
+
+
+services:
+	cacheStorage:
+		class: Nette\Caching\Storages\MemoryStorage
+
+	-
+		class: KdybyTests\ValidatorMocks\FooConstraintValidator
+		tags:
+			kdyby.validator.constraintValidator: KdybyTests\ValidatorMocks\FooConstraintValidator
+
+http:
+	frames: null
+
+session:
+	autoStart: false

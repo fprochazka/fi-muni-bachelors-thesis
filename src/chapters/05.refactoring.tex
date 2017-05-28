@@ -46,12 +46,24 @@ The standard defines two rulesets \lstinline{ruleset-5.6} and \lstinline{ruleset
 
 Tests written in \gls{nTester} have \lstinline{.phpt} extension and not the standard \lstinline{.php}. \gls{kcs} will override the defaults and force \gls{phpCs} to check both extensions. The tests also execute themselves which creates a side effect. \gls{ccs} forbids side effects which means the PHP file must either define a type or execute some operations but never both. This rule is ignored for \lstinline{.phpt} files.
 
-Writing the tests often requires handling some extreme cases where strictly enforcing the coding standard would be a problem or simply an inconvenience.
+Writing the tests often requires handling some extreme cases where strictly enforcing the coding standard would be a problem or simply an inconvenience. The \fnurl{Heredoc}{https://secure.php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc} syntax is allowed in tests for defining larger chunks of strings to compare against.
 
 \hiddensubsection{Exceptions in one file}
 
+\gls{ncs}~\cite{nette:coding-standard} allows to have \lstinline{exceptions.php} file that contains all exception classes for that given namespace. More specifically it does not forbid it and \gls{nette} itself is written in that way. Since Kdyby is originally based on \gls{ncs} it inherited this practice and the new standard has an exception for defining multiple types in one file when it is named \lstinline{exceptions.php} and contains only types whose name ends with \lstinline{Exception}. New rule was written to check that the namespace in the \lstinline{exceptions.php} file adheres to the namespaces definition in Composer autoloading of that package.
 
+\hiddensubsection{Keywords vs constants}
 
-\section{Summary statistics}
+\gls{ccs} defines the constants \lstinline{TRUE}, \lstinline{FALSE} and \lstinline{NULL} as keywords and they must be written in lowercase. But the PHP documentation defines both \lstinline{NULL}~\cite{php:manual:null} and \lstinline{TRUE}, \lstinline{FALSE}~\cite{php:manual:boolean} as constants. This creates a collision in the standard with a rule that says all constants must be written in uppercase~\cite{consistence:coding-standard}. \gls{kcs} solves this by requiring \lstinline{TRUE}, \lstinline{FALSE} and \lstinline{NULL} to be written in uppercase.
 
-Loreim ipsum.
+\hiddensubsection{Short scalar types in PHPDoc}
+
+In PHPDoc \lstinline{int} and \lstinline{integer} are equivalent, but having two ways to write one thing creates inconsistencies in code. \gls{ccs} requires the PHPDoc to contain the long variants notation if there is more than one variant available~\cite{consistence:coding-standard}. But this is inconsistent with PHP that does not allow long variants in return types and argument typehints. \gls{kcs} solves it by requiring that the short notation is used.
+
+\section{Refactoring summary}
+
+Nette 2.3 and 2.4 compatible versions were released for these packages: \gls{kDoctrine}, \gls{kConsole}, \gls{kAnnotations}, \gls{kDoctrineCache}, \gls{kEvents}, \gls{kTranslation}, \gls{kRequestStack}, \gls{kMonolog}, \gls{kClock}.
+
+\gls{phpstan} is automatically checking these packages: \gls{kDoctrine}, \gls{kConsole}, \gls{kAnnotations}, \gls{kDoctrineCache}, \gls{kEvents}, \gls{kTranslation}, \gls{kCodingStandard}, \gls{kStrictObjects}, \gls{kRequestStack}, \gls{kMonolog}, \gls{kClock}, \gls{kGeocoderSeznamMaps}, \gls{kGeocoderLogging}, \gls{kGeocoderGoogleMapsProxied}, \gls{kGeocoderBestMatch}, \gls{kDoctrineMagicAccessors}, \gls{kDoctrineCollectionsReadonly}.
+
+New \acrlong{kcs} is applied and enforced on these packages:  \gls{kConsole}, \gls{kAnnotations}, \gls{kDoctrineCache}, \gls{kEvents}, \gls{kTranslation}, \gls{kCodingStandard}, \gls{kStrictObjects}, \gls{kRequestStack}, \gls{kMonolog}, \gls{kClock}, \gls{kGeocoderSeznamMaps}, \gls{kGeocoderLogging}, \gls{kGeocoderGoogleMapsProxied}, \gls{kGeocoderBestMatch}, \gls{kDoctrineMagicAccessors}, \gls{kDoctrineCollectionsReadonly}.

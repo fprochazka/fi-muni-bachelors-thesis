@@ -34,9 +34,9 @@ I am going to implement a compiler that fixes the problem with type collisions a
 
 \hiddensubsection{Coding Standard with \gls{phpCs}}
 
-Kdyby has a coding standard from the beginning that is based on \gls{nette} coding standard, but no tool is automatically enforcing it. I have refused to use \fnurl{\gls{phpCs}}{https://github.com/squizlabs/PHP_CodeSniffer} in the past because it does not have good architecture and did not support the rules Kdyby Coding Standard required and somebody would have to implement them first. Now there is \fnurl{slevomat/coding-standard}{https://github.com/slevomat/coding-standard} project that covers most of the needs Kdyby has and it is reasonable to revisit \gls{phpCs} now.
+Kdyby has a coding standard from the beginning that is based on \gls{nette} coding standard, but no tool is automatically enforcing it. I have refused to use \fnurl{\gls{phpCs}}{https://github.com/squizlabs/PHP_CodeSniffer} in the past because it does not have good architecture and did not support the rules \acrlong{kcs} required and somebody would have to implement them first. Now there is \fnurl{slevomat/coding-standard}{https://github.com/slevomat/coding-standard} project that covers most of the needs Kdyby has and it is reasonable to revisit \gls{phpCs} now.
 
-Kdyby will use \fnurl{consistence/coding-standard}{https://github.com/consistence/coding-standard} as a base definition. Consistence Coding Standard includes the slevomat/coding-standard rules. Kdyby Coding Standard will inherit it and modify the rules settings to account for the differences in the standards.
+Kdyby will use \fnurl{consistence/coding-standard}{https://github.com/consistence/coding-standard} as a base definition. \acrlong{ccs} includes the slevomat/coding-standard rules. \acrlong{kcs} will inherit it and modify the rules settings to account for the differences in the standards.
 
 \hiddensubsection{\gls{nette} 2.3 and 2.4 compatible versions}
 

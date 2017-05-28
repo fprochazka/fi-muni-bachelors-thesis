@@ -36,9 +36,21 @@ Thanks to good native tools in PHP, creating the PHAR archive is simple and the 
 
 In order to use the compiled PHAR in Kdyby, it has to be made available somewhere online where it can be downloaded from by the \gls{ci} server. Ondřej created \fnurl{phpstan/phpstan-shim}{https://github.com/phpstan/phpstan-shim} repository for publishing the compiled PHAR and now it can be installed using Composer.
 
-\section{Designing new Kdyby Coding Standard}
+\section{Designing new \acrlong{kcs}}
 
-The new Kdyby Coding Standard is be based on Consistence Coding Standard~\cite{consistence:coding-standard} with \fnurl{slevomat/coding-standard}{https://github.com/slevomat/coding-standard} rules.
+The new \gls{kcs} is be based on \gls{ccs}~\cite{consistence:coding-standard} with \fnurl{slevomat/coding-standard}{https://github.com/slevomat/coding-standard} rules.
+
+The standard defines two rulesets \lstinline{ruleset-5.6} and \lstinline{ruleset-7.1}. The \lstinline{ruleset-5.6} is based on \lstinline{ruleset-7.1} and only removes required PHP 7.1 rules. There will be no standard defined for older PHP versions and therefore the standard can be applied only on packages that already support only PHP 5.6 and newer.
+
+\hiddensubsection{\gls{nTester} support}
+
+Tests written in \gls{nTester} have \lstinline{.phpt} extension and not the standard \lstinline{.php}. \gls{kcs} will override the defaults and force \gls{phpCs} to check both extensions. The tests also execute themselves which creates a side effect. \gls{ccs} forbids side effects which means the PHP file must either define a type or execute some operations but never both. This rule is ignored for \lstinline{.phpt} files.
+
+Writing the tests often requires handling some extreme cases where strictly enforcing the coding standard would be a problem or simply an inconvenience.
+
+\hiddensubsection{Exceptions in one file}
+
+
 
 \section{Summary statistics}
 

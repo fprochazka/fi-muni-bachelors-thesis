@@ -1,11 +1,9 @@
 \chapter{Conclusion and Future work}
 
-The primary goal of this thesis was to release as many new versions as possible of Kdyby packages that are compatible with current versions of libraries they integrate with. The goal to start checking the packages with \gls{phpstan} and have a coding standard is important but not critical. And finally separating the packages into smaller packages with fewer responsibilities has advantages but the biggest one is marketing where the programmers will not feel intimidated by the amount of code in the package and will be more inclined to actually install it and therefore is also not as critical.
+The primary goal of this thesis was to resolve compatibility of Kdyby packages with new versions of libraries they integrate with. The goal to start checking the packages with a static analysis tool and have them adhere to a coding standard is necessary for maintenance but not as critical for daily usage.
 
-Almost all of the most popular packages have now versions that support current \gls{nette}, Doctrine, and \gls{sf}. And only a few of those do not have \gls{phpstan}, or \acrlong{kcs} configured on \gls{ci} server. Not all packages are resolved, but that is fine. If the work had been rushed, it would beat the purpose of refactoring them.
+The roadmap chapter~\ref{sec:roadmap} of this thesis covers the architectural changes for Kdyby packages, and only a part of that plan was implemented. Nine of the most popular packages have now versions that support current Nette, Doctrine, and Symfony. Also, one of the packages has been completely decomposed to separate packages that each perform only one job.
 
-The amount of work covered by this thesis represents several months of work but only a fraction of what have already been invested into Kdyby by the maintainers and community.
+Compiling the roadmap was critical for future refactorings because it can be used as a basis for them. By implementing it, many of the open issues will also be resolved. And as of writing this, there are 188 open issues and pull requests that have to be solved or reviewed.
 
-The roadmap chapter~\ref{sec:roadmap} of this thesis covers the big architectural changes for Kdyby packages and only a part of that plan was implemented. By solving them, many of the open issues will be also resolved. As of writing this, there are 188 open issues and pull requests that have to be solved or reviewed.
-
-The issues and pull requests alone are several months of work and the architectural changes will take at least half a year to implement.
+The time estimate for solving just the open issues and pull requests alone is several months of work, and the architectural changes covered by roadmap will take at least half a year to implement.

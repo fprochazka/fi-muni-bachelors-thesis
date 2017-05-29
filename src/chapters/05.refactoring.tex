@@ -10,7 +10,7 @@ This section first documents the source code preprocessing. Supporting the offic
 
 \hiddensubsection{Source code preprocessor} \label{sec:refactoring:phpstan-preprocessor}
 
-The solution we have agreed upon with the author of \gls{phpstan} is to prefix the namespaces of the \gls{phpstan} dependencies with \lstinline{PHPStanVendor\\} and fix all references to them in the whole project including other dependencies.
+The solution we have agreed upon with the author of \gls{phpstan} is to prefix the namespaces of the \gls{phpstan} dependencies with \lstinline{PHPStanVendor\} and fix all references to them in the whole project including other dependencies.
 
 For PHP source code there is a function \fnurl{\lstinline{token_get_all}}{https://secure.php.net/manual/en/function.token-get-all.php} that creates a list of tokens using the lexical scanner of PHP interpreter. I have written a simple parser that uses the tokens, determines the context of the reference and correctly prefixes it. The simple parser was inspired by old \gls{nette} build tools that are deprecated now but served as a good start.
 

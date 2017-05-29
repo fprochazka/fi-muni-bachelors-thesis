@@ -24,7 +24,7 @@ Every package is specific, but there is set of standards that have to be enforce
 
 \fnurl{\gls{phpstan}}{https://github.com/phpstan/phpstan} claims to be a static analysis tool that can discover bugs in source code. It does not find all bugs, but it has a lot of necessary checks. Running such tool on Kdyby packages in \gls{ci} is going to increase confidence in the correctness of the packages and help prevent introducing new bugs.
 
-But there is a problem with \gls{phpstan} - it is not a static analysis tool. It does analyze the code, but not statically. It uses two tools for its analysis - \fnurl{PHP Parser}{https://github.com/nikic/PHP-Parser} and \fnurl{native PHP reflection}{https://secure.php.net/manual/en/book.reflection.php}. First, it parses the source code using the PHP Parser, and when it finds a class, \fnurl{\gls{phpstan} loads the file into memory and executes it}{https://github.com/phpstan/phpstan/issues/137} which makes it available for the PHP reflection. This would not be a problem on itself with source code that has no side effects, but \gls{phpstan} has 3rd party dependencies that might clash with dependencies of the project it is analyzing. One of them is \gls{sfConsole}. If \gls{phpstan} were to analyze the source code of \gls{sfConsole} it would not be analyzing the source code of the library it would be executed on, but the source code of its dependency, because it uses the native PHP reflection.
+But there is a problem with \gls{phpstan} -- it is not a static analysis tool. It does analyze the code, but not statically. It uses two tools for its analysis -- \fnurl{PHP Parser}{https://github.com/nikic/PHP-Parser} and \fnurl{native PHP reflection}{https://secure.php.net/manual/en/book.reflection.php}. First, it parses the source code using the PHP Parser, and when it finds a class, \fnurl{\gls{phpstan} loads the file into memory and executes it}{https://github.com/phpstan/phpstan/issues/137} which makes it available for the PHP reflection. This would not be a problem on itself with source code that has no side effects, but \gls{phpstan} has 3rd party dependencies that might clash with dependencies of the project it is analyzing. One of them is \gls{sfConsole}. If \gls{phpstan} were to analyze the source code of \gls{sfConsole} it would not be analyzing the source code of the library it would be executed on, but the source code of its dependency, because it uses the native PHP reflection.
 
 This problem has several solutions. \gls{phpstan} can be rewritten not to use the native PHP reflection but emulated one that works on top of the PHP Parser. The author does not like this solution because he is worried about the speed of the tool. \gls{phpstan} can be rewritten to drop all dependencies and re--implement the functionality the libraries provide. This solution is not good because it would create additional and unnecessary overhead for the maintainers. Or we can implement a compiler that preprocesses the source code of \gls{phpstan} and its dependencies and fixes the problem.
 
@@ -110,7 +110,7 @@ All the extracted packages except \textit{\gls{kTracyDoctrineDbalPanel}} should 
 
 \hiddensubsection{Translation}
 
-The \lstinline{^3.0} releases of \gls{sfTranslation} solve problems that \textit{\gls{kTranslation}} tried to fix, and a lot of code can be removed completely.
+The \lstinline{^3.0} releases of \gls{sfTranslation} solve problems that \\\textit{Kdyby\textbackslash{}Translation} tried to fix, and a lot of code can be removed completely.
 
 \hiddensubsection{Clock}
 

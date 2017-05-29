@@ -106,7 +106,7 @@ It was extracted from \textit{\gls{kDoctrine}} and currently only exists to ease
 
 Entities in \gls{doctrine} can have associations in them. For example, a cart entity might contain a collection of order items. Adding an order item to the cart might be done using an \lstinline{addOrderItem} method or through the collection directly as shown in~\ref{fig:collections-readonly:example}.
 
-When we try to modify the collection outside of the entity that owns it, we are breaking the encapsulation of that entity - it no longer has the control over what is in the collection. Therefore allowing the programmer to access the mutable collection directly is a bad practice.
+When we try to modify the collection outside of the entity that owns it, we are breaking the encapsulation of that entity -- it no longer has the control over what is in the collection. Therefore allowing the programmer to access the mutable collection directly is a bad practice.
 
 \begin{figure} \label{fig:collections-readonly:example}
 \begin{lstlisting}
@@ -249,7 +249,7 @@ The package works well, but it would be useful to have such functionality framew
 
 \hiddensubsection{Redis} \label{sec:state:redis}
 
-\textit{\gls{kRedis}} integrates the \fnurl{Pecl}{https://secure.php.net/manual/en/install.pecl.intro.php} extension \fnurl{Redis}{https://pecl.php.net/package/redis} into \gls{nette}. There are three main services it provides - cache, cache journal, sessions, and locking.
+\textit{\gls{kRedis}} integrates the \fnurl{Pecl}{https://secure.php.net/manual/en/install.pecl.intro.php} extension \fnurl{Redis}{https://pecl.php.net/package/redis} into \gls{nette}. There are three main services it provides -- cache, cache journal, sessions, and locking.
 
 Redis is fast memory key-value storage and as such is an excellent candidate for cache storage. \gls{nette} contains an \lstinline{IStorage} interface that \textit{\gls{kRedis}} implements and it can be used as a drop-in replacement for the default file caching.
 
@@ -270,7 +270,7 @@ The integration works well even with current \gls{nette} but has a lot of dead c
 
 \hiddensubsection{ElasticSearch} \label{sec:state:elastic-search}
 
-There are two main client packages for \gls{elastic} - \fnurl{ruflin/elastica}{https://github.com/ruflin/Elastica} and \fnurl{elasticsearch/elasticsearch}{https://github.com/elastic/elasticsearch-php}. \textit{\gls{kElasticSearch}} integrates ruflin/elastica into \gls{nette}. The 1.* versions of elasticsearch/elasticsearch were tightly coupled with 3rd party \gls{dic} which lead to choosing the ruflin/elastica package. The main benefit of this package is the Tracy panel that prints executed queries which allow for easier debugging.
+There are two main client packages for \gls{elastic} -- \fnurl{ruflin/elastica}{https://github.com/ruflin/Elastica} and \fnurl{elasticsearch/elasticsearch}{https://github.com/elastic/elasticsearch-php}. \textit{\gls{kElasticSearch}} integrates ruflin/elastica into \gls{nette}. The 1.* versions of elasticsearch/elasticsearch were tightly coupled with 3rd party \gls{dic} which lead to choosing the ruflin/elastica package. The main benefit of this package is the Tracy panel that prints executed queries which allow for easier debugging.
 
 There are several new major versions of both libraries. The Tracy panel and the bridging have to be reviewed for bugs and possible improvements.
 
@@ -282,13 +282,13 @@ There are several new major versions of both libraries. The Tracy panel and the 
 
 \textit{\gls{kGeocoder}} extends \fnurl{willdurand/geocoder}{https://github.com/geocoder-php/Geocoder} with custom geo\-co\-de\-r provider for \fnurl{Seznam maps}{https://api.mapy.cz/}, logging capabilities and mechanism for sorting the results.
 
-The geo\-co\-de\-r declares a common interface for communication with maps data API providers. There are two main tasks - geocoding and reverse geocoding. Geocoding is a search in maps data for given string that returns list of addresses with GPS coordinates that correspond to the search query. Reverse geocoding takes a GPS coordinate and returns the address that corresponds to it. A geo\-co\-de\-r provider is implementation of the common geocoding interface for the specific maps data provider.
+The geo\-co\-de\-r declares a common interface for communication with maps data API providers. There are two main tasks -- geocoding and reverse geocoding. Geocoding is a search in maps data for given string that returns list of addresses with GPS coordinates that correspond to the search query. Reverse geocoding takes a GPS coordinate and returns the address that corresponds to it. A geo\-co\-de\-r provider is implementation of the common geocoding interface for the specific maps data provider.
 
 The package now solves 4 different problems and is tightly coupled with old versions of \gls{nette}, but is well covered with unit tests.
 
 \hiddensubsection{CsobPaymentGateway} \label{sec:state:csob-payment-gateway}
 
-The Czech ČSOB bank has created its payment gateway for paying with debit and credit cards that can be used with any web or mobile application. \textit{\gls{kCsobPaymentGateway}} is a client that wraps the API communication in \gls{oo} abstraction. The main concerns are security and simplicity of use since this library is part of the most critical application infrastructure - the payment process.
+The Czech ČSOB bank has created its payment gateway for paying with debit and credit cards that can be used with any web or mobile application. \textit{\gls{kCsobPaymentGateway}} is a client that wraps the API communication in \gls{oo} abstraction. The main concerns are security and simplicity of use since this library is part of the most critical application infrastructure -- the payment process.
 
 At the same month, this library was published a competitive package \fnurl{slevomat/csob-gateway}{https://github.com/slevomat/csob-gateway} was released. It is impossible to support package this critical without having it in production and being able to monitor it. Since I have left the company we needed this integration for, I did not have a chance to deploy the package to any new project that I would maintain, and the new versions and features of the ČSOB payment gateway are not implemented. This makes the library dangerous to use which lead to a \fnurl{search for a new maintainer of \textit{\gls{kCsobPaymentGateway}}}{https://github.com/Kdyby/CsobPaymentGateway/issues/25}.
 
@@ -298,7 +298,7 @@ At the same month, this library was published a competitive package \fnurl{slevo
 
 \hiddensubsection{Wkhtmltopdf} \label{sec:state:wkhtmltopdf}
 
-\fnurl{Wkhtmltopdf}{https://wkhtmltopdf.org/} is, among others, a PDF generator. It has CLI interface that accepts an HTML file, set of options and generates a PDF. \textit{\gls{kWkhtmltopdf}} is an \gls{oo} abstraction of the CLI for \gls{nette}. It contains a lot of custom solutions for the subproblems that are not easy to maintain. There are also several new versions of the tool.
+\fnurl{Wkhtmltopdf}{https://wkhtmltopdf.org/} is, among others, a PDF generator. It has CLI interface that accepts an HTML file, set of options and generates a PDF. \textit{Kdyby\textbackslash{}Wkhtmltopdf} is an \gls{oo} abstraction of the CLI for \gls{nette}. It contains a lot of custom solutions for the subproblems that are not easy to maintain. There are also several new versions of the tool.
 
 \hiddensubsection{FakeSession} \label{sec:state:fake-session}
 
@@ -320,7 +320,7 @@ The package is stable, does not depend on \gls{nette} and the only problem it ha
 
 \hiddensubsection{Facebook} \label{sec:state:facebook}
 
-With applications that need to interact with Facebook, there are two main use--cases - Facebook OAuth login and advertisement data manipulation. Both require secure communication with the \gls{fbApi}. \textit{\gls{kFacebook}} supports the OAuth 2 login mechanism of Facebook and provides a client for the \gls{fbApi} communication.
+With applications that need to interact with Facebook, there are two main use--cases -- Facebook OAuth login and advertisement data manipulation. Both require secure communication with the \gls{fbApi}. \textit{\gls{kFacebook}} supports the OAuth 2 login mechanism of Facebook and provides a client for the \gls{fbApi} communication.
 
 Facebook keeps releasing new versions of its API that keeps breaking backward compatibility which results in a lot of maintenance work of \textit{\gls{kFacebook}}. But the package did not receive enough attention and the last supported version of \gls{fbApi} is \lstinline{v2.3} which is supported only until \printdate{2017-08-07} and as of writing this the current \fnurl{version of \gls{fbApi}}{https://developers.facebook.com/docs/apps/changelog} is \lstinline{v2.9}.
 

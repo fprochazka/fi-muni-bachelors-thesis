@@ -98,7 +98,7 @@ This package has no \gls{nette} \lstinline{CompilerExtension}, but only a helper
 
 \textit{\gls{kDoctrineMagicAccessors}} is a prototyping tool for writing less code in entities. It allows not to write getters and setters for entity properties.
 
-In \gls{doctrine} there is an entity lazy--loading feature that to work the entity cannot have any public properties, only protected or private. Which means that to be able to access the properties the developer has to define methods on the entity. This is completely correct, but when prototyping an application, it might not be obvious what methods will be required and what data they should allow to be written into the entity. This package aims to solve that, by allowing not to write the accessor methods, because it makes them available dynamically.
+In \gls{doctrine} there is an entity lazy-loading feature that to work the entity cannot have any public properties, only protected or private. Which means that to be able to access the properties the developer has to define methods on the entity. This is completely correct, but when prototyping an application, it might not be obvious what methods will be required and what data they should allow to be written into the entity. This package aims to solve that, by allowing not to write the accessor methods, because it makes them available dynamically.
 
 It was extracted from \textit{\gls{kDoctrine}} and currently only exists to ease migrating away from this technique. The problem this package solves is still valid because manually writing getters and setters in PHP is tedious and error-prone, but the way the package does it creates more problems than it solves. Having the manually written accessors checked by static-analysis tool like \gls{phpstan} and unit tested is a better option.
 
@@ -197,9 +197,9 @@ The Composer authors created their own package \fnurl{composer/ca-bundle}{https:
 
 This works reliably but breaks the encapsulation of the presenter classes. The right solution to this problem is to have more lightweight \lstinline{UI\Presenter}, with fewer responsibilities.
 
-The second issue \textit{\gls{kAutowired}} solves is fetching \gls{ui} component factories that create the instance of the \gls{ui} component and passing them into presenter component factories that configure the \gls{ui} component for the particular use--case.
+The second issue \textit{\gls{kAutowired}} solves is fetching \gls{ui} component factories that create the instance of the \gls{ui} component and passing them into presenter component factories that configure the \gls{ui} component for the particular use-case.
 
-Autowiring of the factories does not break encapsulation of the presenter class, but it breaks the \gls{di} principle, by not exposing the direct dependencies of the presenter class, but instead it makes the presenter depend on \gls{dic} which is considered an anti--pattern.
+Autowiring of the factories does not break encapsulation of the presenter class, but it breaks the \gls{di} principle, by not exposing the direct dependencies of the presenter class, but instead it makes the presenter depend on \gls{dic} which is considered an anti-pattern.
 
 \hiddensubsection{FormsReplicator} \label{sec:state:forms-replicator}
 
@@ -276,7 +276,7 @@ There are several new major versions of both libraries. The Tracy panel and the 
 
 \hiddensubsection{DoctrineSearch} \label{sec:state:doctrine-search}
 
-\textit{\gls{kDoctrineSearch}} integrates \fnurl{doctrine/search}{https://github.com/doctrine/search} into \gls{nette} and extends it for a specific use--case we required at Rohlik.
+\textit{\gls{kDoctrineSearch}} integrates \fnurl{doctrine/search}{https://github.com/doctrine/search} into \gls{nette} and extends it for a specific use-case we required at Rohlik.
 
 \hiddensubsection{Geocoder} \label{sec:state:geocoder}
 
@@ -320,7 +320,7 @@ The package is stable, does not depend on \gls{nette} and the only problem it ha
 
 \hiddensubsection{Facebook} \label{sec:state:facebook}
 
-With applications that need to interact with Facebook, there are two main use--cases -- Facebook OAuth login and advertisement data manipulation. Both require secure communication with the \gls{fbApi}. \textit{\gls{kFacebook}} supports the OAuth 2 login mechanism of Facebook and provides a client for the \gls{fbApi} communication.
+With applications that need to interact with Facebook, there are two main use-cases -- Facebook OAuth login and advertisement data manipulation. Both require secure communication with the \gls{fbApi}. \textit{\gls{kFacebook}} supports the OAuth 2 login mechanism of Facebook and provides a client for the \gls{fbApi} communication.
 
 Facebook keeps releasing new versions of its API that keeps breaking backward compatibility which results in a lot of maintenance work of \textit{\gls{kFacebook}}. But the package did not receive enough attention and the last supported version of \gls{fbApi} is \lstinline{v2.3} which is supported only until \printdate{2017-08-07} and as of writing this the current \fnurl{version of \gls{fbApi}}{https://developers.facebook.com/docs/apps/changelog} is \lstinline{v2.9}.
 
@@ -342,4 +342,4 @@ PayPal is popular payment platform, and \textit{\gls{kPayPalExpress}} provided a
 
 % \hiddensubsection{PresentersLocator} \label{sec:state:presenters-locator}
 
-% There is a \lstinline{PresenterFactory} in \gls{nette} that is responsible for mapping the application request details to appropriate presenter class and then creating instance of it. In current versions of \gls{nette} the \lstinline{PresenterFactory} delegates the creation of the instance to the \gls{dic} but it was not doing it in older versions of \gls{nette}. \textit{\gls{kPresentersLocator}} is automatically discovering presenter classes in the application and registering them as services in compile--time of the \gls{dic}. Since \gls{nette} currently solves this problem without the need for this extension, it was deprecated.
+% There is a \lstinline{PresenterFactory} in \gls{nette} that is responsible for mapping the application request details to appropriate presenter class and then creating instance of it. In current versions of \gls{nette} the \lstinline{PresenterFactory} delegates the creation of the instance to the \gls{dic} but it was not doing it in older versions of \gls{nette}. \textit{\gls{kPresentersLocator}} is automatically discovering presenter classes in the application and registering them as services in compile-time of the \gls{dic}. Since \gls{nette} currently solves this problem without the need for this extension, it was deprecated.

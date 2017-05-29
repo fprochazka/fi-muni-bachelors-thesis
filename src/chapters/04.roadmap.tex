@@ -8,11 +8,11 @@ The roadmap extends the scope of this thesis and documents even some changes tha
 
 Deprecating a package means it will be visibly marked on \gls{gh} as not maintained anymore and on Packagist there is a particular feature for abandoning packages. When somebody tries to install abandoned the package, Composer will show a warning that the package is not maintained and they should migrate away from it. Deprecation is reversible, and if somebody who is using the package wants to start taking care of it, I will allow it and assign them the maintainer permissions.
 
-New maintainer for \gls{kCsobPaymentGateway} and \gls{kCsobPaygateNette} was not found and therefore it would be dangerous to encourage the use of these packages in such critical piece of infrastructure without having a maintainer that uses them in production. They are both going to be deprecated. They are well tested and work correctly with the versions of ČSOB payment gateway and \gls{nette} they are written for. The users of these packages will have to migrate to \fnurl{slevomat/csob-gateway}{https://github.com/slevomat/csob-gateway}.
+New maintainer for \textit{\gls{kCsobPaymentGateway}} and \textit{\gls{kCsobPaygateNette}} was not found and therefore it would be dangerous to encourage the use of these packages in such critical piece of infrastructure without having a maintainer that uses them in production. They are both going to be deprecated. They are well tested and work correctly with the versions of ČSOB payment gateway and \gls{nette} they are written for. The users of these packages will have to migrate to \fnurl{slevomat/csob-gateway}{https://github.com/slevomat/csob-gateway}.
 
-\gls{kDoctrineSearch} will be deprecated, and I will make no attempts at fixing it. It is based on a prototype package, and no stable versions were released. If anybody was using it, they were doing so knowingly risking this outcome.
+\textit{\gls{kDoctrineSearch}} will be deprecated, and I will make no attempts at fixing it. It is based on a prototype package, and no stable versions were released. If anybody was using it, they were doing so knowingly risking this outcome.
 
-There will be new releases for \gls{nette} 2.3 and 2.4 of \gls{kFacebook}, \gls{kGoogle} and \gls{kGithub}. But after that, the packages will be deprecated. The OAuth 2 is a standard, and all the providers adhere to it with only slight variations. A generic library like \fnurl{league/oauth2-client}{https://github.com/thephpleague/oauth2-client} that implements the standard rather than separate integrations with each provider is more sustainable.
+There will be new releases for \gls{nette} 2.3 and 2.4 of \textit{\gls{kFacebook}}, \textit{\gls{kGoogle}} and \textit{\gls{kGithub}}. But after that, the packages will be deprecated. The OAuth 2 is a standard, and all the providers adhere to it with only slight variations. A generic library like \fnurl{league/oauth2-client}{https://github.com/thephpleague/oauth2-client} that implements the standard rather than separate integrations with each provider is more sustainable.
 
 All Kdyby packages will drop support for \gls{hhvm}. It has too low adoption to outweigh the extra maintenance work it requires and supporting \gls{hhvm} on packages that depend on \gls{nette} is impossible.
 
@@ -58,7 +58,7 @@ PHP 7.1 releases will not be part of refactoring covered by this thesis, but the
 
 \hiddensubsection{Framework agnostic libraries}
 
-Most of the packages are an integration of some tool into \gls{nette}, but many of them extend the functionality of the original package making them a candidate for a split into two or more packages. An excellent example of this is \gls{kDoctrine} that accumulated many extra features. If such package were installed into a \gls{sf} application, it would drag along all its dependencies and tight coupling for \gls{nette}. The additional dependencies can be ignored, and it would most likely work, but that is not the best way to develop applications.
+Most of the packages are an integration of some tool into \gls{nette}, but many of them extend the functionality of the original package making them a candidate for a split into two or more packages. An excellent example of this is \textit{\gls{kDoctrine}} that accumulated many extra features. If such package were installed into a \gls{sf} application, it would drag along all its dependencies and tight coupling for \gls{nette}. The additional dependencies can be ignored, and it would most likely work, but that is not the best way to develop applications.
 
 The solution to this problem is to extract the functionality from the packages that violate the Unix philosophy to do one thing only and to do it right. The extracted packages that are framework agnostic can be used with \gls{sf} or with other PHP frameworks easily, and the \gls{nette} community will benefit from bigger potential user base which inherently makes any \gls{oss} better.
 
@@ -68,33 +68,35 @@ This section will only broadly cover the interesting and significant architectur
 
 \hiddensubsection{Console}
 
-The introduction of \lstinline{LinkGenerator} service in \gls{nette} resolved the problem with generating URLs. \gls{kConsole} can, therefore, drop the entire abstraction that was fixing the issue.
+The introduction of \lstinline{LinkGenerator} service in \gls{nette} resolved the problem with generating URLs. \textit{\gls{kConsole}} can, therefore, drop the entire abstraction that was fixing the issue.
 
 \hiddensubsection{Events}
 
-After fixing the compatibility with \gls{nette} 2.3 and 2.4, there will be a significant change of philosophy in this package. The EventManager that \gls{kDoctrine} requires will be simplified and moved to a bridge package between \gls{nette} and \gls{doctrine}. Its only responsibility will be making sure the event subscriber classes for \gls{doctrine} are lazy--initialized and fetched from \gls{dic} only when they are required. The rest of the package will be deprecated, and users will be encouraged to use \gls{sfEventDispatcher} in new projects.
+After fixing the compatibility with \gls{nette} 2.3 and 2.4, there will be a significant change of philosophy in this package. The EventManager that \textit{\gls{kDoctrine}} requires will be simplified and moved to a bridge package between \gls{nette} and \gls{doctrine}. Its only responsibility will be making sure the event subscriber classes for \gls{doctrine} are lazy--initialized and fetched from \gls{dic} only when they are required. The rest of the package will be deprecated, and users will be encouraged to use \gls{sfEventDispatcher} in new projects.
 
 % \hiddensubsection{DoctrineDbalBatchImport}
 
-% This package has no stable release yet because it is only one helper class extracted from \gls{kDoctrine}. It will be refactored to a modern \gls{oo} API.
+% This package has no stable release yet because it is only one helper class extracted from \textit{\gls{kDoctrine}}. It will be refactored to a modern \gls{oo} API.
 
 \hiddensubsection{Doctrine}
 
 \gls{doctrine} dropped support for older PHP in \lstinline{master} branches and will have the newest releases only for PHP 7.1 and newer. After the Nette 2.3 and 2.4 versions with bugfixes are released, the master will switch the minimum dependency on PHP to 7.1 and the refactored version will be written directly in PHP 7.1 and newer.
 
-\gls{kDoctrine} provides a Tracy panel that violates \gls{srp} because it solves rendering SQL queries, rendering second level cache statistics and rendering of Tracy BlueScreen panels for exceptions. The SQL Panel for Tracy will be separated to standalone package \gls{kTracyDoctrineDbalPanel} so it can be used with only Tracy and Doctrine with no other dependencies required. The remaining functionality will be extracted into two different classes where one renders cache statistics in Tracy panel and the other render panels with additional context for Tracy BlueScreens.
+\textit{\gls{kDoctrine}} provides a Tracy panel that violates \gls{srp} because it solves rendering SQL queries, rendering second level cache statistics and rendering of Tracy BlueScreen panels for exceptions. The SQL Panel for Tracy will be separated to standalone package \textit{\gls{kTracyDoctrineDbalPanel}} so it can be used with only Tracy and Doctrine with no other dependencies required. The remaining functionality will be extracted into two different classes where one renders cache statistics in Tracy panel and the other render panels with additional context for Tracy BlueScreens.
 
 Manager class from \gls{doctrine} has been extended to provide extra configuration options and custom diagnostics features. But \gls{doctrine} internally assumes the \lstinline{EntityManager} is final and should not be extended, only decorated. The inherited class can be removed because the problems it solved can be resolved without inheritance.
 
-The structure of configuration will be changed to be roughly the same as \gls{sf} Doctrine Bundle has. Together with that, the CompilerExtension will be refactored to only register services that are necessary for \gls{doctrine} to run correctly.
+\begin{sloppypar}
+The structure of configuration will be changed to be roughly the same as \gls{sf} Doctrine Bundle has. Together with that, the \lstinline{CompilerExtension} will be refactored to only register services that are necessary for \gls{doctrine} to run correctly.
+\end{sloppypar}
 
-The \lstinline{EntityManager} holds state and has a \lstinline{close} feature that when exception rises while it is synchronizing state with the database, it gets locked and will not perform any operations. That is perfectly reasonable, but the application must be able to recover from such state. \lstinline{ManagerRegistry} solves that partially, and \gls{kDoctrine} already implements it. But a better solution is to utilize \fnurl{ocramius/proxy-manager}{https://github.com/Ocramius/ProxyManager} that creates a proxy for the manager and allows to reset the service completely, even when other services have already reference for the services.
+The \lstinline{EntityManager} holds state and has a \lstinline{close} feature that when exception rises while it is synchronizing state with the database, it gets locked and will not perform any operations. That is perfectly reasonable, but the application must be able to recover from such state. \lstinline{ManagerRegistry} solves that partially, and \textit{\gls{kDoctrine}} already implements it. But a better solution is to utilize \fnurl{ocramius/proxy-manager}{https://github.com/Ocramius/ProxyManager} that creates a proxy for the manager and allows to reset the service completely, even when other services have already reference for the services.
 
 A lifecycle event subscriber for a particular entity type is called entity listener. The entity listeners often have dependencies that should be injected using \gls{di}. That will be achieved with a custom implementation of entity listener resolver \lstinline{ContainerAwareEntityListenerResolver} that will fetch the configured listeners from \gls{dic}.
 
 A \lstinline{ConnectionFactory} will be implemented to handle registration of custom data types for the entity fields. This is now solved directly in inherited \lstinline{Doctrine\DBAL\Connection} but that violates \gls{srp}.
 
-Custom \lstinline{ContainerAwareEventManager} for lazy initialization of subscriber classes will be a part of \gls{kDoctrine} directly, and dependency on \gls{kEvents} will be removed.
+Custom \lstinline{ContainerAwareEventManager} for lazy initialization of subscriber classes will be a part of \textit{\gls{kDoctrine}} directly, and dependency on \textit{\gls{kEvents}} will be removed.
 
 To be able to configure parameters for \gls{doctrine} filters a \lstinline{ManagerConfigurator} will be implemented that will hold the parameters and pass them into the filters.
 
@@ -104,19 +106,19 @@ Single package will be extracted with \lstinline{QueryObject} and \lstinline{Res
 
 Repositories reimplemented using \gls{dql} and extended \lstinline{QueryBuilder} with auto--join feature will be extracted into a standalone package.
 
-All the extracted packages except \gls{kTracyDoctrineDbalPanel} should be completely optional and framework agnostic. This will allow using them with other frameworks, not only \gls{nette}.
+All the extracted packages except \textit{\gls{kTracyDoctrineDbalPanel}} should be completely optional and framework agnostic. This will allow using them with other frameworks, not only \gls{nette}.
 
 \hiddensubsection{Translation}
 
-The \lstinline{^3.0} releases of \gls{sfTranslation} solve problems that \gls{kTranslation} tried to fix, and a lot of code can be removed completely.
+The \lstinline{^3.0} releases of \gls{sfTranslation} solve problems that \textit{\gls{kTranslation}} tried to fix, and a lot of code can be removed completely.
 
 \hiddensubsection{Clock}
 
-\gls{kClock} will be separated into two packages where one would only cover implementing the \lstinline{DateTimeProvider} itself, and the other package will integrate it with \gls{nette}.
+\textit{\gls{kClock}} will be separated into two packages where one would only cover implementing the \lstinline{DateTimeProvider} itself, and the other package will integrate it with \gls{nette}.
 
 \hiddensubsection{Geocoder}
 
-Four new packages will be extracted from \gls{kGeocoder}, and this package will be deprecated. There will be \gls{kGeocoderLogging}, \gls{kGeocoderSeznamMaps}, \gls{kGeocoderGoogleMapsProxied} and \gls{kGeocoderBestMatch}.
+Four new packages will be extracted from \textit{\gls{kGeocoder}}, and this package will be deprecated. There will be \textit{\gls{kGeocoderLogging}}, \textit{\gls{kGeocoderSeznamMaps}}, \textit{\gls{kGeocoderGoogleMapsProxied}} and \textit{\gls{kGeocoderBestMatch}}.
 
 \hiddensubsection{Wkhtmltopdf}
 

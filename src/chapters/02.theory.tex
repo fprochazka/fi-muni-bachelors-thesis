@@ -4,9 +4,9 @@
 
 In 2006 I have started working on my own \gls{cms}. A prototype was used in production on few websites I created. The oldest preserved version is \fnurl{archived on my \gls{gh}}{https://github.com/fprochazka/kdyby-cms-old}. It is a great learning material on how to not write a CMS.
 
-Then the concept of \gls{oss} was introduced to me and I have decided to start working on everything openly, under a free license~\cite{fsf:free-software}. Mo new working version of Kdyby CMS was released since then, because I have rewritten it from scratch exactly 10 times.
+Then the concept of \gls{oss} was introduced to me, and I have decided to start working on everything openly, under a free license~\cite{fsf:free-software}. No new working version of Kdyby CMS was released since then because I have rewritten it from scratch exactly ten times.
 
-In 2012, I have decomposed the entire system into separate libraries that can be used more or less independently and have their own release cycle. This approach was preserved to this day.
+In 2012, I decomposed the entire system into separate libraries that can be used more or less independently and have their own release cycle. This approach was preserved to this day.
 
 \section{Techniques and design patterns}
 
@@ -18,11 +18,11 @@ Inversion of control is a design principle in which custom-written portions of a
 
 \hiddensubsection{Aspect Oriented Programming} \label{sec:theory:aop}
 
-Complex systems have to deal with lot of other problems that are not the center of the business logic, but also important. This might be for example transaction handling or logging. \gls{aop} is a paradigm that aims to increase modularity by helping to separate these cross-cutting concerns. It allows to change behavior of existing code without modifying the code itself using advices that is applied using pointcut specification~\cite{kiczales1997aspect}. Good example is \lstinline{Transactional} annotation in Java world. A pointcut is defined to bind to every method with such annotation and the advice wraps the method in transaction.
+Complex systems have to deal with a lot of other problems that are not the center of the business logic, but also important. This might be for example transaction handling or logging. \gls{aop} is a paradigm that aims to increase modularity by helping to separate these cross-cutting concerns. It allows changing behavior of existing code without modifying the code itself using advices that are applied using pointcut specification~\cite{kiczales1997aspect}. A good example is a \lstinline{Transactional} annotation in Java world. A pointcut is defined to bind to every method with such annotation and the advice wraps the method in a transaction.
 
 \hiddensubsection{Observer pattern} \label{sec:theory:observer-pattern}
 
-Observer a pattern for writing modular code. It allows to create extension points in the library or application that another library or application can hook into and change or extend the behavior. Typically, the extension points are called hooks or events and the new functionality is provided with objects called listeners~\cite{vlissides1995design}.
+Observer a pattern for writing modular code. It allows creating extension points in the library or application that another library or application can hook into and change or extend the behavior. Typically, the extension points are called hooks or events, and the new functionality is provided with objects called listeners~\cite{vlissides1995design}.
 
 Symfony provides an implementation called \gls{sfEventDispatcher} that the subscriber implementations can listen on.
 
@@ -32,11 +32,11 @@ Symfony provides an implementation called \gls{sfEventDispatcher} that the subsc
 
 Git is a Version Control System that is decentralized and considered very fast~\cite{progit}. \gls{gh} is a collaboration platform for software development using Git.
 
-Each project has a page on \gls{gh} called a repository that can be used to inspect the Git history, files and other metadata. On the project repository page, there are issues and pull requests. Pull requests are a way to ask the maintainer of the repository to incorporate provided code patch to the repository. It can be a bugfix or feature.
+Each project has a page on \gls{gh} called a repository that can be used to inspect the Git history, files, and other metadata. On the project repository page, there are issues and pull requests. Pull requests are a way to ask the maintainer of the repository to incorporate provided code patch to the repository. It can be a bugfix or feature.
 
-There are tools around pull requests that allow collaboration, a code review and discussion about the provided code, so that the maintainers can help the contributors to provide the best code possible.
+There are tools around pull requests that allow collaboration, a code review, and discussion about the provided code so that the maintainers can help the contributors to provide the best code possible.
 
-Kdyby is hosted and developed on \gls{gh}, with the help of several other maintainers and the community that contributes bugfixes and features.
+Kdyby is hosted and developed on \gls{gh}, with the aid of several other maintainers and the community that contributes bugfixes and features.
 
 \hiddensubsection{Continuous Integration} \label{sec:theory:ci}
 
@@ -50,15 +50,15 @@ Some popular CI services are \fnurl{Travis~CI}{https://travis-ci.org/}, \fnurl{C
 
 \hiddensubsection{Semantic Versioning} \label{sec:theory:semver}
 
-\gls{semver} is a standard that defines how software should be versioned in order to allow safe upgrading. Application might be written with a specific release of the library and upgrading to the newest version might break it because of dropped compatibility. \fnurl{\gls{semver}}{http://semver.org/} defines major, minor and patch releases that signal what versions are compatible with each other.
+\gls{semver} is a standard that defines how software should be versioned to allow safe upgrading. An application might be written with a particular release of the library and upgrading to the newest version might break it because of dropped compatibility. \fnurl{\gls{semver}}{http://semver.org/} defines major, minor and patch releases that signal what versions are compatible with each other.
 
 \hiddensubsection{Nette Framework} \label{sec:theory:nette}
 
 \gls{nette} is an \gls{oss} framework for creating web applications in PHP. \gls{nette} is separated into many packages~\cite{nette:introduction}.
 
-The \gls{di} component \fnurl{nette/di}{https://github.com/nette/di} provides a \gls{dic} that holds the services. The component also allows to prepare a preconfigured \gls{dic}, which is then compiled into a PHP class that contains optimized code for the service creation. This compiled \gls{dic} class is cached for reuse. There is a concept (and a class) CompilerExtension that allows the developer to hook into the process of configuring and compiling of the \gls{nette} \gls{dic}. All of Kdyby packages that are an integration of some other library or tool into \gls{nette} provide a CompilerExtension to make the installation easy.
+The \gls{di} component \fnurl{nette/di}{https://github.com/nette/di} provides a \gls{dic} that holds the services. The component also allows preparing a preconfigured \gls{dic}, which is then compiled into a PHP class that contains optimized code for the service creation. This compiled \gls{dic} class is cached for reuse. There is a concept (and a class) CompilerExtension that allows the developer to hook into the process of configuring and compiling of the \gls{nette} \gls{dic}. All of Kdyby packages that are an integration of some other library or tool into \gls{nette} provide a CompilerExtension to make the installation easy.
 
-Default settings for error handling in PHP is not ideal. It outputs errors and warnings directly into browser for the user to see which is bad for esthetical, usability and security reasons. \fnurl{Tracy}{https://github.com/nette/tracy} provides error and exception handlers that redirect the messages into log files. It also renders a red BlueScreen HTML file with extensive details about the error that occurred. The BlueScreen renderer is extensible and allows installing custom panels that can provide additional context for the programmer.
+Default settings for error handling in PHP are not ideal. It outputs errors and warnings directly into the browser for the user to see which is bad for esthetical, usability and security reasons. \fnurl{Tracy}{https://github.com/nette/tracy} provides error and exception handlers that redirect the messages into log files. It also renders a red BlueScreen HTML file with extensive details about the error that occurred. The BlueScreen renderer is extensible and allows installing custom panels that can provide additional context for the programmer.
 
 \hiddensubsection{Composer} \label{sec:theory:composer}
 
@@ -66,33 +66,29 @@ Composer is a tool for dependency management in PHP. It allows you to declare th
 
 Packages are usually published using \gls{gh} with metadata in a file named \lstinline{composer.json} that is written in JSON format.
 
-Composer is decentralized, but has a single main metadata repository \fnurl{Packagist}{https://packagist.org/}. It stores and provides all the package metadata like available versions and where to download them.
+Composer is decentralized but has a single main metadata repository \fnurl{Packagist}{https://packagist.org/}. It stores and provides all the package metadata like available versions and where to download them.
 
 All Kdyby libraries are published as Composer packages on Packagist and installing them using the Composer is the only officially supported installation method.
 
 \hiddensubsection{OAuth 2} \label{sec:theory:oauth2}
 
-OAuth is a protocol for authentication and authorization that can be implemented into a web service. It is designed for secure exchange of user information, allowing third party websites to implement a login and registration process that simplifies these tasks for the user essentially allowing them to login or register to services through the OAuth 2 provider with two clicks without revealing their password~\cite{boyd2012getting}.
+OAuth is a protocol for authentication and authorization that can be implemented into a web service. It is designed for secure exchange of user information, allowing third party websites to implement a login and registration process that simplifies these tasks for the user essentially enabling them to login or register to services through the OAuth 2 provider with two clicks without revealing their password~\cite{boyd2012getting}.
 
 Kdyby provides packages for integrating \gls{nette} with OAuth 2 providers, such as \fnurl{Facebook}{https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow}, \fnurl{Google}{https://developers.google.com/identity/protocols/OAuth2} and \fnurl{\gls{gh}}{https://developer.github.com/v3/oauth/}.
 
-\hiddensubsection{dibi} \label{sec:theory:dibi}
-
-Dibi is a Database Abstraction Library for PHP. It supports a lot of significant databases: MySQL, PostgreSQL, SQLite, MS SQL, Oracle, Access and generic PDO and ODBC~\cite{dibi:homepage}.
-
 \hiddensubsection{Doctrine 2 ORM} \label{sec:theory:doctrine}
 
-\gls{doctrine} is an \gls{orm}, which means it allows the programmer to create PHP classes called entities that represent relational data in a database and are used to actually map the data from the database to the classes and back. In conclusion, it allows the programmer to write fully \gls{oo} applications~\cite{fowler2002patterns}.
+\gls{doctrine} is an \gls{orm}, which means it allows the programmer to create PHP classes called entities that represent relational data in a database and are used to map the data from the database to the classes and back. In conclusion, it allows the programmer to write fully \gls{oo} applications~\cite{fowler2002patterns}.
 
 \hiddensubsection{Symfony Framework} \label{sec:theory:symfony}
 
 \gls{sf} is a PHP web application framework and a set of reusable PHP components/libraries, similar to \gls{nette}~\cite{symfony:introduction}.
 
-For extensibility, \gls{sf} has Bundles that provide similar functionality to \gls{nette} CompilerExtension, but they operate on a different level of abstractions. Bundle is a whole package that contains the Bundle definition, \gls{dic} extension for configuring the Bundle and it may contain adapter classes. Bundles are registered in the AppKernel of Symfony application.
+For extensibility, \gls{sf} has Bundles that provide similar functionality to \gls{nette} CompilerExtension, but they operate on a different level of abstractions. A Bundle is a whole package that contains the Bundle definition, \gls{dic} extension for configuring the Bundle and it may contain adapter classes. Bundles are registered in the AppKernel of Symfony application.
 
 \hiddensubsection{RabbitMQ} \label{sec:theory:rabbitmq}
 
-RabbitMQ is a messaging broker software (sometimes called message-oriented middleware) that implements \gls{amqp} and other protocols. Messages can be routed into many queues that consumers listen on. It also provides mirroring across cluster of machines increasing availability in case of hardware failure~\cite{rabbitmq:features}.
+RabbitMQ is a messaging broker software (sometimes called message-oriented middleware) that implements \gls{amqp} and other protocols. Messages can be routed into many queues that consumers listen on. It also provides mirroring across a cluster of machines increasing availability in case of hardware failure~\cite{rabbitmq:features}.
 
 \hiddensubsection{ElasticSearch} \label{sec:theory:elasticsearch}
 
@@ -100,7 +96,7 @@ RabbitMQ is a messaging broker software (sometimes called message-oriented middl
 
 \hiddensubsection{Redis} \label{sec:theory:redis}
 
-Redis is an \gls{oss} in--memory data structure store that can be used as database, cache or messaging broker. It supports variety of basic data structures, geospatial indexes and others. It has a replication, transactions, LUA scripting, on--disk persistence and provides high availability via Redis Cluster~\cite{redis:about}.
+Redis is an \gls{oss} in--memory data structure store that can be used as database, cache or messaging broker. It supports a variety of basic data structures, geospatial indexes, and others. It has a replication, transactions, LUA scripting, on--disk persistence and provides high availability via Redis Cluster~\cite{redis:about}.
 
 \hiddensubsection{\gls{phpstan}} \label{sec:theory:phpstan}
 
@@ -116,4 +112,4 @@ Monolog is a logging library that sends your logs to files, sockets, inboxes, da
 
 \hiddensubsection{\gls{nTester}} \label{sec:theory:nette-tester}
 
-\gls{nTester} is a unit testing framework for PHP~\cite{tester:docs}. Its main advantage over other unit testing libraries is that by default every test runs in single process and the tests are executed in parallel making them run faster, in better isolation and they cannot depend on specific order of execution.
+\gls{nTester} is a unit testing framework for PHP~\cite{tester:docs}. Its main advantage over other unit testing libraries is that by default every test runs in a single process and the tests are executed in parallel making them run faster, in better isolation, and they cannot depend on a specific order of execution.

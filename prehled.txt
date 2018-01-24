@@ -1,0 +1,57 @@
+# Refactoring of Kdyby packages
+
+* https://docs.google.com/spreadsheets/d/1eT5-_OoOUm4554n55gKM-uh4daEmjcwIjUOvNe8v8c4/edit#gid=0
+* https://is.muni.cz/auth/th/433457/fi_b/thesis.pdf
+
+Nette 2.3 and 2.4 compatible versions were released for these packages:
+* Kdyby\Doctrine
+* Kdyby\Console
+* Kdyby\Annotations
+* Kdyby\DoctrineCache
+* Kdyby\Events
+* Kdyby\Translation
+* Kdyby\RequestStack
+* Kdyby\Monolog
+* Kdyby\Clock
+
+PHPStan is automatically checking these packages:
+* Kdyby\Doctrine
+* Kdyby\Console
+* Kdyby\Annotations
+* Kdyby\DoctrineCache
+* Kdyby\Events
+* Kdyby\Translation
+* Kdyby\CodingStandard
+* Kdyby\StrictObjects
+* Kdyby\RequestStack
+* Kdyby\Monolog
+* Kdyby\Clock
+* Kdyby\GeocoderSeznamMaps
+* Kdyby\GeocoderLogging
+* Kdyby\GeocoderGoogleMapsProxied
+* Kdyby\GeocoderBestMatch
+* Kdyby\DoctrineMagicAccessors
+* Kdyby\DoctrineCollectionsReadonly
+
+New Kdyby Coding Standard is applied and enforced on these packages:
+* Kdyby\Console
+* Kdyby\Annotations
+* Kdyby\DoctrineCache
+* Kdyby\Events
+* Kdyby\Translation
+* Kdyby\CodingStandard
+* Kdyby\StrictObjects
+* Kdyby\RequestStack
+* Kdyby\Monolog
+* Kdyby\Clock
+* Kdyby\GeocoderSeznamMaps
+* Kdyby\GeocoderLogging
+* Kdyby\GeocoderGoogleMapsProxied
+* Kdyby\GeocoderBestMatch
+* Kdyby\DoctrineMagicAccessors
+* Kdyby\DoctrineCollectionsReadonly
+
+Big things
+* https://github.com/Kdyby/Doctrine/issues/238
+* https://github.com/Kdyby/CodingStandard
+* https://github.com/fprochazka/phpstan-compiler
